@@ -1,0 +1,33 @@
+/* Earlybird specific css */
+
+body {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+    Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.home .scroll-content {
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('http://www.dresscodeit.com/wp-content/uploads/2014/12/6a0120a678c547970b019b002007a1970b-pi.jpg');
+}
+
+.home-text {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.home-text h1, .home-text h2, .home-text a {
+  color: #FFF;
+}
+
+.home-text a {
+  text-decoration: none;
+  margin-top: 200px;
+}
+
+.onboarding-slider {
+  height: 100%;
+}
+
+.slider-pager .slider-pager-page {
+  /* color: #E42012; */
+}
+

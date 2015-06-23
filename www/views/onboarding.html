@@ -1,0 +1,20 @@
+<div class="onboarding">
+  <ion-header-bar class="bar-assertive">
+    <button nav-direction="back" ui-sref="home" class="button button-clear button-icon icon ion-arrow-left-c"></button>
+    <h1 class="title">Earlybird</h1>
+  </ion-header-bar>
+
+  <ion-content scroll="false">
+    <ion-slide-box class="onboarding-slider">
+      <ion-slide ng-repeat="slide in onboardingSlides">
+        <img ng-src="{{slide.image}}"></img>
+        <h1>{{slide.title}}</h1>
+        <p>{{slide.description}}</p>
+      </ion-slide>
+    </ion-slide-box>
+  </ion-content>
+
+  <ion-footer-bar nav-direction="forward" ui-sref="register" class="bar-stable" align-title="center">
+    <div class="title">Register</div>
+  </ion-footer-bar>
+</div>
