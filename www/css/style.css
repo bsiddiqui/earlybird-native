@@ -6,7 +6,11 @@ body {
 }
 
 .home .scroll-content {
-  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('http://www.dresscodeit.com/wp-content/uploads/2014/12/6a0120a678c547970b019b002007a1970b-pi.jpg');
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('http://www.dresscodeit.com/wp-content/uploads/2014/12/6a0120a678c547970b019b002007a1970b-pi.jpg') no-repeat fixed;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
 }
 
 .home-text {
@@ -27,7 +31,154 @@ body {
   height: 100%;
 }
 
+.onboarding-slider img {
+  display: block;
+  margin: 0 auto;
+  width: auto;
+  height : auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.two-third-screen {
+  height: 67%;
+  overflow: hidden;
+}
+
+.one-third-screen {
+  height: 33%;
+  overflow: hidden;
+}
+
+.onboarding-slider .one-third-screen {
+  text-align: center;
+  padding: 20px;
+}
+
+.onboarding-slider .one-third-screen h1 {
+  color: #e15726;
+  font-size: 20px;
+}
+
+.onboarding-slider .one-third-screen p {
+  color: rgb(173,178,187);
+  font-size: 20px;
+}
+
 .slider-pager .slider-pager-page {
   /* color: #E42012; */
 }
 
+/* general UI changes */
+
+.button-icon .icon:before, .button-icon.icon:before {
+  font-size: 24px
+}
+
+.item-button-right > .button, .item-button-right .item-content > .button, .item-button-right > .buttons, .item-button-right .item-content > .buttons {
+  top: 0px;
+  right: 0px;
+}
+
+.item-complex .item-content, .item-radio .item-content {
+  padding: 0px;
+}
+
+.item-divider {
+  font-weight: bold;
+  text-align: center;
+}
+
+.item-divider, .item p {
+  color: rgb(173, 178, 187);
+}
+
+.item.item-divider {
+  padding: 5px;
+  font-size: 12px;
+}
+
+.item {
+  padding: 10px;
+}
+
+.item-fixed {
+  height: 44px;
+}
+
+.item-fixed h2 {
+  padding: 0px;
+  margin: 0px;
+  font-size: 15px;
+}
+
+.item-fixed p {
+  padding: 0px;
+  margin: 0px;
+  font-size: 10px;
+}
+
+.item-radio i.radio-icon  {
+  padding: 0 6px;
+}
+
+.item-radio i.radio-icon::before  {
+  line-height: 41px;
+}
+
+.button-icon .icon:before, .button-icon.icon:before {
+  line-height: 41px;
+  margin: 0px;
+}
+
+.item-input button:nth-of-type(1) {
+  float: left;
+  left: 0;
+  top: 0;
+  position: absolute;
+}
+
+.item-label-center {
+  width: 100%;
+  text-align: center;
+}
+
+.item-input button:nth-of-type(2) {
+  float: right;
+  right: 0;
+  top: 0;
+  position: absolute;
+}
+
+.item p {
+  white-space: normal;
+}
+
+.card {
+  margin: 10px;
+}
+
+.card .item-image img {
+  border-radius: 2px;
+}
+
+.item-radio i.radio-icon.button-opaque {
+  visibility: visible;
+  opacity: 0.4
+}
+
+.modal {
+  border-radius: 5px;
+}
+
+.item-avatar {
+  min-height: 0px;
+  padding: 10px 10px 10px 52px;
+}
+
+.item-avatar > img:first-child {
+  border-radius: 0;
+  top: 0;
+  left: 0;
+  margin: 0 0 0 6px;
+}

@@ -7,11 +7,11 @@ angular.module('earlybird', ['ionic'])
 
 .controller('OnboardingCtrl', function ($scope, $ionicSlideBoxDelegate) {
   $scope.onboardingSlides = [{
-    image: "http://www.pearlfisher.com/wp-content/uploads/2014/03/BlueBottle_02.jpg",
+    image: "img/bg_bluebottle2x.png",
     title: "Blue Bottle New Orleans Iced Coffee",
     description: "New Orleans is a sweet and thick iced coffee"
   }, {
-    image: "http://www.pearlfisher.com/wp-content/uploads/2014/03/BlueBottle_02.jpg",
+    image: "img/bg_bluebottle2x.png",
     title: "Blue Bottle New Orleans Iced Coffee",
     description: "New Orleans is a sweet and thick iced coffee"
   }];
@@ -19,10 +19,78 @@ angular.module('earlybird', ['ionic'])
   $ionicSlideBoxDelegate.update();
 })
 
-.controller('LoginCtrl', function ($scope) {
+.controller('SessionCtrl', function ($scope, $state) {
+
+  $scope.login = function () {
+    // TODO replace, this is just temp
+    $state.go('order');
+  }
+
 })
 
-.controller('RegisterCtrl', function ($scope) {
+.controller('OrderCtrl', function ($scope, $ionicModal) {
+  $scope.order = {};
+
+  $scope.order.quantity = 1;
+
+  $scope.addresses = [{
+    title: 'Work',
+    street1: '2130 Post St',
+    street2: '#303',
+    city: 'San Francisco',
+    state: 'CA',
+    zip: '94109'
+  }, {
+    title: 'Personal',
+    street1: '2130 Post St',
+    street2: '#303',
+    city: 'San Francisco',
+    state: 'CA',
+    zip: '94109'
+  }];
+  $scope.order.address = $scope.addresses[0];
+
+  $scope.payments = [{
+    title: 'Earlybird Team',
+    type: 'visa',
+    last_four: '6404'
+  }, {
+    title: 'Personal Citi',
+    type: 'mastercard',
+    last_four: '6404'
+  }]
+  $scope.order.payment = $scope.payments[0];
+
+  $scope.items = [{
+    image: '/img/bg_bluebottle_wide.png',
+    title: 'Earlybird iced coffee',
+    description: 'Cold breweed iced coffee produced in a join venture by Stumptown Roasters and Chateu Daniel Siddiqui'
+  }]
+
+  $scope.incQuantity = function () {
+    $scope.order.quantity++;
+  }
+
+  $scope.decQuantity = function () {
+    if ($scope.order.quantity === 1) {
+      return
+    } else {
+      $scope.order.quantity--;
+    }
+  }
+
+  $ionicModal.fromTemplateUrl('views/partials/add-address.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  })
+  .then(function(modal) { $scope.modal = modal; });
+
+})
+
+// TODO add this
+.filter('formattedAddress', function () {
+  return function (address) {
+  }
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -42,24 +110,25 @@ angular.module('earlybird', ['ionic'])
   .state('login', {
     url: '/login',
     templateUrl: 'views/login.html',
-    controller: 'LoginCtrl'
+    controller: 'SessionCtrl'
   })
   .state('register', {
     url: '/register',
     templateUrl: 'views/register.html',
-    controller: 'RegisterCtrl'
+    controller: 'SessionCtrl'
   })
   .state('order', {
     url: '/order',
-    templateUrl: 'views/order.html'
+    templateUrl: 'views/order.html',
+    controller: 'OrderCtrl'
   })
   .state('settings', {
     url: '/settings',
     templateUrl: 'views/settings.html'
   })
-  .state('invite', {
-    url: '/invite',
-    templateUrl: 'views/invite.html'
+  .state('promo', {
+    url: '/promo',
+    templateUrl: 'views/promo.html'
   })
 })
 
