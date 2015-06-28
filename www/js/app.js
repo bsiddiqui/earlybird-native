@@ -7,11 +7,11 @@ angular.module('earlybird', ['ionic'])
 
 .controller('OnboardingCtrl', function ($scope, $ionicSlideBoxDelegate) {
   $scope.onboardingSlides = [{
-    image: "img/bg_bluebottle2x.png",
+    image: "img/img-bluebottle2x.png",
     title: "Blue Bottle New Orleans Iced Coffee",
     description: "New Orleans is a sweet and thick iced coffee"
   }, {
-    image: "img/bg_bluebottle2x.png",
+    image: "img/img-bluebottle2x.png",
     title: "Blue Bottle New Orleans Iced Coffee",
     description: "New Orleans is a sweet and thick iced coffee"
   }];
@@ -62,7 +62,7 @@ angular.module('earlybird', ['ionic'])
   $scope.order.payment = $scope.payments[0];
 
   $scope.items = [{
-    image: '/img/bg_bluebottle_wide.png',
+    image: 'img/img-bluebottle-wide.png',
     title: 'Earlybird iced coffee',
     description: 'Cold breweed iced coffee produced in a join venture by Stumptown Roasters and Chateu Daniel Siddiqui'
   }]
@@ -83,7 +83,14 @@ angular.module('earlybird', ['ionic'])
     scope: $scope,
     animation: 'slide-in-up'
   })
-  .then(function(modal) { $scope.modal = modal; });
+  .then(function(modal) { $scope.addressModal = modal; });
+
+  $ionicModal.fromTemplateUrl('views/partials/add-payment.html', {
+    scope: $scope,
+    scope: $scope,
+    animation: 'slide-in-up'
+  })
+  .then(function(modal) { $scope.paymentModal = modal; });
 
 })
 
@@ -126,9 +133,9 @@ angular.module('earlybird', ['ionic'])
     url: '/settings',
     templateUrl: 'views/settings.html'
   })
-  .state('promo', {
-    url: '/promo',
-    templateUrl: 'views/promo.html'
+  .state('sharing', {
+    url: '/sharing',
+    templateUrl: 'views/sharing.html'
   })
 })
 

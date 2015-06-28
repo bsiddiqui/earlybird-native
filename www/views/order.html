@@ -2,13 +2,13 @@
   <ion-header-bar class="bar-assertive">
     <button ui-sref="settings" class="button button-clear button-icon icon ion-ios-settings-strong"></button>
     <h1 class="title">earlybird</h1>
-    <button ui-sref="promo" class="button button-clear button-icon icon ion-ios-upload-outline"></button>
+    <button ui-sref="sharing" class="button button-clear button-icon icon ion-ios-upload-outline"></button>
   </ion-header-bar>
 
   <ion-content scroll="true">
     <div class="list card" ng-repeat="item in items">
       <div class="item item-image">
-        <img ng-src="{{item.image}}">
+        <img ng-src="{{item.image}}"></img>
       </div>
 
       <div class="item">
@@ -42,7 +42,7 @@
         <div>
           Add Address
         </div>
-        <button ng-click="modal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
+        <button ng-click="addressModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </label>
 
       <div class="item item-divider">
@@ -50,7 +50,7 @@
       </div>
 
       <label class="order-payment item item-fixed item-radio item-avatar" ng-repeat="payment in payments">
-        <img ng-src="img/ic_payment_{{payment.type}}2x.png">
+        <img ng-src="img/ic-payment-{{payment.type}}2x.png">
         <input type="radio" ng-value="payment" ng-model="order.payment">
         <h2>{{payment.title}}</h2>
         <p>{{payment.last_four}}</p>
@@ -62,7 +62,7 @@
         <div>
           Add Payment
         </div>
-        <button class="button button-icon icon ion-ios-plus-outline"></button>
+        <button ng-click="paymentModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </label>
 
 

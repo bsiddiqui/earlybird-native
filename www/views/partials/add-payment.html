@@ -1,0 +1,25 @@
+<ion-modal-view ng-init="newPayment={}">
+  <ion-header-bar>
+    <button class="button button-clear" ng-click="paymentModal.hide()">Cancel</button>
+    <h1 class="title">Add Payment</h1>
+    <button ng-disabled="newPayment.form.$invalid" class="button button-clear" ng-click="modal.hide()">Add</button>
+  </ion-header-bar>
+
+  <ion-content scroll="false">
+    <form name="newPayment.form" class="list">
+      <label class="item item-input">
+        <input type="text" required ng-model="newPayment.title" placeholder="Payment nickname">
+      </label>
+
+      <label class="item item-input">
+        <input type="text" required ng-model="newPayment.street1" placeholder="Street">
+      </label>
+
+      <label class="item item-input">
+        <input type="text" required ng-model="newPayment.city" placeholder="City">
+        <input type="text" required ng-model="newPayment.state" placeholder="State">
+        <input type="text" required ng-model"newPayment.zip" placeholder="Zip">
+      </label>
+    </form>
+  </ion-content>
+</ion-modal-view>

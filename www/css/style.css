@@ -40,29 +40,54 @@ body {
   max-width: 100%;
 }
 
-.two-third-screen {
+.row-67 {
+  width: 100%;
   height: 67%;
-  overflow: hidden;
 }
 
-.one-third-screen {
+.row-33 {
+  width: 100%;
   height: 33%;
-  overflow: hidden;
 }
 
-.onboarding-slider .one-third-screen {
+.row-50 {
+  width: 100%;
+  height: 50%;
+}
+
+.onboarding-slider .row-33 {
   text-align: center;
   padding: 20px;
 }
 
-.onboarding-slider .one-third-screen h1 {
+.onboarding-slider .row-33 h2, .sharing-description h2 {
   color: #e15726;
   font-size: 20px;
 }
 
-.onboarding-slider .one-third-screen p {
+.onboarding-slider .row-33 p, .sharing-description p {
   color: rgb(173,178,187);
   font-size: 20px;
+}
+
+.sharing-description {
+  text-align: center;
+}
+
+.sharing-slide {
+  background-color: #FFFDD0;
+  display: flex;
+  align-items: center;
+  flex-flow: column wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+.sharing-image {
+  height: 60%;
+  width: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .slider-pager .slider-pager-page {
@@ -100,6 +125,10 @@ body {
 
 .item {
   padding: 10px;
+}
+
+.item.item-icon-left {
+  padding: 10px 10px 10px 54px;
 }
 
 .item-fixed {

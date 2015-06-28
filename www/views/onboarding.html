@@ -1,17 +1,17 @@
 <div class="onboarding">
   <ion-header-bar class="bar-assertive">
-    <button nav-direction="back" ui-sref="home" class="button button-clear button-icon icon ion-arrow-left-c"></button>
+    <button nav-direction="back" ui-sref="home" class="button button-clear button-icon icon ion-ios-arrow-back"> Back</button>
     <h1 class="title">earlybird</h1>
   </ion-header-bar>
 
   <ion-content scroll="false">
     <ion-slide-box class="onboarding-slider">
       <ion-slide ng-repeat="slide in onboardingSlides">
-        <div class="two-third-screen">
+        <div class="row-67">
           <img ng-src="{{slide.image}}"></img>
         </div>
-        <div class="one-third-screen">
-          <h1>{{slide.title}}</h1>
+        <div class="row-33">
+          <h2>{{slide.title}}</h2>
           <p>{{slide.description}}</p>
         </div>
       </ion-slide>
