@@ -1,8 +1,8 @@
 <div class="order">
   <ion-header-bar class="bar-assertive">
-    <button ui-sref="settings" class="button button-clear button-icon icon ion-ios-settings-strong"></button>
+    <button ui-sref="settings" nav-direction="back" class="button button-clear button-icon icon ion-ios-settings-strong"></button>
     <h1 class="title">earlybird</h1>
-    <button ui-sref="sharing" class="button button-clear button-icon icon ion-ios-upload-outline"></button>
+    <button ui-sref="sharing" nav-direction="forward" class="button button-clear button-icon icon ion-ios-upload-outline"></button>
   </ion-header-bar>
 
   <ion-content scroll="true">
@@ -65,9 +65,7 @@
         <button ng-click="paymentModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </label>
 
-
+      <button class="button button-block button-balanced">Place Order: ${{order.quantity * 5}}</button>
     </div>
-
-    <button class="button button-block button-balanced">Place Order: ${{order.quantity * 5}}</button>
   </ion-content>
 </div>

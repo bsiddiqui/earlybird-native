@@ -7674,3 +7674,8 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+fieldset {
+  margin: 0px;
+  padding: 0px;
+  border: none; }

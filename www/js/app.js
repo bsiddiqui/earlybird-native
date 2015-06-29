@@ -19,19 +19,13 @@ angular.module('earlybird', ['ionic'])
   $ionicSlideBoxDelegate.update();
 })
 
-.controller('SessionCtrl', function ($scope, $state) {
-
-  $scope.login = function () {
-    // TODO replace, this is just temp
-    $state.go('order');
-  }
-
-})
-
-.controller('OrderCtrl', function ($scope, $ionicModal) {
-  $scope.order = {};
-
-  $scope.order.quantity = 1;
+.controller('SessionCtrl', function ($scope, $state, $ionicModal, $ionicViewSwitcher) {
+  $scope.currentUser = {
+    first_name: 'Basil',
+    last_name: 'Siddiqui',
+    email: 'basil@earlybird.com',
+    phone: '9162146370'
+  };
 
   $scope.addresses = [{
     title: 'Work',
@@ -48,7 +42,6 @@ angular.module('earlybird', ['ionic'])
     state: 'CA',
     zip: '94109'
   }];
-  $scope.order.address = $scope.addresses[0];
 
   $scope.payments = [{
     title: 'Earlybird Team',
@@ -59,7 +52,56 @@ angular.module('earlybird', ['ionic'])
     type: 'mastercard',
     last_four: '6404'
   }]
-  $scope.order.payment = $scope.payments[0];
+
+  $scope.login = function () {
+    $state.go('order');
+  }
+
+  $scope.logout = function () {
+    $ionicViewSwitcher.nextDirection('exit');
+    $state.go('home');
+  }
+
+  $ionicModal.fromTemplateUrl('views/partials/add-address.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  })
+  .then(function(modal) { $scope.addressModal = modal; });
+
+  $ionicModal.fromTemplateUrl('views/partials/add-payment.html', {
+    scope: $scope,
+    scope: $scope,
+    animation: 'slide-in-up'
+  })
+  .then(function(modal) { $scope.paymentModal = modal; });
+
+
+})
+
+.controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher) {
+  $scope.inputDisabled = true;
+
+  $scope.enableInput = function (password) {
+    $scope.inputDisabled = false;
+  }
+
+  $scope.disableInput = function () {
+    $scope.inputDisabled = true;
+  }
+
+  $scope.saveInput = function () {
+    $ionicViewSwitcher.nextDirection('forward');
+    // save user
+    $state.go('order');
+    $scope.inputDisabled = true;
+  }
+})
+
+.controller('OrderCtrl', function ($scope) {
+  $scope.order          = {};
+  $scope.order.quantity = 1;
+  $scope.order.address  = $scope.addresses[0];
+  $scope.order.payment  = $scope.payments[0];
 
   $scope.items = [{
     image: 'img/img-bluebottle-wide.png',
@@ -78,19 +120,6 @@ angular.module('earlybird', ['ionic'])
       $scope.order.quantity--;
     }
   }
-
-  $ionicModal.fromTemplateUrl('views/partials/add-address.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  })
-  .then(function(modal) { $scope.addressModal = modal; });
-
-  $ionicModal.fromTemplateUrl('views/partials/add-payment.html', {
-    scope: $scope,
-    scope: $scope,
-    animation: 'slide-in-up'
-  })
-  .then(function(modal) { $scope.paymentModal = modal; });
 
 })
 
@@ -131,7 +160,8 @@ angular.module('earlybird', ['ionic'])
   })
   .state('settings', {
     url: '/settings',
-    templateUrl: 'views/settings.html'
+    templateUrl: 'views/settings.html',
+    controller: 'SettingsCtrl'
   })
   .state('sharing', {
     url: '/sharing',
