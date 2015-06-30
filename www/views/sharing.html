@@ -1,6 +1,6 @@
 <div class="sharing">
   <ion-header-bar class="bar-assertive">
-    <button nav-direction="back" ui-sref="order" class="button button-clear button-icon icon ion-ios-arrow-back"> Back</button>
+    <button nav-direction="back" ui-sref="earlybird.order" class="button button-clear button-icon icon ion-ios-arrow-back"> Back</button>
     <h1 class="title">Sharing</h1>
   </ion-header-bar>
 
@@ -10,7 +10,7 @@
       <div class="sharing-description">
         <h2>Earn free coffee!</h2>
         <p>Invite your friend to join Earlybird with your referral code and earn free coffee</p>
-        <p>Your referral code: {{user.promo_code}}
+        <p>Your referral code: {{currentUser.referral_code}}
       </div>
     </div>
 

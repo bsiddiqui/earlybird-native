@@ -1,7 +1,7 @@
 <div class="settings ng-cloak">
   <ion-header-bar class="bar-assertive" ng-switch="inputDisabled">
     <div ng-switch-when="true">
-      <button ui-sref="order" nav-direction="forward" class="button button-clear button-icon icon ion-ios-close-empty"></button>
+      <button ui-sref="earlybird.order" nav-direction="forward" class="button button-clear button-icon icon ion-ios-close-empty"></button>
       <h1 class="title">Settings</h1>
       <button ng-click="enableInput()" class="button button-clear button-icon icon ion-ios-compose-outline"></button>
     </div>
@@ -9,7 +9,7 @@
     <div ng-switch-when="false">
       <button ng-click="disableInput()" class="button button-clear button-icon icon">Cancel</button>
       <h1 class="title">Settings</h1>
-      <button ng-click="saveInput()" class="button button-clear button-icon icon">Save</button>
+      <button ng-click="saveInput(currentUser)" class="button button-clear button-icon icon">Save</button>
     </div>
   </ion-header-bar>
 
@@ -45,10 +45,10 @@
         Addresses
       </div>
 
-      <label class="item item-fixed item-button-right" ng-repeat="address in addresses">
+      <label class="item item-fixed item-button-right" ng-repeat="address in currentUser.addresses">
         <h2>{{address.title}}</h2>
         <p>{{address.street1}} {{' ' + address.street2}}, {{address.city}}, {{address.state}} {{address.zip}}</p>
-        <button class="button button-icon icon ion-ios-trash" ng-hide="inputDisabled"></button>
+        <button class="button button-icon icon ion-ios-trash" ng-hide="inputDisabled" ng-click="deleteAddress(address, $index)"></button>
       </label>
 
       <label class="order-add-address item item-button-right">

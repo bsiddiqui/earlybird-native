@@ -1,9 +1,4 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('earlybird', ['ionic'])
+angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services'])
 
 .controller('OnboardingCtrl', function ($scope, $ionicSlideBoxDelegate) {
   $scope.onboardingSlides = [{
@@ -19,66 +14,18 @@ angular.module('earlybird', ['ionic'])
   $ionicSlideBoxDelegate.update();
 })
 
-.controller('SessionCtrl', function ($scope, $state, $ionicModal, $ionicViewSwitcher) {
-  $scope.currentUser = {
-    first_name: 'Basil',
-    last_name: 'Siddiqui',
-    email: 'basil@earlybird.com',
-    phone: '9162146370'
-  };
-
-  $scope.addresses = [{
-    title: 'Work',
-    street1: '2130 Post St',
-    street2: '#303',
-    city: 'San Francisco',
-    state: 'CA',
-    zip: '94109'
-  }, {
-    title: 'Personal',
-    street1: '2130 Post St',
-    street2: '#303',
-    city: 'San Francisco',
-    state: 'CA',
-    zip: '94109'
-  }];
-
-  $scope.payments = [{
-    title: 'Earlybird Team',
-    type: 'visa',
-    last_four: '6404'
-  }, {
-    title: 'Personal Citi',
-    type: 'mastercard',
-    last_four: '6404'
-  }]
+.controller('SessionCtrl', function ($scope, $state) {
 
   $scope.login = function () {
-    $state.go('order');
+    $state.go('earlybird.order');
   }
 
-  $scope.logout = function () {
-    $ionicViewSwitcher.nextDirection('exit');
-    $state.go('home');
+
+  $scope.register = function (params) {
   }
-
-  $ionicModal.fromTemplateUrl('views/partials/add-address.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  })
-  .then(function(modal) { $scope.addressModal = modal; });
-
-  $ionicModal.fromTemplateUrl('views/partials/add-payment.html', {
-    scope: $scope,
-    scope: $scope,
-    animation: 'slide-in-up'
-  })
-  .then(function(modal) { $scope.paymentModal = modal; });
-
-
 })
 
-.controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher) {
+.controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher, User, Address) {
   $scope.inputDisabled = true;
 
   $scope.enableInput = function (password) {
@@ -89,19 +36,47 @@ angular.module('earlybird', ['ionic'])
     $scope.inputDisabled = true;
   }
 
-  $scope.saveInput = function () {
-    $ionicViewSwitcher.nextDirection('forward');
-    // save user
-    $state.go('order');
-    $scope.inputDisabled = true;
+  $scope.saveInput = function (user) {
+    console.log(user);
+    return User.update({
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      phone: user.phone
+    })
+    .then(function (res) {
+      User.setCurrent(res);
+      // $ionicViewSwitcher.nextDirection('forward');
+      // $state.go('order');
+      $scope.inputDisabled = true;
+    })
+  }
+
+  $scope.logout = function () {
+    $ionicViewSwitcher.nextDirection('exit');
+    $state.go('earlybird.home');
+  }
+
+  $scope.deleteAddress = function (address, index) {
+    return Address.delete(address.id)
+    .then(function () {
+      $scope.currentUser.addresses.splice(index, 1);
+    })
   }
 })
 
-.controller('OrderCtrl', function ($scope) {
-  $scope.order          = {};
+.controller('OrderCtrl', function ($scope, User, Item) {
+  $scope.order = {}
   $scope.order.quantity = 1;
-  $scope.order.address  = $scope.addresses[0];
+  $scope.order.address  = $scope.currentUser.addresses[0];
   $scope.order.payment  = $scope.payments[0];
+
+  // Item.findAll()
+  // .then(function (res) {
+  //   $scope.items = res;
+  // })
+
+
 
   $scope.items = [{
     image: 'img/img-bluebottle-wide.png',
@@ -123,53 +98,107 @@ angular.module('earlybird', ['ionic'])
 
 })
 
-// TODO add this
-.filter('formattedAddress', function () {
-  return function (address) {
-  }
-})
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+  // $httpProvider.defaults.withCredentials = true;
+  $httpProvider.defaults.useXDomain = true;
 
-.config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/');
+  $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+  $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+  $httpProvider.interceptors.push('SessionInjector');
+
+  $urlRouterProvider.otherwise('/home');
 
   // onboarding
   $stateProvider
-  .state('home', {
-    url: '/',
+  .state('earlybird', {
+    abstract: true,
+    controller: function ($scope, $ionicModal, User) {
+      $scope.currentUser = User.currentUser;
+
+      // TODO remove
+      $scope.payments = [{
+        title: 'Earlybird Team',
+        type: 'visa',
+        last_four: '6404'
+      }, {
+        title: 'Personal Citi',
+        type: 'mastercard',
+        last_four: '6404'
+      }]
+
+      $ionicModal.fromTemplateUrl('views/partials/add-address.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      })
+      .then(function(modal) {
+        $scope.addressModal = modal;
+
+        $scope.createAddress = function (address) {
+          return Address.create(address)
+          .then(function (res) {
+            $scope.currentUser.addresses.push(res);
+            $scope.addressModal.hide();
+          })
+        };
+      });
+
+      $ionicModal.fromTemplateUrl('views/partials/add-payment.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      })
+      .then(function(modal) {
+        $scope.paymentModal = modal;
+      });
+    },
+    resolve: {
+      authorize: function (Session) {
+        return Session.authenticate();
+      }
+    },
+    template: '<ui-view/>'
+  })
+  .state('earlybird.home', {
+    url: '/home',
     templateUrl: 'views/home.html'
   })
-  .state('onboarding', {
+  .state('earlybird.onboarding', {
     url: '/onboarding',
     templateUrl: 'views/onboarding.html',
     controller: 'OnboardingCtrl'
   })
-  .state('login', {
+  .state('earlybird.login', {
     url: '/login',
     templateUrl: 'views/login.html',
     controller: 'SessionCtrl'
   })
-  .state('register', {
+  .state('earlybird.register', {
     url: '/register',
     templateUrl: 'views/register.html',
     controller: 'SessionCtrl'
   })
-  .state('order', {
+  .state('earlybird.order', {
     url: '/order',
     templateUrl: 'views/order.html',
     controller: 'OrderCtrl'
   })
-  .state('settings', {
+  .state('earlybird.settings', {
     url: '/settings',
     templateUrl: 'views/settings.html',
     controller: 'SettingsCtrl'
   })
-  .state('sharing', {
+  .state('earlybird.sharing', {
     url: '/sharing',
     templateUrl: 'views/sharing.html'
   })
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cookies, User) {
+  // TODO replace with getting data
+  $cookies['earlybird'] = 'a82157e637cb25131c5e35aee4857121f8d92812';
+
+  // TODO if cookies doesnt exist or current user doesn't exist with cookie, send to home
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

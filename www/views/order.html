@@ -1,8 +1,8 @@
 <div class="order">
   <ion-header-bar class="bar-assertive">
-    <button ui-sref="settings" nav-direction="back" class="button button-clear button-icon icon ion-ios-settings-strong"></button>
+    <button ui-sref="earlybird.settings" nav-direction="back" class="button button-clear button-icon icon ion-ios-settings-strong"></button>
     <h1 class="title">earlybird</h1>
-    <button ui-sref="sharing" nav-direction="forward" class="button button-clear button-icon icon ion-ios-upload-outline"></button>
+    <button ui-sref="earlybird.sharing" nav-direction="forward" class="button button-clear button-icon icon ion-ios-upload-outline"></button>
   </ion-header-bar>
 
   <ion-content scroll="true">
@@ -30,7 +30,7 @@
         Destination
       </div>
 
-      <label class="order-address item item-fixed item-radio" ng-repeat="address in addresses">
+      <label class="order-address item item-fixed item-radio" ng-repeat="address in currentUser.addresses">
         <input type="radio" ng-value="address" ng-model="order.address">
         <h2>{{address.title}}</h2>
         <p>{{address.street1}} {{' ' + address.street2}}, {{address.city}}, {{address.state}} {{address.zip}}</p>
