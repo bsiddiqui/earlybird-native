@@ -115,9 +115,9 @@ angular.module('earlybird.services', [])
   var Item = {};
 
   Item.findAll = function () {
-    return $http.get(API_URL, '/items')
+    return $http.get(API_URL + '/items')
     .then(function (res) {
-      return res.data;
+      return res.data.objects;
     })
   };
 

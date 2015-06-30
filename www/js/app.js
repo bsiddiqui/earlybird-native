@@ -71,18 +71,10 @@ angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services'])
   $scope.order.address  = $scope.currentUser.addresses[0];
   $scope.order.payment  = $scope.payments[0];
 
-  // Item.findAll()
-  // .then(function (res) {
-  //   $scope.items = res;
-  // })
-
-
-
-  $scope.items = [{
-    image: 'img/img-bluebottle-wide.png',
-    title: 'Earlybird iced coffee',
-    description: 'Cold breweed iced coffee produced in a join venture by Stumptown Roasters and Chateu Daniel Siddiqui'
-  }]
+  Item.findAll()
+  .then(function (res) {
+    $scope.items = res;
+  })
 
   $scope.incQuantity = function () {
     $scope.order.quantity++;
