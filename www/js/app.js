@@ -37,7 +37,6 @@ angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services'])
   }
 
   $scope.saveInput = function (user) {
-    console.log(user);
     return User.update({
       first_name: user.first_name,
       last_name: user.last_name,
@@ -105,7 +104,7 @@ angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services'])
   $stateProvider
   .state('earlybird', {
     abstract: true,
-    controller: function ($scope, $ionicModal, User) {
+    controller: function ($scope, $ionicModal, User, Address) {
       $scope.currentUser = User.currentUser;
 
       // TODO remove

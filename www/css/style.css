@@ -193,10 +193,6 @@ body {
   white-space: normal;
 }
 
-.card {
-  margin: 10px;
-}
-
 .card .item-image img {
   border-radius: 2px;
 }

@@ -22,7 +22,7 @@ angular.module('earlybird.services', [])
   };
 
   User.update = function (params) {
-    return $http.patch(API_URL + '/users/' + User.currentUser.id)
+    return $http.patch(API_URL + '/users/' + User.currentUser.id, params)
     .then(function (res) {
       User.setCurrent(res.data);
       return res.data;

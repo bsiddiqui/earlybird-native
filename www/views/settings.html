@@ -45,11 +45,11 @@
         Addresses
       </div>
 
-      <label class="item item-fixed item-button-right" ng-repeat="address in currentUser.addresses">
+      <div class="item item-fixed item-button-right" ng-repeat="address in currentUser.addresses">
         <h2>{{address.title}}</h2>
         <p>{{address.street1}} {{' ' + address.street2}}, {{address.city}}, {{address.state}} {{address.zip}}</p>
         <button class="button button-icon icon ion-ios-trash" ng-hide="inputDisabled" ng-click="deleteAddress(address, $index)"></button>
-      </label>
+      </div>
 
       <label class="order-add-address item item-button-right">
         <div>Add Address</div>
@@ -60,12 +60,12 @@
         Payments
       </div>
 
-      <label class="item item-fixed item-radio item-button-right item-avatar" ng-repeat="payment in payments">
+      <div class="item item-fixed item-radio item-button-right item-avatar" ng-repeat="payment in payments">
         <img ng-src="img/ic-payment-{{payment.type}}2x.png"></img>
         <h2>{{payment.title}}</h2>
         <p>{{payment.last_four}}</p>
         <button class="button button-icon icon ion-ios-trash" ng-hide="inputDisabled"></button>
-      </label>
+      </div>
 
       <label class="order-add-payment item item-button-right">
         <div>Add Payment</div>
