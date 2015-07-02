@@ -1,18 +1,18 @@
-<div class="login">
+<div class="login" ng-init="loginForm={}">
   <ion-header-bar class="bar-assertive">
     <button nav-direction="back" ui-sref="earlybird.home" class="button button-clear button-icon icon ion-ios-arrow-back"> Back</button>
     <h1 class="title">earlybird</h1>
-    <button ng-click="login()" class="button button-clear">Log In</button>
+    <button ng-disabled="loginForm.form.$invalid" ng-click="login(loginForm.params)" class="button button-clear">Log In</button>
   </ion-header-bar>
 
   <ion-content scroll="false">
-    <div class="list list-inset">
+    <form name="loginForm.form" class="list list-inset">
       <label class="item item-fixed item-input">
-        <input type="text" placeholder="email">
+        <input type="text" required ng-model="loginForm.params.email" placeholder="email">
       </label>
       <label class="item item-fixed item-input">
-        <input type="text" placeholder="password">
+        <input type="password" required ng-model="loginForm.params.password" placeholder="password">
       </label>
-    </div>
+    </form>
   </ion-content>
 </div>

@@ -1,68 +1,86 @@
 angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services', 'earlybird.controllers'])
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
-  // $httpProvider.defaults.withCredentials = true;
-  $httpProvider.defaults.useXDomain = true;
-
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, $provide) {
+  $httpProvider.defaults.useXDomain     = true;
   $httpProvider.defaults.xsrfCookieName = 'csrftoken';
   $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 
-  $httpProvider.interceptors.push('SessionInjector');
+  $httpProvider.interceptors.push('HeadersInjector');
+
+  $provide.decorator('$state', function ($delegate, $rootScope) {
+    $rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
+      $delegate.toState = toState;
+      $delegate.toStateParams = toStateParams;
+    });
+
+    return $delegate;
+  })
 
   $urlRouterProvider.otherwise('/home');
 
-  // onboarding
   $stateProvider
   .state('earlybird', {
     abstract: true,
     controller: 'AppCtrl',
     resolve: {
       authorize: function (Session) {
-        return Session.authenticate();
+        return Session.authorize();
       }
     },
     template: '<ui-view/>'
   })
   .state('earlybird.home', {
     url: '/home',
-    templateUrl: 'views/home.html'
+    templateUrl: 'views/home.html',
+    requireAuth: false
   })
   .state('earlybird.onboarding', {
     url: '/onboarding',
     templateUrl: 'views/onboarding.html',
-    controller: 'OnboardingCtrl'
+    controller: 'OnboardingCtrl',
+    requireAuth: false
   })
   .state('earlybird.login', {
     url: '/login',
     templateUrl: 'views/login.html',
-    controller: 'SessionCtrl'
+    controller: 'SessionCtrl',
+    requireAuth: false
   })
   .state('earlybird.register', {
     url: '/register',
     templateUrl: 'views/register.html',
-    controller: 'SessionCtrl'
+    controller: 'SessionCtrl',
+    requireAuth: false
   })
   .state('earlybird.order', {
     url: '/order',
     templateUrl: 'views/order.html',
-    controller: 'OrderCtrl'
+    controller: 'OrderCtrl',
+    requireAuth: true
   })
   .state('earlybird.settings', {
     url: '/settings',
     templateUrl: 'views/settings.html',
-    controller: 'SettingsCtrl'
+    controller: 'SettingsCtrl',
+    requireAuth: true
   })
   .state('earlybird.sharing', {
     url: '/sharing',
-    templateUrl: 'views/sharing.html'
+    templateUrl: 'views/sharing.html',
+    requireAuth: true
   })
 })
 
-.run(function($ionicPlatform, $cookies, User) {
+.run(function($rootScope, $state, Session, User, $ionicPlatform, $cookies, User) {
   // TODO replace with getting data
-  $cookies['earlybird'] = 'a82157e637cb25131c5e35aee4857121f8d92812';
 
-  // TODO if cookies doesnt exist or current user doesn't exist with cookie, send to home
+  $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
+    // if the user is resolved, do an authorization check immediately. otherwise,
+    // it'll be done when the state it resolved.
+    if (User.isCurrentResolved()) {
+      Session.authorize();
+    }
+  })
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

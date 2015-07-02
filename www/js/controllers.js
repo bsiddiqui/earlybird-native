@@ -3,6 +3,10 @@ angular.module('earlybird.controllers', [])
 .controller('AppCtrl', function ($scope, $ionicModal, User, Address) {
   $scope.currentUser = User.currentUser;
 
+  $scope.setCurrentUser = function (user) {
+    $scope.currentUser = user;
+  }
+
   // TODO remove
   $scope.payments = [{
     title: 'Earlybird Team',
@@ -53,18 +57,25 @@ angular.module('earlybird.controllers', [])
   $ionicSlideBoxDelegate.update();
 })
 
-.controller('SessionCtrl', function ($scope, $state) {
+.controller('SessionCtrl', function ($scope, $state, $cookies, Session, User) {
 
-  $scope.login = function () {
-    $state.go('earlybird.order');
-  }
+  $scope.login = function (params) {
+    Session.create(params)
+    .then(function () {
+      $state.go('earlybird.order');
+    });
+  };
 
 
   $scope.register = function (params) {
-  }
+    User.create(params)
+    .then(function () {
+      $state.go('earlybird.order');
+    })
+  };
 })
 
-.controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher, User, Address) {
+.controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher, User, Address, Session) {
   $scope.inputDisabled = true;
 
   $scope.enableInput = function (password) {
@@ -83,7 +94,7 @@ angular.module('earlybird.controllers', [])
       phone: user.phone
     })
     .then(function (res) {
-      User.setCurrent(res);
+      $scope.setCurrentUser(User.currentUser);
       // $ionicViewSwitcher.nextDirection('forward');
       // $state.go('order');
       $scope.inputDisabled = true;
@@ -91,8 +102,12 @@ angular.module('earlybird.controllers', [])
   }
 
   $scope.logout = function () {
-    $ionicViewSwitcher.nextDirection('exit');
-    $state.go('earlybird.home');
+    Session.delete()
+    .then(function() {
+      $ionicViewSwitcher.nextDirection('exit');
+      $scope.setCurrentUser(undefined)
+      $state.go('earlybird.home');
+    });
   }
 
   $scope.deleteAddress = function (address, index) {
@@ -104,6 +119,8 @@ angular.module('earlybird.controllers', [])
 })
 
 .controller('OrderCtrl', function ($scope, User, Item) {
+  $scope.setCurrentUser(User.currentUser);
+
   $scope.order = {}
   $scope.order.quantity = 1;
   $scope.order.address  = $scope.currentUser.addresses[0];
