@@ -140,7 +140,6 @@ angular.module('earlybird.services', [])
   }
 
   Card.create = function (params) {
-    console.log(params)
     return $http.post(API_URL + '/cards', params)
     .then(function (res) {
       return res.data;

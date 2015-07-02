@@ -64,7 +64,7 @@
         <img ng-src="img/ic-payment-{{card.type}}2x.png"></img>
         <h2>{{card.title}}</h2>
         <p>{{card.last_four}}</p>
-        <button class="button button-icon icon ion-ios-trash" ng-hide="inputDisabled"></button>
+        <button class="button button-icon icon ion-ios-trash" ng-hide="inputDisabled" ng-click="deleteCard(card, $index)"></button>
       </div>
 
       <label class="order-add-card item item-button-right">

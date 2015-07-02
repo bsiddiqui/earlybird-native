@@ -72,7 +72,7 @@ angular.module('earlybird.controllers', [])
   };
 })
 
-.controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher, User, Address, Session) {
+.controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher, User, Address, Session, Card) {
   $scope.inputDisabled = true;
 
   $scope.enableInput = function (password) {
