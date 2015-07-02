@@ -1,12 +1,12 @@
 <div class="settings ng-cloak">
   <ion-header-bar class="bar-assertive" ng-switch="inputDisabled">
-    <div ng-switch-when="true">
+    <div class="header-switch" ng-switch-when="true">
       <button ui-sref="earlybird.order" nav-direction="forward" class="button button-clear button-icon icon ion-ios-close-empty"></button>
       <h1 class="title">Settings</h1>
       <button ng-click="enableInput()" class="button button-clear button-icon icon ion-ios-compose-outline"></button>
     </div>
 
-    <div ng-switch-when="false">
+    <div class="header-switch" ng-switch-when="false">
       <button ng-click="disableInput()" class="button button-clear button-icon icon">Cancel</button>
       <h1 class="title">Settings</h1>
       <button ng-click="saveInput(currentUser)" class="button button-clear button-icon icon">Save</button>

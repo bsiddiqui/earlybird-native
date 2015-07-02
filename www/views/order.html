@@ -25,13 +25,13 @@
       </div>
     </div>
 
-    <div class="list list-inset">
+    <form name="orderForm" class="list list-inset">
       <div class="item item-divider">
         Destination
       </div>
 
       <label class="order-address item item-fixed item-radio" ng-repeat="address in currentUser.addresses">
-        <input type="radio" ng-value="address.id" ng-model="order.destination_address_id">
+        <input type="radio" ng-value="address.id" required ng-model="order.destination_address_id">
         <h2>{{address.title}}</h2>
         <p>{{address.street1}} {{' ' + address.street2}}, {{address.city}}, {{address.state}} {{address.zip}}</p>
         <i class="radio-icon ion-checkmark-circled"></i>
@@ -51,7 +51,7 @@
 
       <label class="order-card item item-fixed item-radio item-avatar" ng-repeat="card in currentUser.cards">
         <img ng-src="img/ic-payment-{{card.type}}2x.png">
-        <input type="radio" ng-value="card.id" ng-model="order.card_id">
+        <input type="radio" ng-value="card.id" required ng-model="order.card_id">
         <h2>{{card.title}}</h2>
         <p>{{card.last_four}}</p>
         <i class="radio-icon ion-checkmark-circled"></i>
@@ -65,7 +65,7 @@
         <button ng-click="cardModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </label>
 
-      <button class="button button-block button-balanced" ng-click="createOrder(order)">Place Order: ${{order.quantity * items[0].price}}</button>
-    </div>
+      <button ng-disabled="!orderValid(order)" class="button button-block button-balanced" ng-click="createOrder(order)">Place Order: ${{order.quantity * items[0].price}}</button>
+    </form>
   </ion-content>
 </div>

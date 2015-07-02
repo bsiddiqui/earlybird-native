@@ -128,9 +128,9 @@ angular.module('earlybird.controllers', [])
   $scope.order                        = {}
   $scope.order.quantity               = 1;
   $scope.order.card_id                =
-    User.currentUser.cards[0].id;
+    User.currentUser.cards[0] && User.currentUser.cards[0].id;
   $scope.order.destination_address_id =
-    User.currentUser.addresses[0].id;
+    User.currentUser.addresses[0] && User.currentUser.addresses[0].id;
 
   Item.findAll()
   .then(function (res) {
@@ -148,6 +148,10 @@ angular.module('earlybird.controllers', [])
     } else {
       $scope.order.quantity--;
     }
+  }
+
+  $scope.orderValid = function (order) {
+    return angular.isDefined(order.card_id) && angular.isDefined(order.destination_address_id);
   }
 
   $scope.createOrder = function (order) {
