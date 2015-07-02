@@ -60,16 +60,16 @@
         Payments
       </div>
 
-      <div class="item item-fixed item-radio item-button-right item-avatar" ng-repeat="payment in payments">
-        <img ng-src="img/ic-payment-{{payment.type}}2x.png"></img>
-        <h2>{{payment.title}}</h2>
-        <p>{{payment.last_four}}</p>
+      <div class="item item-fixed item-radio item-button-right item-avatar" ng-repeat="card in currentUser.cards">
+        <img ng-src="img/ic-payment-{{card.type}}2x.png"></img>
+        <h2>{{card.title}}</h2>
+        <p>{{card.last_four}}</p>
         <button class="button button-icon icon ion-ios-trash" ng-hide="inputDisabled"></button>
       </div>
 
-      <label class="order-add-payment item item-button-right">
+      <label class="order-add-card item item-button-right">
         <div>Add Payment</div>
-        <button ng-click="paymentModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
+        <button ng-click="cardModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </label>
 
       <button class="button button-block" ng-click="logout()">Logout</button>

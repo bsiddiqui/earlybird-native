@@ -134,6 +134,29 @@ angular.module('earlybird.services', [])
   return Address;
 })
 
+.factory('Card', function ($http) {
+  var Card = function (data) {
+    return angular.extend(this, data);
+  }
+
+  Card.create = function (params) {
+    console.log(params)
+    return $http.post(API_URL + '/cards', params)
+    .then(function (res) {
+      return res.data;
+    })
+  }
+
+  Card.delete = function (id) {
+    return $http.delete(API_URL + '/cards/' + id)
+    .then(function (res) {
+      return res.data;
+    });
+  }
+
+  return Card;
+})
+
 .factory('Walkthrough', function ($http) {
   var Walkthrough = {};
 

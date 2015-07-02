@@ -49,20 +49,20 @@
         Payment Details
       </div>
 
-      <label class="order-payment item item-fixed item-radio item-avatar" ng-repeat="payment in payments">
-        <img ng-src="img/ic-payment-{{payment.type}}2x.png">
-        <input type="radio" ng-value="payment" ng-model="order.payment">
-        <h2>{{payment.title}}</h2>
-        <p>{{payment.last_four}}</p>
+      <label class="order-card item item-fixed item-radio item-avatar" ng-repeat="card in currentUser.cards">
+        <img ng-src="img/ic-payment-{{card.type}}2x.png">
+        <input type="radio" ng-value="card.id" ng-model="order.card">
+        <h2>{{card.title}}</h2>
+        <p>{{card.last_four}}</p>
         <i class="radio-icon ion-checkmark-circled"></i>
         <i class="radio-icon ion-checkmark-circled button-opaque"></i>
       </label>
 
-      <label class="order-add-payment item item-button-right">
+      <label class="order-add-card item item-button-right">
         <div>
           Add Payment
         </div>
-        <button ng-click="paymentModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
+        <button ng-click="cardModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </label>
 
       <button class="button button-block button-balanced">Place Order: ${{order.quantity * items[0].price}}</button>

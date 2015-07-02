@@ -1,22 +1,11 @@
 angular.module('earlybird.controllers', [])
 
-.controller('AppCtrl', function ($scope, $ionicModal, User, Address) {
+.controller('AppCtrl', function ($scope, $ionicModal, Card, User, Address) {
   $scope.currentUser = User.currentUser;
 
   $scope.setCurrentUser = function (user) {
     $scope.currentUser = user;
   }
-
-  // TODO remove
-  $scope.payments = [{
-    title: 'Earlybird Team',
-    type: 'visa',
-    last_four: '6404'
-  }, {
-    title: 'Personal Citi',
-    type: 'mastercard',
-    last_four: '6404'
-  }]
 
   $ionicModal.fromTemplateUrl('views/partials/add-address.html', {
     scope: $scope,
@@ -34,12 +23,20 @@ angular.module('earlybird.controllers', [])
     };
   });
 
-  $ionicModal.fromTemplateUrl('views/partials/add-payment.html', {
+  $ionicModal.fromTemplateUrl('views/partials/add-card.html', {
     scope: $scope,
     animation: 'slide-in-up'
   })
   .then(function(modal) {
-    $scope.paymentModal = modal;
+    $scope.cardModal = modal;
+
+    $scope.createCard = function (card) {
+      return Card.create(card)
+      .then(function (res) {
+        $scope.currentUser.cards.push(res);
+        $scope.cardModal.hide();
+      })
+    };
   });
 })
 
@@ -121,10 +118,10 @@ angular.module('earlybird.controllers', [])
 .controller('OrderCtrl', function ($scope, User, Item) {
   $scope.setCurrentUser(User.currentUser);
 
-  $scope.order = {}
+  $scope.order          = {}
   $scope.order.quantity = 1;
-  $scope.order.address  = $scope.currentUser.addresses[0];
-  $scope.order.payment  = $scope.payments[0];
+  $scope.order.address  = User.currentUser.addresses[0];
+  $scope.order.card_id  = User.currentUser.cards[0];
 
   Item.findAll()
   .then(function (res) {
