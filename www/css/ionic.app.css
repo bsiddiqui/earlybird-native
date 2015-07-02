@@ -7683,8 +7683,8 @@ fieldset {
 div.item {
   line-height: 1.42857; }
 
-.bar .title, .bar .button {
+.platform-ios .bar-header .title, .platform-ios .bar-header .button {
   margin-top: 20px; }
 
-.bar .header-switch {
+.platform-ios .bar-header .header-switch {
   margin-top: 0 !important; }
