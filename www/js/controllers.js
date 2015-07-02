@@ -113,19 +113,29 @@ angular.module('earlybird.controllers', [])
       $scope.currentUser.addresses.splice(index, 1);
     })
   }
+
+  $scope.deleteCard = function (card, index) {
+    return Card.delete(card.id)
+    .then(function () {
+      $scope.currentUser.cards.splice(index, 1);
+    })
+  }
 })
 
-.controller('OrderCtrl', function ($scope, User, Item) {
+.controller('OrderCtrl', function ($scope, User, Item, Order) {
   $scope.setCurrentUser(User.currentUser);
 
-  $scope.order          = {}
-  $scope.order.quantity = 1;
-  $scope.order.address  = User.currentUser.addresses[0];
-  $scope.order.card_id  = User.currentUser.cards[0];
+  $scope.order                        = {}
+  $scope.order.quantity               = 1;
+  $scope.order.card_id                =
+    User.currentUser.cards[0].id;
+  $scope.order.destination_address_id =
+    User.currentUser.addresses[0].id;
 
   Item.findAll()
   .then(function (res) {
-    $scope.items = res;
+    $scope.items         = res;
+    $scope.order.item_id = $scope.items[0].id;
   })
 
   $scope.incQuantity = function () {
@@ -140,4 +150,10 @@ angular.module('earlybird.controllers', [])
     }
   }
 
+  $scope.createOrder = function (order) {
+    return Order.create(order)
+    .then(function () {
+      // TODO do something
+    })
+  }
 })

@@ -185,13 +185,13 @@ angular.module('earlybird.services', [])
 .factory('Order', function ($http) {
   var Order = function (data) {
     angular.extend(this, data);
-  }
+  };
 
   Order.create = function (params) {
-    return $http.post(API_URL + '/orders')
+    return $http.post(API_URL + '/orders', params)
     .then(function (res) {
       return res.data;
-    })
+    });
   };
 
   return Order;
