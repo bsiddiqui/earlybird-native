@@ -122,21 +122,17 @@ angular.module('earlybird.controllers', [])
   }
 })
 
-.controller('OrderCtrl', function ($scope, User, Item, Order) {
+.controller('OrderCtrl', function ($scope, User, Order, items) {
   $scope.setCurrentUser(User.currentUser);
 
+  $scope.items                        = items;
   $scope.order                        = {}
+  $scope.order.item_id                = items[0].id;
   $scope.order.quantity               = 1;
   $scope.order.card_id                =
     User.currentUser.cards[0] && User.currentUser.cards[0].id;
   $scope.order.destination_address_id =
     User.currentUser.addresses[0] && User.currentUser.addresses[0].id;
-
-  Item.findAll()
-  .then(function (res) {
-    $scope.items         = res;
-    $scope.order.item_id = $scope.items[0].id;
-  })
 
   $scope.incQuantity = function () {
     $scope.order.quantity++;

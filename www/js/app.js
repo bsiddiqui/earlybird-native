@@ -56,7 +56,12 @@ angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services', 'earlyb
     url: '/order',
     templateUrl: 'views/order.html',
     controller: 'OrderCtrl',
-    requireAuth: true
+    requireAuth: true,
+    resolve: {
+      items: function (Item) {
+        return Item.findAll();
+      }
+    }
   })
   .state('earlybird.settings', {
     url: '/settings',
