@@ -1,8 +1,7 @@
 /*
   Allow angular.js to be loaded in body, hiding cloaked elements until
-  templates compile.  The !important is important given that there may be
-  other selectors that are more specific or come later and might alter display.
-*/
+  templates compile.
+ */
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
 }
@@ -10,9 +9,27 @@
   display: none !important;
 }
 
-body {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-    Helvetica, Arial, "Lucida Grande", sans-serif;
+/*
+  Declare Apple's SF fonts and set it as font-famly for all elements
+*/
+@font-face {
+  font-family: "San Francisco";
+  src: url("../fonts/SF-UI-Text-Regular.otf");
+}
+@font-face {
+  font-family: "San Francisco";
+  src: url("../fonts/SF-UI-Text-Bold.otf");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "San Francisco";
+  src: url("../fonts/SF-UI-Text-BoldOblique.otf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+* {
+  font-family: 'San Francisco' !important;
 }
 
 .home .scroll-content {
