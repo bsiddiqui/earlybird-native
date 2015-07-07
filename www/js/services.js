@@ -12,16 +12,26 @@ angular.module('earlybird.services', [])
 
   User.currentUser = undefined;
 
+  User.prototype.promoBalance = function () {
+    var balance = 0;
+
+    _.forEach(this.promo_codes, function (code) {
+      balance += parseFloat(code.value);
+    })
+
+    return balance.toFixed(2);
+  };
+
   User.isCurrentResolved = function () {
     return angular.isDefined(User.currentUser);
-  }
+  };
 
   User.isAuthenticated = function () {
     return User.authenticated;
-  }
+  };
 
   User.setCurrent = function (user) {
-    return User.currentUser = user;
+    return User.currentUser = new User(user);
   };
 
   User.getCurrent = function () {
@@ -35,7 +45,7 @@ angular.module('earlybird.services', [])
     } else { // otherwise get identity from server
       return $http.get(API_URL + '/users/current')
       .success(function (data) {
-        User.currentUser = data;
+        User.currentUser = new User(data);
         User.authenticated = true;
         deferred.resolve(User.currentUser);
       })
@@ -59,7 +69,7 @@ angular.module('earlybird.services', [])
     return $http.post(API_URL + '/users', params)
     .then(function (res) {
       User.authenticated = true;
-      User.currentUser = res.data;
+      User.currentUser = new User(res.data);
       $cookies['earlybird'] = res.data.api_key;
       return res.data;
     });
@@ -184,7 +194,7 @@ angular.module('earlybird.services', [])
 
 .factory('Order', function ($http) {
   var Order = function (data) {
-    angular.extend(this, data);
+    return angular.extend(this, data);
   };
 
   Order.create = function (params) {

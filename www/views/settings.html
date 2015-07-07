@@ -60,6 +60,12 @@
         Payments
       </div>
 
+      <div ng-show="currentUser.promo_codes" class="item item-fixed item-radio item-avatar">
+        <img ng-src="img/ic-payment-creditcard2x.png"></img>
+        <h2>Earlybird Promo Balance</h2>
+        <p>${{currentUser.promoBalance()}}</p>
+      </div>
+
       <div class="item item-fixed item-radio item-button-right item-avatar" ng-repeat="card in currentUser.cards">
         <img ng-src="img/ic-payment-{{card.type}}2x.png"></img>
         <h2>{{card.title}}</h2>
