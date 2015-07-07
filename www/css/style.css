@@ -45,6 +45,10 @@
   margin-top: 50px;
 }
 
+.home-text img {
+  width: 75%;
+}
+
 .home-text h1, .home-text h2, .home-text a {
   color: #FFF;
 }
