@@ -68,12 +68,13 @@ angular.module('earlybird.controllers', [])
     User.create(params)
     .then(function () {
       $state.go('earlybird.order');
-    })
+    });
   };
 })
 
-.controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher, User, Address, Session, Card) {
+.controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher, User, Address, Session, Card, PromoCode) {
   $scope.inputDisabled = true;
+  $scope.inputs = {};
 
   $scope.enableInput = function (password) {
     $scope.inputDisabled = false;
@@ -92,11 +93,18 @@ angular.module('earlybird.controllers', [])
     })
     .then(function (res) {
       $scope.setCurrentUser(User.currentUser);
-      // $ionicViewSwitcher.nextDirection('forward');
-      // $state.go('order');
       $scope.inputDisabled = true;
     })
   }
+
+  $scope.redeemPromo = function (code) {
+    return PromoCode.redeem(code)
+    .then(function (res) {
+      // TODO alert success
+      $scope.inputs.code = undefined;
+      $scope.currentUser.promo_codes.push(res);
+    })
+  };
 
   $scope.logout = function () {
     Session.delete()

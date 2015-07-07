@@ -72,6 +72,17 @@
         <button ng-click="cardModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </label>
 
+      <div class="item item-divider">
+        Promotions
+      </div>
+
+      <div class="item item-fixed item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" ng-model="inputs.code"></input>
+        </label>
+        <button class="button button-positive button-small" ng-click="redeemPromo(inputs.code)">Apply</button>
+      </div>
+
       <button class="button button-block" ng-click="logout()">Logout</button>
     </div>
   </ion-content>

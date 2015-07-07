@@ -197,6 +197,53 @@ angular.module('earlybird.services', [])
   return Order;
 })
 
+.factory('Availability', function ($http) {
+  var Availability = function (data) {
+    return angular.extend(this, data);
+  }
+
+  Availability.findAll = function () {
+    return $http.get(API_URL + '/availability')
+    .then(function (res) {
+      return res.data;
+    })
+  };
+
+  Availability.prototype.nextAvailable = function () {
+    var now = new Date()
+
+    // the store is closed today
+    if (!this.today.available) {
+      return new Date(this.next_available.start_time);
+
+    // the store is open today but hasn't opened yet
+    } else if (new Date(this.today.start_time) > now)  {
+      return new Date(this.today.start_time);
+
+    // the store is open today but has closed for the day
+    } else if (new Date(this.today.end_time) < now) {
+      return new Date(this.next_available.start_time);
+    }
+  };
+
+  return Availability;
+})
+
+.factory('PromoCode', function ($http) {
+  var PromoCode = function (data) {
+    return angular.extend(this, data)
+  };
+
+  PromoCode.redeem = function (code) {
+    return $http.post(API_URL + '/promo_codes', { code: code })
+    .then(function (res) {
+      return res.data;
+    });
+  };
+
+  return PromoCode;
+})
+
 .factory('HeadersInjector', function ($injector, $cookies) {
   return {
     request: function (config) {
