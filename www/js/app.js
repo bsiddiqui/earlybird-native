@@ -88,11 +88,11 @@ angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services', 'earlyb
   })
 
   $ionicPlatform.ready(function() {
-    window.cordova.plugins.Keyboard.disableScroll(true);
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
