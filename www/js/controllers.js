@@ -16,9 +16,12 @@ angular.module('earlybird.controllers', [])
 
     $scope.createAddress = function (address) {
       return Address.create(address)
-      .then(function (res) {
-        $scope.currentUser.addresses.push(res);
+      .success(function (data) {
+        $scope.currentUser.addresses.push(data);
         $scope.addressModal.hide();
+      })
+      .error(function (err) {
+        console.log(err);
       })
     };
   });
@@ -32,10 +35,13 @@ angular.module('earlybird.controllers', [])
 
     $scope.createCard = function (card) {
       return Card.create(card)
-      .then(function (res) {
-        $scope.currentUser.cards.push(res);
+      .success(function (data) {
+        $scope.currentUser.cards.push(data);
         $scope.cardModal.hide();
       })
+      .error(function (err) {
+        console.log(err);
+      });
     };
   });
 })
@@ -58,16 +64,21 @@ angular.module('earlybird.controllers', [])
 
   $scope.login = function (params) {
     Session.create(params)
-    .then(function () {
+    .success(function (res) {
       $state.go('earlybird.order');
+    })
+    .error(function (err) {
+      console.log(err);
     });
   };
 
-
   $scope.register = function (params) {
     User.create(params)
-    .then(function () {
+    .success(function () {
       $state.go('earlybird.order');
+    })
+    .error(function (err) {
+      console.log(err);
     });
   };
 })
@@ -91,10 +102,13 @@ angular.module('earlybird.controllers', [])
       email: user.email,
       phone: user.phone
     })
-    .then(function (res) {
+    .success(function () {
       $scope.setCurrentUser(User.currentUser);
       $scope.inputDisabled = true;
     })
+    .error(function (err) {
+      console.log(err);
+    });
   }
 
   $scope.redeemPromo = function (code) {
@@ -103,7 +117,7 @@ angular.module('earlybird.controllers', [])
       // TODO alert success
       $scope.inputs.code = undefined;
       $scope.currentUser.promo_codes.push(res);
-    })
+    });
   };
 
   $scope.logout = function () {
@@ -113,21 +127,21 @@ angular.module('earlybird.controllers', [])
       $scope.setCurrentUser(undefined)
       $state.go('earlybird.home');
     });
-  }
+  };
 
   $scope.deleteAddress = function (address, index) {
     return Address.delete(address.id)
-    .then(function () {
+    .success(function () {
       $scope.currentUser.addresses.splice(index, 1);
-    })
-  }
+    });
+  };
 
   $scope.deleteCard = function (card, index) {
     return Card.delete(card.id)
-    .then(function () {
+    .success(function () {
       $scope.currentUser.cards.splice(index, 1);
-    })
-  }
+    });
+  };
 })
 
 .controller('OrderCtrl', function ($scope, User, Order, items, availability) {
@@ -148,7 +162,7 @@ angular.module('earlybird.controllers', [])
 
   $scope.incQuantity = function () {
     $scope.order.quantity++;
-  }
+  };
 
   $scope.decQuantity = function () {
     if ($scope.order.quantity === 1) {
@@ -156,16 +170,19 @@ angular.module('earlybird.controllers', [])
     } else {
       $scope.order.quantity--;
     }
-  }
+  };
 
   $scope.orderValid = function (order) {
     return angular.isDefined(order.card_id) && angular.isDefined(order.destination_address_id) && $scope.availability.available;
-  }
+  };
 
   $scope.createOrder = function (order) {
     return Order.create(order)
-    .then(function () {
+    .success(function () {
       // TODO do something
     })
-  }
+    .error(function (err) {
+      console.log(err);
+    });
+  };
 })

@@ -59,19 +59,22 @@ angular.module('earlybird.services', [])
 
   User.update = function (params) {
     return $http.patch(API_URL + '/users/' + User.currentUser.id, params)
-    .then(function (res) {
-      User.setCurrent(res.data);
-      return res.data;
+    .success(function (data) {
+      User.setCurrent(data);
+      return data;
     });
   };
 
   User.create = function (params) {
     return $http.post(API_URL + '/users', params)
-    .then(function (res) {
+    .success(function (data) {
       User.authenticated = true;
-      User.currentUser = new User(res.data);
-      $cookies['earlybird'] = res.data.api_key;
-      return res.data;
+      User.currentUser = new User(data);
+      $cookies['earlybird'] = data.api_key;
+      return data;
+    })
+    .error(function (err) {
+      return err;
     });
   };
 
@@ -100,12 +103,14 @@ angular.module('earlybird.services', [])
 
   Session.create = function (params) {
     return $http.post(API_URL + '/sessions', params)
-    .then(function (res) {
-      $cookies['earlybird'] = res.data.api_key;
-      console.log('creationnnnnn', $cookies)
+    .success(function (data) {
+      $cookies['earlybird'] = data.api_key;
       User.authenticated = true;
-      User.setCurrent(res.data);
-      return res.data;
+      User.setCurrent(data);
+      return data;
+    })
+    .error(function (err) {
+      return err;
     })
   }
 
@@ -125,21 +130,15 @@ angular.module('earlybird.services', [])
 .factory('Address', function ($http) {
   var Address = function (data) {
     return angular.extend(this, data);
-  }
+  };
 
   Address.create = function (params) {
-    return $http.post(API_URL + '/addresses', params)
-    .then(function (res) {
-      return res.data;
-    })
-  }
+    return $http.post(API_URL + '/addresses', params);
+  };
 
   Address.delete = function (id) {
-    return $http.delete(API_URL + '/addresses/' + id)
-    .then(function (res) {
-      return res.data;
-    });
-  }
+    return $http.delete(API_URL + '/addresses/' + id);
+  };
 
   return Address;
 })
@@ -147,21 +146,15 @@ angular.module('earlybird.services', [])
 .factory('Card', function ($http) {
   var Card = function (data) {
     return angular.extend(this, data);
-  }
+  };
 
   Card.create = function (params) {
-    return $http.post(API_URL + '/cards', params)
-    .then(function (res) {
-      return res.data;
-    })
-  }
+    return $http.post(API_URL + '/cards', params);
+  };
 
   Card.delete = function (id) {
-    return $http.delete(API_URL + '/cards/' + id)
-    .then(function (res) {
-      return res.data;
-    });
-  }
+    return $http.delete(API_URL + '/cards/' + id);
+  };
 
   return Card;
 })
@@ -198,10 +191,7 @@ angular.module('earlybird.services', [])
   };
 
   Order.create = function (params) {
-    return $http.post(API_URL + '/orders', params)
-    .then(function (res) {
-      return res.data;
-    });
+    return $http.post(API_URL + '/orders', params);
   };
 
   return Order;
