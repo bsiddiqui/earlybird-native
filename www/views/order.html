@@ -68,7 +68,8 @@
         <button ng-click="cardModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </label>
 
-      <button ng-disabled="!orderValid(order)" class="button button-block button-balanced" ng-click="createOrder(order)">Place Order: ${{order.quantity * items[0].price}}</button>
+      <button ng-show="availability.now()" ng-disabled="!orderValid(order)" class="button button-block button-balanced" ng-click="createOrder(order)">Place Order: ${{order.quantity * items[0].price}}</button>
+      <button ng-hide="availability.now()" ng-disabled="true" class="button button-block button-balanced">We're closed until {{availability.next_open.start_time | date : 'EEEE @ H:mm a'}}</button>
     </form>
   </ion-content>
 </div>

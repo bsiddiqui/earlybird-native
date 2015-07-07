@@ -219,21 +219,14 @@ angular.module('earlybird.services', [])
     })
   };
 
-  Availability.prototype.nextAvailable = function () {
-    var now = new Date()
+  /**
+    * Determines if store is open now
+    */
+  Availability.prototype.now = function () {
+    var now = new Date();
 
-    // the store is closed today
-    if (!this.today.available) {
-      return new Date(this.next_available.start_time);
-
-    // the store is open today but hasn't opened yet
-    } else if (new Date(this.today.start_time) > now)  {
-      return new Date(this.today.start_time);
-
-    // the store is open today but has closed for the day
-    } else if (new Date(this.today.end_time) < now) {
-      return new Date(this.next_available.start_time);
-    }
+    return this.today.available && new Date(this.today.start_time) < now
+      && new Date(this.today.end_time) > now;
   };
 
   return Availability;

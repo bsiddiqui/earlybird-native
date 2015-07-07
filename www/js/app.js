@@ -60,6 +60,12 @@ angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services', 'earlyb
     resolve: {
       items: function (Item) {
         return Item.findAll();
+      },
+      availability: function (Availability){
+        return Availability.findAll()
+        .then(function (res) {
+          return new Availability(res);
+        });
       }
     }
   })

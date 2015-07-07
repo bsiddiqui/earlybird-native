@@ -130,9 +130,13 @@ angular.module('earlybird.controllers', [])
   }
 })
 
-.controller('OrderCtrl', function ($scope, User, Order, items) {
+.controller('OrderCtrl', function ($scope, User, Order, items, availability) {
   $scope.setCurrentUser(User.currentUser);
 
+  // TODO clean this up
+  $scope.availability                 = availability;
+  $scope.availability.next_open.start_time =
+    new Date($scope.availability.next_open.start_time);
   $scope.items                        = items;
   $scope.order                        = {}
   $scope.order.item_id                = items[0].id;
@@ -155,7 +159,7 @@ angular.module('earlybird.controllers', [])
   }
 
   $scope.orderValid = function (order) {
-    return angular.isDefined(order.card_id) && angular.isDefined(order.destination_address_id);
+    return angular.isDefined(order.card_id) && angular.isDefined(order.destination_address_id) && $scope.availability.available;
   }
 
   $scope.createOrder = function (order) {
