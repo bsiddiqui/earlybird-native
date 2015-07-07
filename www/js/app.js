@@ -83,8 +83,6 @@ angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services', 'earlyb
 })
 
 .run(function($rootScope, $state, Session, User, $ionicPlatform, $cookies, User) {
-  // TODO replace with getting data
-
   $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
     // if the user is resolved, do an authorization check immediately. otherwise,
     // it'll be done when the state it resolved.

@@ -228,10 +228,7 @@ angular.module('earlybird.services', [])
   };
 
   PromoCode.redeem = function (code) {
-    return $http.post(API_URL + '/promo_codes', { code: code })
-    .then(function (res) {
-      return res.data;
-    });
+    return $http.post(API_URL + '/promo_codes', { code: code });
   };
 
   return PromoCode;

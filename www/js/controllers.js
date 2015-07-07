@@ -7,6 +7,14 @@ angular.module('earlybird.controllers', [])
     $scope.currentUser = user;
   }
 
+  $scope.alert = function (message, title) {
+    if (navigator && navigator.notification) {
+      navigator.notification.alert(message, null, title);
+    } else {
+      alert(message);
+    }
+  };
+
   $ionicModal.fromTemplateUrl('views/partials/add-address.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -21,6 +29,7 @@ angular.module('earlybird.controllers', [])
         $scope.addressModal.hide();
       })
       .error(function (err) {
+        $scope.alert(err.message, 'Uh oh, we weren\'t able to find that address');
         console.log(err);
       })
     };
@@ -40,7 +49,7 @@ angular.module('earlybird.controllers', [])
         $scope.cardModal.hide();
       })
       .error(function (err) {
-        console.log(err);
+        $scope.alert(err.message, 'Uh oh, we weren\'t able to verify that card');
       });
     };
   });
@@ -61,14 +70,13 @@ angular.module('earlybird.controllers', [])
 })
 
 .controller('SessionCtrl', function ($scope, $state, $cookies, Session, User) {
-
   $scope.login = function (params) {
     Session.create(params)
     .success(function (res) {
       $state.go('earlybird.order');
     })
     .error(function (err) {
-      console.log(err);
+      $scope.alert(err.message, 'Uh oh, we weren\'t able to log you in');
     });
   };
 
@@ -78,7 +86,7 @@ angular.module('earlybird.controllers', [])
       $state.go('earlybird.order');
     })
     .error(function (err) {
-      console.log(err);
+      $scope.alert(err.message, 'Uh oh, we weren\'t able to register you');
     });
   };
 })
@@ -86,6 +94,7 @@ angular.module('earlybird.controllers', [])
 .controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher, User, Address, Session, Card, PromoCode) {
   $scope.inputDisabled = true;
   $scope.inputs = {};
+  $scope.user = angular.copy(User.currentUser);
 
   $scope.enableInput = function (password) {
     $scope.inputDisabled = false;
@@ -93,6 +102,11 @@ angular.module('earlybird.controllers', [])
 
   $scope.disableInput = function () {
     $scope.inputDisabled = true;
+  }
+
+  $scope.cancelInput = function () {
+    $scope.user = angular.copy(User.currentUser);
+    $scope.disableInput();
   }
 
   $scope.saveInput = function (user) {
@@ -107,16 +121,19 @@ angular.module('earlybird.controllers', [])
       $scope.inputDisabled = true;
     })
     .error(function (err) {
-      console.log(err);
+      $scope.alert(err.message, 'Update failed');
     });
   }
 
   $scope.redeemPromo = function (code) {
     return PromoCode.redeem(code)
-    .then(function (res) {
+    .success(function (data) {
       // TODO alert success
       $scope.inputs.code = undefined;
-      $scope.currentUser.promo_codes.push(res);
+      $scope.currentUser.promo_codes.push(data);
+    })
+    .error(function (err) {
+      $scope.alert(err.message, 'Uh oh, we weren\'t able to add that promo')
     });
   };
 
@@ -154,7 +171,7 @@ angular.module('earlybird.controllers', [])
   $scope.items                        = items;
   $scope.order                        = {}
   $scope.order.item_id                = items[0].id;
-  $scope.order.quantity               = 1;
+  $scope.order.quantity               = 0;
   $scope.order.card_id                =
     User.currentUser.cards[0] && User.currentUser.cards[0].id;
   $scope.order.destination_address_id =
@@ -165,7 +182,7 @@ angular.module('earlybird.controllers', [])
   };
 
   $scope.decQuantity = function () {
-    if ($scope.order.quantity === 1) {
+    if ($scope.order.quantity === 0) {
       return
     } else {
       $scope.order.quantity--;
@@ -173,7 +190,10 @@ angular.module('earlybird.controllers', [])
   };
 
   $scope.orderValid = function (order) {
-    return angular.isDefined(order.card_id) && angular.isDefined(order.destination_address_id) && $scope.availability.available;
+    return angular.isDefined(order.card_id) &&
+      angular.isDefined(order.destination_address_id) &&
+      $scope.order.quantity > 0;
+      $scope.availability.now();
   };
 
   $scope.createOrder = function (order) {
@@ -182,7 +202,7 @@ angular.module('earlybird.controllers', [])
       // TODO do something
     })
     .error(function (err) {
-      console.log(err);
+      $scope.alert(err.message, 'Uh oh, something looks wrong with your order');
     });
   };
 })

@@ -20,7 +20,7 @@
       </div>
 
       <div class="order-quantity item item-fixed item-input">
-        <button ng-click="decQuantity()" ng-disabled="order.quantity<=1" class="button button-small button-icon icon ion-minus-circled"></button>
+        <button ng-click="decQuantity()" ng-disabled="order.quantity<=0" class="button button-small button-icon icon ion-minus-circled"></button>
         <div class="item-label-center">
           Quantity: {{order.quantity}}
         </div>

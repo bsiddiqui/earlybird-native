@@ -7,9 +7,9 @@
     </div>
 
     <div class="header-switch" ng-switch-when="false">
-      <button ng-click="disableInput()" class="button button-clear button-icon icon">Cancel</button>
+      <button ng-click="cancelInput()" class="button button-clear button-icon icon">Cancel</button>
       <h1 class="title">Settings</h1>
-      <button ng-click="saveInput(currentUser)" class="button button-clear button-icon icon">Save</button>
+      <button ng-click="saveInput(user)" class="button button-clear button-icon icon">Save</button>
     </div>
   </ion-header-bar>
 
@@ -22,22 +22,22 @@
       <fieldset ng-disabled="inputDisabled">
         <label class="item item-fixed item-input">
           <span class="input-label">First Name</span>
-          <input type="text" ng-model="currentUser.first_name"></input>
+          <input type="text" ng-model="user.first_name"></input>
         </label>
 
         <label class="item item-fixed item-input">
           <span class="input-label">Last Name</span>
-          <input type="text" ng-model="currentUser.last_name"></input>
+          <input type="text" ng-model="user.last_name"></input>
         </label>
 
         <label class="item item-fixed item-input">
           <span class="input-label">Email</span>
-          <input type="text" ng-model="currentUser.email"></input>
+          <input type="text" ng-model="user.email"></input>
         </label>
 
         <label class="item item-fixed item-input">
           <span class="input-label">Phone</span>
-          <input type="text" ng-model="currentUser.phone"></input>
+          <input type="text" ng-model="user.phone"></input>
         </label>
       </fieldset>
 
