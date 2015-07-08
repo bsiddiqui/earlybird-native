@@ -41,12 +41,12 @@
         <i class="radio-icon ion-checkmark-circled button-opaque"></i>
       </label>
 
-      <label class="order-add-address item item-button-right">
+      <div class="order-add-address item item-button-right">
         <div>
           Add Address
         </div>
         <button ng-click="addressModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
-      </label>
+      </div>
 
       <div class="item item-divider">
         Payment Details
@@ -61,12 +61,12 @@
         <i class="radio-icon ion-checkmark-circled button-opaque"></i>
       </label>
 
-      <label class="order-add-card item item-button-right">
+      <div class="order-add-card item item-button-right">
         <div>
           Add Payment
         </div>
         <button ng-click="cardModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
-      </label>
+      </div>
 
       <button ng-show="availability.now()" ng-disabled="!orderValid(order)" class="button button-block button-balanced" ng-click="createOrder(order)">Place Order: ${{order.quantity * items[0].price}}</button>
       <button ng-hide="availability.now()" ng-disabled="true" class="button button-block button-balanced">We're closed until {{availability.next_open.start_time | date : 'EEEE @ H:mm a'}}</button>
