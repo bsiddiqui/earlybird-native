@@ -15,6 +15,14 @@ angular.module('earlybird.controllers', [])
     }
   };
 
+  $scope.confirm = function (message, callback, title) {
+    if (navigator && navigator.notification) {
+      navigator.notification.confirm(title, callback, message, ['Yes', 'No']);
+    } else {
+      callback(1);
+    }
+  }
+
   $ionicModal.fromTemplateUrl('views/partials/add-address.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -138,12 +146,18 @@ angular.module('earlybird.controllers', [])
   };
 
   $scope.logout = function () {
-    Session.delete()
-    .then(function() {
-      $ionicViewSwitcher.nextDirection('exit');
-      $scope.setCurrentUser(undefined)
-      $state.go('earlybird.home');
-    });
+    $scope.confirm('Logout', function (res) {
+      if (res === 1) {
+        Session.delete()
+        .then(function() {
+          $ionicViewSwitcher.nextDirection('exit');
+          $scope.setCurrentUser(undefined)
+          $state.go('earlybird.home');
+        });
+      } else {
+        return;
+      }
+    }, 'Are you sure you would like to sign out?');
   };
 
   $scope.deleteAddress = function (address, index) {
@@ -171,7 +185,7 @@ angular.module('earlybird.controllers', [])
   $scope.items                        = items;
   $scope.order                        = {}
   $scope.order.item_id                = items[0].id;
-  $scope.order.quantity               = 0;
+  $scope.order.quantity               = 1;
   $scope.order.card_id                =
     User.currentUser.cards[0] && User.currentUser.cards[0].id;
   $scope.order.destination_address_id =
@@ -182,7 +196,7 @@ angular.module('earlybird.controllers', [])
   };
 
   $scope.decQuantity = function () {
-    if ($scope.order.quantity === 0) {
+    if ($scope.order.quantity === 1) {
       return
     } else {
       $scope.order.quantity--;

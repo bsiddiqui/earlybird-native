@@ -121,8 +121,12 @@
   margin: 0 auto;
 }
 
+.slider-pager .slider-pager-page.active {
+  color: #E15726;
+}
+
 .slider-pager .slider-pager-page {
-  /* color: #E42012; */
+  color: #ADB2BB;
 }
 
 /* general UI changes */
@@ -214,13 +218,33 @@
   white-space: normal;
 }
 
-.card .item-image img {
+.item.item-image {
+  padding: 10px 0 10px 0;
+}
+
+.item-image img {
   border-radius: 2px;
+}
+
+.item.item-description {
+  border-top: none;
+}
+
+.item.item-description h2 {
+  white-space: normal;
+}
+
+.item-radio input:checked ~ i.radio-icon {
+  color: rgb(25, 204, 203)
 }
 
 .item-radio i.radio-icon.button-opaque {
   visibility: visible;
   opacity: 0.4
+}
+
+.ion-ios-trash-outline.button-icon {
+  color: #e15726;
 }
 
 .modal {
@@ -242,3 +266,21 @@
 .button-icon img {
   height: 100%;
 }
+
+.title-image {
+  margin-top: 10px;
+  height: 27px;
+}
+
+.button-block {
+  border-radius: 10px;
+}
+
+.button.button-light {
+  color: #e15726;
+}
+
+.settings, .order {
+  background-color: #F5F5F5;
+}
+
