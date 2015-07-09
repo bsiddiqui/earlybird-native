@@ -27,7 +27,7 @@ angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services', 'earlyb
         return Session.authorize();
       }
     },
-    template: '<ui-view/>'
+    template: '<ion-nav-view><ion-nav-view/>'
   })
   .state('earlybird.home', {
     url: '/home',
