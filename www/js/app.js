@@ -98,5 +98,11 @@ angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services', 'earlyb
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
     }
+
+    if(navigator && navigator.splashscreen) {
+      setTimeout(function() {
+        navigator.splashscreen.hide();
+      }, 500);
+    }
   });
 })

@@ -32,12 +32,8 @@
   font-family: 'San Francisco' !important;
 }
 
-.home .scroll-content {
-  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../img/bg-coffee.png') no-repeat fixed;
-  -webkit-background-size: contain;
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  background-size: contain;
+.home {
+  background-color: #e15726;
 }
 
 .home-text {
@@ -278,6 +274,43 @@
 
 .button.button-light {
   color: #e15726;
+}
+
+.home-text button {
+  margin: 10px auto;
+  text-align: center;
+  display: block;
+  border-radius: 25px;
+  width: 80%;
+}
+
+.button.button-light.button-clear {
+  border: 2px solid #FFF;
+  color: #FFF;
+  transition: 500ms ease all;
+}
+
+.button.button-light {
+  transition: 500ms ease all;
+}
+
+.button.button-light:hover {
+  color: #e15726;
+}
+
+.button.button-light.button-clear:active {
+  width: 70%;
+  opacity: 1;
+  background-color: #FFF;
+  color: #e15726;
+}
+
+.button.button-light:active {
+  width: 70%;
+  opacity: 1;
+  border: 2px solid #FFF;
+  color: #FFF;
+  background-color: #e15726;
 }
 
 .settings, .order {
