@@ -106,3 +106,41 @@ angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services', 'earlyb
     }
   });
 })
+.directive('resetField', ['$compile', '$timeout', function($compile, $timeout) {
+  return {
+    require: 'ngModel',
+    scope: {},
+    link: function(scope, el, attrs, ctrl) {
+      // compiled reset icon template
+      var template = $compile('<i ng-show="enabled" on-touch="resetField()" class="icon ion-ios-close reset-field-icon"></i>')(scope);
+      el.addClass("reset-field");
+      el.after(template);
+
+      scope.resetField = function () {
+        ctrl.$setViewValue(null);
+        ctrl.$render();
+        $timeout(function () {
+          el[0].focus();
+        }, 0, false);
+        scope.enabled = false;
+      };
+
+      el
+      .bind('input', function () {
+        scope.enabled = !ctrl.$isEmpty(el.val());
+      })
+      .bind('focus', function () {
+        $timeout(function () { //Timeout just in case someone else is listening to focus and alters model
+          scope.enabled = !ctrl.$isEmpty(el.val());
+          scope.$apply();
+        }, 0, false);
+      })
+      .bind('blur', function () {
+        $timeout(function () {
+          scope.enabled = false;
+          scope.$apply();
+        }, 0, false);
+      });
+    }
+  };
+}]);
