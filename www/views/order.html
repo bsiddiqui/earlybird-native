@@ -20,11 +20,11 @@
         </div>
 
         <div class="order-quantity item item-fixed item-input">
-          <button ng-click="decQuantity()" ng-disabled="order.quantity<=1" class="button button-small button-icon icon ion-ios-minus-outline"></button>
+          <button ng-click="decQuantity(item)" ng-disabled="!item.quantity>0" class="button button-small button-icon icon ion-ios-minus-outline"></button>
           <div class="item-label-center">
-            Quantity: {{order.quantity}}
+            Quantity: {{item.quantity || 0}}
           </div>
-          <button ng-click="incQuantity()" class="button button-icon icon ion-ios-plus-outline"></button>
+          <button ng-click="incQuantity(item)" class="button button-icon icon ion-ios-plus-outline"></button>
         </div>
       </div>
 
@@ -72,7 +72,7 @@
     </form>
 
     <div class="list list-inset">
-      <button ng-show="availability.now()" ng-disabled="!orderValid(order)" class="order-button button button-block button-balanced" ng-click="createOrder(order)">Place Order: ${{order.quantity * items[0].price}}</button>
+      <button ng-show="availability.now()" ng-disabled="!orderValid(order)" class="order-button button button-block button-balanced" ng-click="createOrder(order)">Place Order: ${{orderTotal(items)}}</button>
       <button ng-hide="availability.now()" ng-disabled="true" class="button button-block button-balanced">We're closed until {{availability.next_open.start_time | date : 'EEEE @ H:mm a'}}</button>
     </div>
   </ion-content>

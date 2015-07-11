@@ -186,15 +186,19 @@ angular.module('earlybird.controllers', [])
   $scope.order.destination_address_id =
     User.currentUser.addresses[0] && User.currentUser.addresses[0].id;
 
-  $scope.incQuantity = function () {
-    $scope.order.quantity++;
+  $scope.incQuantity = function (item) {
+    if (item.quantity) {
+      item.quantity++;
+    } else {
+      item.quantity = 1;
+    }
   };
 
-  $scope.decQuantity = function () {
-    if ($scope.order.quantity === 1) {
+  $scope.decQuantity = function (item) {
+    if (item.quantity === 0) {
       return
     } else {
-      $scope.order.quantity--;
+      item.quantity--;
     }
   };
 
@@ -203,6 +207,16 @@ angular.module('earlybird.controllers', [])
       angular.isDefined(order.destination_address_id) &&
       $scope.order.quantity > 0;
       $scope.availability.now();
+  };
+
+  $scope.orderTotal = function (items) {
+    var total = 0;
+
+    _.forEach(items, function (item) {
+      total += (item.price * item.quantity) || 0;
+    })
+
+    return total;
   };
 
   $scope.createOrder = function (order) {
