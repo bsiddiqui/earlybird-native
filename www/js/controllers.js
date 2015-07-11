@@ -100,21 +100,14 @@ angular.module('earlybird.controllers', [])
 })
 
 .controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher, User, Address, Session, Card, PromoCode) {
-  $scope.inputDisabled = true;
+  $scope.inputDisabled = false;
   $scope.inputs = {};
   $scope.user = angular.copy(User.currentUser);
 
-  $scope.enableInput = function (password) {
-    $scope.inputDisabled = false;
-  }
-
-  $scope.disableInput = function () {
-    $scope.inputDisabled = true;
-  }
-
   $scope.cancelInput = function () {
     $scope.user = angular.copy(User.currentUser);
-    $scope.disableInput();
+    $ionicViewSwitcher.nextDirection('forward');
+    $state.go('earlybird.order');
   }
 
   $scope.saveInput = function (user) {
@@ -134,6 +127,8 @@ angular.module('earlybird.controllers', [])
   }
 
   $scope.redeemPromo = function (code) {
+    if (!angular.isDefined(code)) return;
+
     return PromoCode.redeem(code)
     .success(function (data) {
       // TODO alert success

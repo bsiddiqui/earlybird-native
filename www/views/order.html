@@ -3,21 +3,19 @@
     <button ui-sref="earlybird.settings" nav-direction="back" class="button button-clear button-icon icon ion-ios-settings">
     </button>
     <h1 class="title"><img class="title-image" src="img/img-logo-white.png"></img></h1>
-    <button ui-sref="earlybird.sharing" nav-direction="forward" class="button button-clear button-icon icon">
-      <img src="img/ic-promocode-white2x.png"></img>
-    </button>
+    <!-- <button ui&#45;sref="earlybird.sharing" nav&#45;direction="forward" class="button button&#45;clear button&#45;icon icon"> -->
+      <!-- <img src="img/ic&#45;promocode&#45;white2x.png"></img> -->
+    <!-- </button> -->
   </ion-header-bar>
 
   <ion-content scroll="true">
-
-    <form name="orderForm" class="list">
-      <div class="" ng-repeat="item in items">
+      <div class="list list-inset" ng-repeat="item in items">
         <div class="item item-image">
           <img ng-src="{{item.image}}"></img>
         </div>
 
         <div class="item item-description">
-          <h2>{{item.title}}</h2>
+          <h2>{{item.title}} - ${{item.price}}</h2>
           <p>{{item.description}}</p>
         </div>
 
@@ -30,6 +28,7 @@
         </div>
       </div>
 
+    <form name="orderForm" class="list list-inset">
       <div class="item item-divider">
         Destination
       </div>
@@ -53,8 +52,10 @@
         Payment Details
       </div>
 
-      <label class="order-card item item-fixed item-radio item-avatar" ng-repeat="card in currentUser.cards">
-        <img ng-src="img/ic-payment-{{card.type}}2x.png">
+      <label class="order-card item item-fixed item-radio item-icon-left" ng-repeat="card in currentUser.cards">
+        <i class="icon icon-image">
+          <img ng-src="img/ic-payment-{{card.type}}2x.png">
+        </i>
         <input type="radio" ng-value="card.id" required ng-model="order.card_id">
         <h2>{{card.title}}</h2>
         <p>{{card.last_four}}</p>
@@ -68,9 +69,11 @@
         </div>
         <button ng-click="cardModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </div>
+    </form>
 
+    <div class="list list-inset">
       <button ng-show="availability.now()" ng-disabled="!orderValid(order)" class="order-button button button-block button-balanced" ng-click="createOrder(order)">Place Order: ${{order.quantity * items[0].price}}</button>
       <button ng-hide="availability.now()" ng-disabled="true" class="button button-block button-balanced">We're closed until {{availability.next_open.start_time | date : 'EEEE @ H:mm a'}}</button>
-    </form>
+    </div>
   </ion-content>
 </div>

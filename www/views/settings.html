@@ -1,20 +1,12 @@
 <div class="settings ng-cloak">
-  <ion-header-bar class="bar-assertive" ng-switch="inputDisabled">
-    <div class="header-switch" ng-switch-when="true">
-      <button ui-sref="earlybird.order" nav-direction="forward" class="button button-clear button-icon icon ion-ios-close-empty"></button>
-      <h1 class="title">Settings</h1>
-      <button ng-click="enableInput()" class="button button-clear button-icon icon ion-ios-compose-outline"></button>
-    </div>
-
-    <div class="header-switch" ng-switch-when="false">
+  <ion-header-bar class="bar-assertive">
       <button ng-click="cancelInput()" class="button button-clear button-icon icon">Cancel</button>
       <h1 class="title">Settings</h1>
       <button ng-click="saveInput(user)" class="button button-clear button-icon icon">Save</button>
-    </div>
   </ion-header-bar>
 
   <ion-content scroll="true">
-    <div class="list">
+    <ion-list type="list-inset">
       <div class="item item-divider">
         General
       </div>
@@ -45,13 +37,15 @@
         Addresses
       </div>
 
-      <div class="item item-fixed item-button-right" ng-repeat="address in currentUser.addresses">
+      <ion-item class="item-fixed" ng-repeat="address in currentUser.addresses">
         <h2>{{address.title}}</h2>
         <p>{{address.street1}} {{' ' + address.street2}}, {{address.city}}, {{address.state}} {{address.zip}}</p>
-        <button class="button button-icon icon ion-ios-trash-outline" ng-hide="inputDisabled" ng-click="deleteAddress(address, $index)"></button>
-      </div>
+        <ion-option-button class="button-assertive" ng-click="deleteAddress(address, $index)">
+          Delete
+        </ion-option-button>
+      </ion-item>
 
-      <div class="order-add-address item item-button-right">
+      <div class="order-add-address item item-fixed item-button-right">
         <div>Add Address</div>
         <button ng-click="addressModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </div>
@@ -60,20 +54,18 @@
         Payments
       </div>
 
-      <div ng-show="currentUser.promo_codes" class="item item-fixed item-radio item-avatar">
-        <img ng-src="img/ic-payment-creditcard2x.png"></img>
-        <h2>Earlybird Promo Balance</h2>
-        <p>${{currentUser.promoBalance()}}</p>
-      </div>
-
-      <div class="item item-fixed item-radio item-button-right item-avatar" ng-repeat="card in currentUser.cards">
-        <img ng-src="img/ic-payment-{{card.type}}2x.png"></img>
+      <ion-item class="item-fixed item-icon-left" ng-repeat="card in currentUser.cards">
+        <i class="icon icon-image">
+          <img ng-src="img/ic-payment-{{card.type}}2x.png"></img>
+        </i>
         <h2>{{card.title}}</h2>
         <p>{{card.last_four}}</p>
-        <button class="button button-icon icon ion-ios-trash-outline" ng-hide="inputDisabled" ng-click="deleteCard(card, $index)"></button>
-      </div>
+        <ion-option-button class="button-assertive" ng-click="deleteCard(card, $index)">
+          Delete
+        </ion-option-button>
+      </ion-item>
 
-      <div class="order-add-card item item-button-right">
+      <div class="order-add-card item item-fixed item-button-right">
         <div>Add Payment</div>
         <button ng-click="cardModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </div>
@@ -86,9 +78,19 @@
         <label class="item-input-wrapper">
           <input type="text" ng-model="inputs.code"></input>
         </label>
-        <button class="button button-positive button-small" ng-click="redeemPromo(inputs.code)">Apply</button>
+        <button class="button button-assertive button-small" ng-click="redeemPromo(inputs.code)">Apply</button>
       </div>
 
+      <div ng-show="currentUser.promo_codes" class="item item-fixed item-icon-left">
+        <i class="icon icon-image">
+          <img ng-src="img/ic-promocode2x.png"></img>
+        </i>
+        <h2>Earlybird Promo Balance</h2>
+        <p>${{currentUser.promoBalance()}}</p>
+      </div>
+    </ion-list>
+
+    <div class="list list-inset">
       <button class="button button-block button-light" ng-click="logout()">Logout</button>
     </div>
   </ion-content>

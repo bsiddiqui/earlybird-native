@@ -1,11 +1,13 @@
 angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services', 'earlybird.controllers'])
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider, $provide) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, $provide, $ionicConfigProvider) {
   $httpProvider.defaults.useXDomain     = true;
   $httpProvider.defaults.xsrfCookieName = 'csrftoken';
   $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 
   $httpProvider.interceptors.push('HeadersInjector');
+
+  $ionicConfigProvider.views.swipeBackEnabled(false);
 
   $provide.decorator('$state', function ($delegate, $rootScope) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
