@@ -190,8 +190,6 @@ angular.module('earlybird.controllers', [])
     new Date($scope.availability.next_open.start_time);
   $scope.items                        = items;
   $scope.order                        = {}
-  $scope.order.item_id                = items[0].id;
-  $scope.order.quantity               = 1;
   $scope.order.card_id                =
     User.currentUser.cards[0] && User.currentUser.cards[0].id;
   $scope.order.destination_address_id =
