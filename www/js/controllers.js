@@ -1,6 +1,7 @@
 angular.module('earlybird.controllers', [])
 
-.controller('AppCtrl', function ($scope, $ionicModal, Card, User, Address) {
+.controller('AppCtrl', function ($scope, $ionicModal, $ionicLoading, Card,
+      User, Address) {
   $scope.currentUser = User.currentUser;
 
   $scope.setCurrentUser = function (user) {
@@ -25,16 +26,20 @@ angular.module('earlybird.controllers', [])
 
   $ionicModal.fromTemplateUrl('views/partials/add-address.html', {
     scope: $scope,
-    animation: 'slide-in-up'
+    animation: 'slide-in-up',
+    focusFirstInput: true
   })
   .then(function(modal) {
     $scope.addressModal = modal;
 
     $scope.createAddress = function (address) {
+      $ionicLoading.show();
+
       return Address.create(address)
       .success(function (data) {
         $scope.currentUser.addresses.push(data);
         $scope.addressModal.hide();
+        $ionicLoading.hide();
       })
       .error(function (err) {
         $scope.alert(err.message, 'Uh oh, we weren\'t able to find that address');
@@ -45,16 +50,20 @@ angular.module('earlybird.controllers', [])
 
   $ionicModal.fromTemplateUrl('views/partials/add-card.html', {
     scope: $scope,
-    animation: 'slide-in-up'
+    animation: 'slide-in-up',
+    focusFirstInput: true
   })
   .then(function(modal) {
     $scope.cardModal = modal;
 
     $scope.createCard = function (card) {
+      $ionicLoading.show();
+
       return Card.create(card)
       .success(function (data) {
         $scope.currentUser.cards.push(data);
         $scope.cardModal.hide();
+        $ionicLoading.hide();
       })
       .error(function (err) {
         $scope.alert(err.message, 'Uh oh, we weren\'t able to verify that card');
@@ -99,8 +108,8 @@ angular.module('earlybird.controllers', [])
   };
 })
 
-.controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher, User, Address, Session, Card, PromoCode) {
-  $scope.inputDisabled = false;
+.controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher,
+      $ionicLoading, User, Address, Session, Card, PromoCode) {
   $scope.inputs = {};
   $scope.user = angular.copy(User.currentUser);
 
@@ -111,6 +120,8 @@ angular.module('earlybird.controllers', [])
   }
 
   $scope.saveInput = function (user) {
+    $ionicLoading.show()
+
     return User.update({
       first_name: user.first_name,
       last_name: user.last_name,
@@ -118,8 +129,8 @@ angular.module('earlybird.controllers', [])
       phone: user.phone
     })
     .success(function () {
+      $state.go('earlybird.order')
       $scope.setCurrentUser(User.currentUser);
-      $scope.inputDisabled = true;
     })
     .error(function (err) {
       $scope.alert(err.message, 'Update failed');

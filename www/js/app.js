@@ -1,6 +1,12 @@
-angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services', 'earlybird.controllers'])
+angular.module('earlybird', [
+  'ionic',
+  'ngCookies',
+  'earlybird.services',
+  'earlybird.controllers'
+])
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider, $provide, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, $provide,
+      $ionicConfigProvider) {
   $httpProvider.defaults.useXDomain     = true;
   $httpProvider.defaults.xsrfCookieName = 'csrftoken';
   $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -10,7 +16,8 @@ angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services', 'earlyb
   $ionicConfigProvider.views.swipeBackEnabled(false);
 
   $provide.decorator('$state', function ($delegate, $rootScope) {
-    $rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
+    $rootScope.$on('$stateChangeStart', function(event, toState,
+          toStateParams) {
       $delegate.toState = toState;
       $delegate.toStateParams = toStateParams;
     });
@@ -82,6 +89,11 @@ angular.module('earlybird', ['ionic', 'ngCookies', 'earlybird.services', 'earlyb
     templateUrl: 'views/sharing.html',
     requireAuth: true
   })
+})
+
+.constant('$ionicLoadingConfig', {
+  template: '<ion-spinner icon="ios"></ion-spinner',
+  hideOnStateChange: true
 })
 
 .run(function($rootScope, $state, Session, User, $ionicPlatform, $cookies, User) {
