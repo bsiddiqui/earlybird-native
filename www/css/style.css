@@ -304,28 +304,29 @@
 .button.button-light.button-clear {
   border: 2px solid #FFF;
   color: #FFF;
-  transition: 500ms ease all;
 }
 
-.button.button-light {
+.home-text-buttons .button.button-light,
+.home-textbuttons .button.button-light-button-clear {
   transition: 500ms ease all;
 }
 
 .button.button-light:hover {
   color: #e15726;
 }
+
 .button.button-light.button-clear:hover {
   color: #fff;
 }
 
-.button.button-light.button-clear:active {
+.home-text-buttons .button.button-light.button-clear:active {
   width: 70%;
   opacity: 1;
   background-color: #FFF;
   color: #e15726;
 }
 
-.button.button-light:active {
+.home-text-buttons .button.button-light:active {
   width: 70%;
   opacity: 1;
   border: 2px solid #FFF;
