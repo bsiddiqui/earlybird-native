@@ -6,7 +6,7 @@
   </ion-header-bar>
 
   <ion-content scroll="false">
-    <form name="loginForm.form" class="list list-inset">
+    <form name="loginForm.form" class="list list-inset" on-submit="login(loginForm.params)">
       <label focus-me class="item item-fixed item-input">
         <input type="email" required reset-field ng-model="loginForm.params.email" placeholder="Email">
       </label>

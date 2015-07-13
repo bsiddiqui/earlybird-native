@@ -42,7 +42,7 @@ angular.module('earlybird.controllers', [])
         $ionicLoading.hide();
       })
       .error(function (err) {
-        $scope.alert(err.message, 'Uh oh, we weren\'t able to find that address');
+        $scope.alert(err.message, 'Address creation failed');
         console.log(err);
       })
     };
@@ -66,7 +66,7 @@ angular.module('earlybird.controllers', [])
         $ionicLoading.hide();
       })
       .error(function (err) {
-        $scope.alert(err.message, 'Uh oh, we weren\'t able to verify that card');
+        $scope.alert(err.message, 'Card verification failed');
       });
     };
   });
@@ -86,24 +86,31 @@ angular.module('earlybird.controllers', [])
   $ionicSlideBoxDelegate.update();
 })
 
-.controller('SessionCtrl', function ($scope, $state, $cookies, Session, User) {
+.controller('SessionCtrl', function ($scope, $state, $cookies, $ionicLoading,
+      Session, User) {
   $scope.login = function (params) {
+    $ionicLoading.show();
+
     Session.create(params)
     .success(function (res) {
       $state.go('earlybird.order');
     })
     .error(function (err) {
-      $scope.alert(err.message, 'Uh oh, we weren\'t able to log you in');
+      $ionicLoading.hide();
+      $scope.alert(err.message, 'Login error');
     });
   };
 
   $scope.register = function (params) {
+    $ionicLoading.show();
+
     User.create(params)
     .success(function () {
       $state.go('earlybird.order');
     })
     .error(function (err) {
-      $scope.alert(err.message, 'Uh oh, we weren\'t able to register you');
+      $ionicLoading.show();
+      $scope.alert(err.message, 'Registeration error');
     });
   };
 })
@@ -133,6 +140,7 @@ angular.module('earlybird.controllers', [])
       $scope.setCurrentUser(User.currentUser);
     })
     .error(function (err) {
+      $ionicLoading.hide();
       $scope.alert(err.message, 'Update failed');
     });
   }
@@ -147,13 +155,15 @@ angular.module('earlybird.controllers', [])
       $scope.currentUser.promo_codes.push(data);
     })
     .error(function (err) {
-      $scope.alert(err.message, 'Uh oh, we weren\'t able to add that promo')
+      $scope.alert(err.message, 'Promo redemption failed')
     });
   };
 
   $scope.logout = function () {
     $scope.confirm('Logout', function (res) {
       if (res === 1) {
+        $ionicLoading.show();
+
         Session.delete()
         .then(function() {
           $ionicViewSwitcher.nextDirection('exit');
@@ -229,12 +239,22 @@ angular.module('earlybird.controllers', [])
   };
 
   $scope.createOrder = function (order) {
+    order.order_items = []
+
+    _.forEach($scope.items, function (item) {
+      if (!item.quantity > 0) return;
+      order.order_items.push({
+        item_id: item.id,
+        quantity: item.quantity
+      });
+    })
+
     return Order.create(order)
     .success(function () {
       // TODO do something
     })
     .error(function (err) {
-      $scope.alert(err.message, 'Uh oh, something looks wrong with your order');
+      $scope.alert(err.message, 'Order submission failed');
     });
   };
 })

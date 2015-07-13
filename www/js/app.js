@@ -165,4 +165,17 @@ angular.module('earlybird', [
       }, 500);
     }
   };
+})
+.directive('onSubmit', function () {
+  return function (scope, element, attrs) {
+    element.bind("keydown keypress", function (event) {
+      if(event.which === 13) {
+        scope.$apply(function (){
+          scope.$eval(attrs.onSubmit);
+        });
+
+        event.preventDefault();
+      }
+    });
+  };
 });;

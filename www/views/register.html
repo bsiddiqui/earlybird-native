@@ -6,7 +6,7 @@
   </ion-header-bar>
 
   <ion-content scroll="false">
-    <form name="registerForm.form" class="list list-inset">
+    <form name="registerForm.form" class="list list-inset" on-submit="register(registerForm.params)">
       <label focus-me class="item item-fixed item-input">
         <input type="text" reset-field required ng-model="registerForm.params.first_name" placeholder="First name">
       </label>
@@ -17,7 +17,7 @@
         <input type="email" reset-field required ng-model="registerForm.params.email" placeholder="Email">
       </label>
       <label class="item item-fixed item-input">
-        <input type="text" reset-field required ng-model="registerForm.params.phone" placeholder="Phone">
+        <input type="tel" reset-field required ng-model="registerForm.params.phone" placeholder="Phone">
       </label>
       <label class="item item-fixed item-input">
         <input type="password" reset-field required ng-model="registerForm.params.password" placeholder="Password">
