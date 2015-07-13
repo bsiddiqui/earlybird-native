@@ -155,4 +155,14 @@ angular.module('earlybird', [
       });
     }
   };
-}]);
+}])
+.directive('focusMe', function($timeout) {
+  return {
+    link: function(scope, element, attrs) {
+      if (element[0].firstElementChild == document.activeElement) return;
+      $timeout(function() {
+        element[0].focus();
+      }, 500);
+    }
+  };
+});;
