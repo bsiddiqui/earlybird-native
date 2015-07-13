@@ -1,8 +1,8 @@
 <ion-modal-view ng-init="newAddress={}">
   <ion-header-bar>
-    <button class="button button-clear" ng-click="addressModal.hide()">Cancel</button>
+    <button class="button button-clear" on-touch="addressModal.hide()">Cancel</button>
     <h1 class="title">Add Address</h1>
-    <button ng-disabled="newAddress.form.$invalid" class="button button-clear" ng-click="createAddress(newAddress)">Add</button>
+    <button ng-disabled="newAddress.form.$invalid" class="button button-clear" on-touch="createAddress(newAddress)">Add</button>
   </ion-header-bar>
 
   <ion-content scroll="false">

@@ -1,8 +1,8 @@
 <div class="settings ng-cloak">
   <ion-header-bar class="bar-assertive">
-      <button ng-click="cancelInput()" class="button button-clear button-icon icon">Cancel</button>
+      <button on-touch="cancelInput()" class="button button-clear button-icon icon">Cancel</button>
       <h1 class="title">Settings</h1>
-      <button ng-click="saveInput(user)" class="button button-clear button-icon icon">Save</button>
+      <button on-touch="saveInput(user)" class="button button-clear button-icon icon">Save</button>
   </ion-header-bar>
 
   <ion-content scroll="true">
@@ -40,14 +40,14 @@
       <ion-item class="item-fixed" ng-repeat="address in currentUser.addresses">
         <h2>{{address.title}}</h2>
         <p>{{address.street1}} {{' ' + address.street2}}, {{address.city}}, {{address.state}} {{address.zip}}</p>
-        <ion-option-button class="button-assertive" ng-click="deleteAddress(address, $index)">
+        <ion-option-button class="button-assertive" on-touch="deleteAddress(address, $index)">
           Delete
         </ion-option-button>
       </ion-item>
 
       <div class="order-add-address item item-fixed item-button-right">
         <div>Add Address</div>
-        <button ng-click="addressModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
+        <button on-touch="addressModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </div>
 
       <div class="item item-divider">
@@ -60,14 +60,14 @@
         </i>
         <h2>{{card.title}}</h2>
         <p>{{card.last_four}}</p>
-        <ion-option-button class="button-assertive" ng-click="deleteCard(card, $index)">
+        <ion-option-button class="button-assertive" on-touch="deleteCard(card, $index)">
           Delete
         </ion-option-button>
       </ion-item>
 
       <div class="order-add-card item item-fixed item-button-right">
         <div>Add Payment</div>
-        <button ng-click="cardModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
+        <button on-touch="cardModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </div>
 
       <div class="settings-promotions">
@@ -93,7 +93,7 @@
     </ion-list>
 
     <div class="list list-inset">
-      <button class="button button-block button-light" ng-click="logout()">Logout</button>
+      <button class="button button-block button-light" on-touch="logout()">Logout</button>
     </div>
   </ion-content>
 </div>

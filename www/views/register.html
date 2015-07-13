@@ -2,7 +2,7 @@
   <ion-header-bar class="bar-assertive">
     <button nav-direction="back" ui-sref="earlybird.home" class="button button-clear button-icon icon ion-ios-arrow-back"> Back</button>
     <h1 class="title"><img class="title-image" src="img/img-logo-white.png"></img></h1>
-    <button ng-disabled="registerForm.form.$invalid" ng-click="register(registerForm.params)" class="button button-clear">Register</button>
+    <button ng-disabled="registerForm.form.$invalid" on-touch="register(registerForm.params)" class="button button-clear">Register</button>
   </ion-header-bar>
 
   <ion-content scroll="false">
