@@ -89,9 +89,15 @@ angular.module('earlybird.services', [])
   Session.authorize = function (toState) {
     return User.getCurrent()
     .then(function () {
+      // if state requires auth and user is not authenticated
       if ($state.toState.requireAuth && !User.isAuthenticated()) {
         event.preventDefault();
         $state.transitionTo('earlybird.home');
+
+      // if state doesn't require auth and user is authenticated
+      } else if (!$state.toState.requireAuth && User.isAuthenticated()) {
+        event.preventDefault();
+        $state.transitionTo('earlybird.order');
       }
     }, function () {
       if ($state.toState.requireAuth && !User.isAuthenticated()) {
