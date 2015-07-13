@@ -337,6 +337,10 @@
   background-color: #F5F5F5;
 }
 
+.settings-promotions .item-icon-left {
+  border-top: none;
+}
+
 input.reset-field {
   padding-right: 20px;
 }

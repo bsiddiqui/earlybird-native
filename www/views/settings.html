@@ -11,7 +11,7 @@
         General
       </div>
 
-      <fieldset ng-disabled="inputDisabled">
+      <fieldset>
         <label class="item item-fixed item-input">
           <span class="input-label">First Name</span>
           <input type="text" ng-model="user.first_name"></input>
@@ -70,23 +70,25 @@
         <button ng-click="cardModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
       </div>
 
-      <div class="item item-divider">
-        Promotions
-      </div>
+      <div class="settings-promotions">
+        <div class="item item-divider">
+          Promotions
+        </div>
 
-      <div class="item item-fixed item-input-inset">
-        <label class="item-input-wrapper">
-          <input type="text" ng-model="inputs.code"></input>
-        </label>
-        <button class="button button-assertive button-small" ng-click="redeemPromo(inputs.code)">Apply</button>
-      </div>
+        <div class="item item-fixed item-input-inset">
+          <label class="item-input-wrapper">
+            <input type="text" ng-model="inputs.code"></input>
+          </label>
+          <button class="button button-assertive button-small" on-touch="redeemPromo(inputs.code)">Apply</button>
+        </div>
 
-      <div ng-show="currentUser.promo_codes" class="item item-fixed item-icon-left">
-        <i class="icon icon-image">
-          <img ng-src="img/ic-promocode2x.png"></img>
-        </i>
-        <h2>Earlybird Promo Balance</h2>
-        <p>${{currentUser.promoBalance()}}</p>
+        <div ng-show="currentUser.promo_codes" class="item item-fixed item-icon-left">
+          <i class="icon icon-image">
+            <img ng-src="img/ic-promocode2x.png"></img>
+          </i>
+          <h2>Earlybird Promo Balance</h2>
+          <p>${{currentUser.promoBalance()}}</p>
+        </div>
       </div>
     </ion-list>
 
