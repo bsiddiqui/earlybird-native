@@ -163,7 +163,7 @@ angular.module('earlybird.controllers', [])
     .success(function (data) {
       // TODO alert success
       $scope.inputs.code = undefined;
-      $scope.currentUser.promo_codes.push(data);
+      $scope.currentUser.codes.push(data);
     })
     .error(function (err) {
       $scope.alert(err.message, 'Promo redemption failed')

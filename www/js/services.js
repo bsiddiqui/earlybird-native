@@ -15,7 +15,7 @@ angular.module('earlybird.services', [])
   User.prototype.promoBalance = function () {
     var balance = 0;
 
-    _.forEach(this.promo_codes, function (code) {
+    _.forEach(this.codes, function (code) {
       balance += parseFloat(code.value);
     })
 
