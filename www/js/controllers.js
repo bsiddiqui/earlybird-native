@@ -1,12 +1,19 @@
 angular.module('earlybird.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicModal, $ionicLoading, Card,
-      User, Address) {
+      User, Address, Session, $ionicPlatform) {
   $scope.currentUser = User.currentUser;
 
   $scope.setCurrentUser = function (user) {
     $scope.currentUser = user;
   }
+
+  $ionicPlatform.on('resume', function () {
+    return Session.authorize()
+    .then(function () {
+      $scope.currentUser = User.currentUser;
+    });
+  })
 
   $scope.alert = function (message, title) {
     if (navigator && navigator.notification) {
@@ -18,7 +25,12 @@ angular.module('earlybird.controllers', [])
 
   $scope.confirm = function (message, callback, title) {
     if (navigator && navigator.notification) {
-      navigator.notification.confirm(title, callback, message, ['Yes', 'No']);
+      navigator.notification.confirm(
+        title,
+        callback,
+        message,
+        ['Yes', 'No']
+      );
     } else {
       callback(1);
     }
@@ -43,7 +55,6 @@ angular.module('earlybird.controllers', [])
       })
       .error(function (err) {
         $scope.alert(err.message, 'Address creation failed');
-        console.log(err);
       })
     };
   });
@@ -191,7 +202,8 @@ angular.module('earlybird.controllers', [])
   };
 })
 
-.controller('OrderCtrl', function ($scope, User, Order, items, availability) {
+.controller('OrderCtrl', function ($scope, $timeout, $q, $ionicPlatform, User,
+      Order, Item, Availability, items, availability, needFeedback) {
   $scope.setCurrentUser(User.currentUser);
 
   // TODO clean this up
@@ -204,6 +216,18 @@ angular.module('earlybird.controllers', [])
     User.currentUser.cards[0] && User.currentUser.cards[0].id;
   $scope.order.destination_address_id =
     User.currentUser.addresses[0] && User.currentUser.addresses[0].id;
+
+  $ionicPlatform.on('resume', function () {
+    // TODO check feedback
+    return $q.all([
+      Item.findAll(),
+      Availability.findAll()
+    ])
+    .then(function (data) {
+      $scope.items        = data[0];
+      $scope.availability = data[1];
+    })
+  })
 
   $scope.incQuantity = function (item) {
     if (item.quantity) {

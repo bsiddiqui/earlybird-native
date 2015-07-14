@@ -70,7 +70,7 @@ angular.module('earlybird', [
       items: function (Item) {
         return Item.findAll();
       },
-      availability: function (Availability){
+      availability: function (Availability) {
         return Availability.findAll()
         .then(function (res) {
           return new Availability(res);
@@ -96,14 +96,15 @@ angular.module('earlybird', [
   hideOnStateChange: true
 })
 
-.run(function($rootScope, $state, Session, User, $ionicPlatform, $cookies, User) {
-  $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
-    // if the user is resolved, do an authorization check immediately. otherwise,
-    // it'll be done when the state it resolved.
+.run(function($rootScope, $state, $ionicPlatform, $cookies, Session, User) {
+  $rootScope.$on('$stateChangeStart',
+      function (event, toState, toStateParams) {
+    // if the user is resolved, do an authorization check immediately
+    // otherwise will be done when the state it resolved.
     if (User.isCurrentResolved()) {
       Session.authorize();
     }
-  })
+  });
 
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -118,13 +119,19 @@ angular.module('earlybird', [
     }
   });
 })
-.directive('resetField', ['$compile', '$timeout', function($compile, $timeout) {
+
+.directive('resetField', ['$compile', '$timeout',
+    function($compile, $timeout) {
   return {
     require: 'ngModel',
     scope: {},
     link: function(scope, el, attrs, ctrl) {
       // compiled reset icon template
-      var template = $compile('<i ng-show="enabled" on-touch="resetField()" class="icon ion-ios-close reset-field-icon"></i>')(scope);
+      var template =
+        $compile
+        ('<i ng-show="enabled" on-touch="resetField()" ' +
+         'class="icon ion-ios-close reset-field-icon"></i>')
+        (scope);
       el.addClass("reset-field");
       el.after(template);
 
@@ -142,7 +149,8 @@ angular.module('earlybird', [
         scope.enabled = !ctrl.$isEmpty(el.val());
       })
       .bind('focus', function () {
-        $timeout(function () { //Timeout just in case someone else is listening to focus and alters model
+        // timeout in case someone else is listening and alters model
+        $timeout(function () {
           scope.enabled = !ctrl.$isEmpty(el.val());
           scope.$apply();
         }, 0, false);
@@ -156,6 +164,7 @@ angular.module('earlybird', [
     }
   };
 }])
+
 .directive('focusMe', function($timeout) {
   return {
     link: function(scope, element, attrs) {
@@ -166,6 +175,7 @@ angular.module('earlybird', [
     }
   };
 })
+
 .directive('onSubmit', function () {
   return function (scope, element, attrs) {
     element.bind("keydown keypress", function (event) {
