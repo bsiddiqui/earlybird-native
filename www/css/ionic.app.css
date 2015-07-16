@@ -4318,11 +4318,11 @@ ion-tabs.tabs-color-active-dark .tab-item {
 @media (min-width: 200px) {
   .modal {
     top: 10%;
-    right: 10%;
+    right: 5%;
     bottom: 20%;
-    left: 10%;
+    left: 5%;
     min-height: 0px;
-    width: 80%; }
+    width: 90%; }
   .modal.ng-leave-active {
     bottom: 0; }
   .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) {

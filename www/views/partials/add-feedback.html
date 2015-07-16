@@ -1,0 +1,115 @@
+<ion-modal-view>
+
+  <ion-header-bar>
+    <h1 class="title">Your Earlybird</h1>
+    <button class="button button-clear" on-touch="createFeedback(feedback)">Post</button>
+  </ion-header-bar>
+
+  <ion-content scroll="false">
+    <div class="list">
+      <div ng-show="feedback.awesome">
+        <div class="item item-divider">
+          Your Order
+        </div>
+
+        <div class="item item-fixed item-feedback">
+          <span class="input-description">Description:</span>
+          <span class="input-data">Order #{{needFeedback.transaction_id}}</span>
+        </div>
+
+        <div class="item item-fixed item-feedback">
+          <span class="input-description">Order Time:</span>
+          <span class="input-data">
+            {{needFeedback.created_at | date : 'EEEE @ h:mm a'}}
+          </span>
+        </div>
+
+        <div class="item item-fixed item-feedback">
+          <span class="input-description">Delivered:</span>
+          <span class="input-data">
+            {{needFeedback.completed_time | date : 'EEEE @ h:mm a'}}
+          </span>
+        </div>
+
+        <div class="item item-fixed item-feedback">
+          <span class="input-description">Location:</span>
+          <span class="input-data">
+            <h2>{{needFeedback.destination_address.title}}</h2>
+            <p>{{needFeedback.destination_address.street1}} {{' ' + needFeedback.destination_address.street2}}, {{needFeedback.destination_address.city}}, {{needFeedback.destination_address.state}} {{needFeedback.destination_address.zip}}</p>
+          </span>
+        </div>
+
+        <div class="item item-fixed item-feedback">
+          <span class="input-description">Payment:</span>
+          <span class="input-data">
+            <h2>{{needFeedback.card.title}}</h2>
+            <p>{{needFeedback.card.last_four}}
+          </span>
+        </div>
+      </div>
+
+      <div class="item item-divider">
+        How was your experience?
+      </div>
+
+      <div class="feedback-buttons">
+        <button class="button button-light"
+                on-touch="feedback.awesome=false"
+                ng-class="{selected: !feedback.awesome}">
+          There was a problem
+        </button>
+
+        <button class="button button-light positive"
+                on-touch="feedback.awesome=true"
+                ng-class="{selected: feedback.awesome}">
+          It was awesome!
+        </button>
+      </div>
+
+      <div ng-hide="feedback.awesome">
+        <div class="item item-divider">
+          What was wrong?
+        </div>
+
+        <ul>
+          <li class="item item-checkbox">
+            <label class="checkbox">
+              <input type="checkbox" value="true" ng-model="feedback.reasons.temperature">
+            </label>
+            <span>Temperature</span>
+          </li>
+
+          <li class="item item-checkbox">
+            <label class="checkbox">
+              <input type="checkbox" ng-model="feedback.reasons.late">
+            </label>
+            <span>Delivery was late</span>
+          </li>
+
+          <li class="item item-checkbox">
+            <label class="checkbox">
+              <input type="checkbox" ng-model="feedback.reasons.friendliness">
+            </label>
+            <span>Friendliness</span>
+          </li>
+
+          <li class="item item-checkbox">
+            <label class="checkbox">
+              <input type="checkbox" ng-model="feedback.reasons.other">
+            </label>
+            <span>Other</span>
+          </li>
+        </ul>
+
+        <!-- <div class="item item&#45;divider"> -->
+        <!--   Leave a comment -->
+        <!-- </div> -->
+        <!--  -->
+        <!-- <label class="item item&#45;input"> -->
+        <!--   <textarea reset&#45;field ng&#45;model="feedback.comment" placeholder="We're sorry that your exprience wasn't awesome, we'd love to hear more"> -->
+        <!-- </label> -->
+      </div>
+    </div>
+  </ion-content>
+
+</ion-modal-view>

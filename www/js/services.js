@@ -200,6 +200,16 @@ angular.module('earlybird.services', [])
     return $http.post(API_URL + '/orders', params);
   };
 
+  // TODO handle with success/error
+  Order.needFeedback = function () {
+    return $http.get(API_URL + '/orders?without_feedback=true', { cache: false })
+    .then(function (res) {
+      return res.data.objects || {};
+    }, function (err) {
+      return err;
+    })
+  };
+
   return Order;
 })
 
@@ -209,7 +219,7 @@ angular.module('earlybird.services', [])
   }
 
   Availability.findAll = function () {
-    return $http.get(API_URL + '/availability')
+    return $http.get(API_URL + '/availability', { cache: false })
     .then(function (res) {
       return res.data;
     })
@@ -234,10 +244,22 @@ angular.module('earlybird.services', [])
   };
 
   PromoCode.redeem = function (code) {
-    return $http.post(API_URL + '/promo_codes', { code: code });
+    return $http.post(API_URL + '/codes', { code: code });
   };
 
   return PromoCode;
+})
+
+.factory('Feedback', function ($http) {
+  var Feedback = function (data) {
+    return angular.extend(this, data)
+  };
+
+  Feedback.create = function (params) {
+    return $http.post(API_URL + '/feedback', params);
+  };
+
+  return Feedback;
 })
 
 .factory('HeadersInjector', function ($injector, $cookies) {

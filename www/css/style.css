@@ -32,6 +32,10 @@
   font-family: 'San Francisco' !important;
 }
 
+p, div, span {
+  font-size: 15px;
+}
+
 .home {
   background-color: #e15726;
 }
@@ -179,15 +183,19 @@
   height: 44px;
 }
 
-.item-fixed h2 {
+.item.item-fixed h2, .item.item-fixed p {
   padding: 0px;
   margin: 0px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.item-fixed h2 {
   font-size: 12px;
 }
 
 .item-fixed p {
-  padding: 0px;
-  margin: 0px;
   font-size: 10px;
 }
 
@@ -258,6 +266,34 @@
   color: rgb(25, 204, 203)
 }
 
+.checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before {
+  background: #19CCCB;
+  border-color: #19CCCB;
+  opacity: 1;
+}
+.checkbox input:checked:after, input:checked + .checkbox-icon:after {
+  border: 1px solid #fff;
+  border-top: 0;
+  border-right: 0;
+  opacity: 1;
+}
+
+.checkbox input:after, .checkbox-icon:after {
+  border: 1px solid #444;
+  border-top: 0;
+  border-right: 0;
+  opacity: 0.4;
+}
+
+.checkbox input:before, .checkbox .checkbox-icon:before {
+  border-color: #444;
+  opacity: 0.4;
+}
+
+.item-radio input:checked ~ .item-content {
+  background-color: #fff;
+}
+
 .item-radio i.radio-icon.button-opaque {
   visibility: visible;
   opacity: 0.4
@@ -269,6 +305,18 @@
 
 .modal {
   border-radius: 5px;
+}
+
+.modal .bar-header {
+  border-radius: 5px;
+}
+
+.modal .bar-header > button:last-child {
+  color: #e15726;
+}
+
+.modal .title {
+  color: #e15726;
 }
 
 .icon > img:first-child {
@@ -334,7 +382,7 @@
   background-color: #e15726;
 }
 
-.settings, .order {
+.settings, .order, .modal {
   background-color: #F5F5F5;
 }
 
@@ -355,4 +403,51 @@ input.reset-field {
 .button.button-block {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.item-feedback .input-description {
+  color: rgb(173, 178, 187);
+}
+
+.item-feedback .input-data {
+  float: right;
+  text-align: right;
+  max-width: 60%;
+}
+
+.feedback-buttons {
+  width: 100%;
+  display: flex;
+}
+
+.feedback-buttons button {
+  width: 50%;
+  position:relative;
+  font-size: 12px;
+}
+
+.feedback-buttons button:first-child {
+  border-right: none;
+}
+
+.feedback-buttons button:last-child {
+  float: right;
+}
+
+.button.button-light.positive {
+  color: #30C83E;
+}
+
+.button.button-light.selected {
+  border-color: #CCC;
+  background-color: #FAFAFA;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox input {
+  float: right;
+}
+
+.bar-footer .title {
+  color: #30C83E;
 }

@@ -1,12 +1,15 @@
 angular.module('earlybird', [
   'ionic',
   'ngCookies',
+  'ngAnimate',
   'earlybird.services',
   'earlybird.controllers'
 ])
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, $provide,
       $ionicConfigProvider) {
+
+  $httpProvider.defaults.cache          = true;
   $httpProvider.defaults.useXDomain     = true;
   $httpProvider.defaults.xsrfCookieName = 'csrftoken';
   $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -34,6 +37,9 @@ angular.module('earlybird', [
     resolve: {
       authorize: function (Session) {
         return Session.authorize();
+      },
+      needFeedback: function (Order) {
+        return Order.needFeedback();
       }
     },
     template: '<ion-nav-view><ion-nav-view/>'
@@ -93,7 +99,8 @@ angular.module('earlybird', [
 
 .constant('$ionicLoadingConfig', {
   template: '<ion-spinner icon="ios"></ion-spinner',
-  hideOnStateChange: true
+  hideOnStateChange: true,
+  duration: 10000
 })
 
 .run(function($rootScope, $state, $ionicPlatform, $cookies, Session, User) {

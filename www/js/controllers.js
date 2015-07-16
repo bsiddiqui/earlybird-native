@@ -1,7 +1,24 @@
 angular.module('earlybird.controllers', [])
 
-.controller('AppCtrl', function ($scope, $ionicModal, $ionicLoading, Card,
-      User, Address, Session, $ionicPlatform) {
+.controller('AppCtrl', function ($scope, $ionicPlatform, $ionicModal, $interval,
+      $ionicLoading, Order, Card, User, Address, Session, Feedback, needFeedback) {
+
+  $scope.orderInProgress = needFeedback ? true : false;
+
+  $interval(function () {
+    if (!User.currentUser) return;
+    return Order.needFeedback()
+    .then(function (data) {
+      $scope.needFeedback = data[0];
+
+      if ($scope.needFeedback) {
+        $scope.resetFeedback();
+        $scope.orderInProgress = true;
+        $scope.feedbackModal.show();
+      }
+    })
+  }, 10000)
+
   $scope.currentUser = User.currentUser;
 
   $scope.setCurrentUser = function (user) {
@@ -35,6 +52,54 @@ angular.module('earlybird.controllers', [])
       callback(1);
     }
   }
+
+  $scope.needFeedback = needFeedback[0];
+  $scope.feedback = {};
+
+  $ionicModal.fromTemplateUrl('views/partials/add-feedback.html', {
+    scope: $scope,
+    animation: 'slide-in-up',
+    hardwareBackButtonClose: false,
+    backdropClickToClose: false
+  })
+  .then(function(modal) {
+    $scope.feedbackModal = modal;
+
+    $scope.resetFeedback = function () {
+      $scope.feedback.reasons  = {};
+      $scope.feedback.awesome  = true;
+      $scope.feedback.order_id = $scope.needFeedback.id;
+    };
+
+    // TODO check why passing form doesn't work when interval opens modal
+    $scope.createFeedback = function (feedback) {
+      // var feedback = $scope.form;
+
+      if (!feedback.awesome) {
+        feedback.reason = [];
+        // TODO rewrite
+        _.forEach(feedback.reasons, function (v, k) {
+          if (v) feedback.reason.push(k);
+        });
+
+        feedback.reason = feedback.reason.join(', ');
+      }
+
+      $ionicLoading.show();
+      return Feedback.create(feedback)
+      .then(function () {
+        $scope.orderInProgress = false;
+        $scope.feedbackModal.hide();
+        $ionicLoading.hide();
+      })
+    }
+
+    if ($scope.needFeedback) {
+      console.log($scope.needFeedback)
+      $scope.resetFeedback();
+      $scope.feedbackModal.show();
+    }
+  });
 
   $ionicModal.fromTemplateUrl('views/partials/add-address.html', {
     scope: $scope,
@@ -127,7 +192,8 @@ angular.module('earlybird.controllers', [])
 })
 
 .controller('SettingsCtrl', function ($scope, $state, $ionicViewSwitcher,
-      $ionicLoading, User, Address, Session, Card, PromoCode) {
+      $stateParams, $ionicLoading, User, Address, Session, Card, PromoCode) {
+
   $scope.inputs = {};
   $scope.user = angular.copy(User.currentUser);
 
@@ -202,8 +268,10 @@ angular.module('earlybird.controllers', [])
   };
 })
 
-.controller('OrderCtrl', function ($scope, $timeout, $q, $ionicPlatform, User,
-      Order, Item, Availability, items, availability, needFeedback) {
+.controller('OrderCtrl', function ($scope, $timeout, $q, $ionicPlatform,
+      $ionicLoading, $ionicModal, $interval, User, Order, Item,
+      Availability, items, availability) {
+
   $scope.setCurrentUser(User.currentUser);
 
   // TODO clean this up
@@ -217,6 +285,7 @@ angular.module('earlybird.controllers', [])
   $scope.order.destination_address_id =
     User.currentUser.addresses[0] && User.currentUser.addresses[0].id;
 
+
   $ionicPlatform.on('resume', function () {
     // TODO check feedback
     return $q.all([
@@ -225,7 +294,7 @@ angular.module('earlybird.controllers', [])
     ])
     .then(function (data) {
       $scope.items        = data[0];
-      $scope.availability = data[1];
+      $scope.availability = new Availability(data[1]);
     })
   })
 
@@ -248,8 +317,9 @@ angular.module('earlybird.controllers', [])
   $scope.orderValid = function (order) {
     return angular.isDefined(order.card_id) &&
       angular.isDefined(order.destination_address_id) &&
-      $scope.order.quantity > 0;
-      $scope.availability.now();
+      $scope.availability.now() &&
+      $scope.orderTotal($scope.items) > 0 &&
+      !$scope.orderInProgress
   };
 
   $scope.orderTotal = function (items) {
@@ -273,11 +343,14 @@ angular.module('earlybird.controllers', [])
       });
     })
 
+    $ionicLoading.show();
     return Order.create(order)
     .success(function () {
-      // TODO do something
+      $scope.orderInProgress = true;
+      $ionicLoading.hide();
     })
     .error(function (err) {
+      $ionicLoading.hide();
       $scope.alert(err.message, 'Order submission failed');
     });
   };
