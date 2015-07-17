@@ -5,7 +5,7 @@
     <button class="button button-clear" on-touch="createFeedback(feedback)">Post</button>
   </ion-header-bar>
 
-  <ion-content scroll="false">
+  <ion-content>
     <div class="list">
       <div ng-show="feedback.awesome">
         <div class="item item-divider">
@@ -101,13 +101,13 @@
           </li>
         </ul>
 
-        <!-- <div class="item item&#45;divider"> -->
-        <!--   Leave a comment -->
-        <!-- </div> -->
-        <!--  -->
-        <!-- <label class="item item&#45;input"> -->
-        <!--   <textarea reset&#45;field ng&#45;model="feedback.comment" placeholder="We're sorry that your exprience wasn't awesome, we'd love to hear more"> -->
-        <!-- </label> -->
+        <div class="item item-divider">
+          Leave a comment
+        </div>
+
+        <label class="item item-input">
+          <textarea reset-field ng-model="feedback.comment" placeholder="We're sorry that your exprience wasn't awesome, we'd love to hear more">
+        </label>
       </div>
     </div>
   </ion-content>

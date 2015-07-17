@@ -1,5 +1,5 @@
 {
-  "name": "earlybird-native",
+  "name": "Earlybird",
   "app_id": "",
   "gulpStartupTasks": [
     "sass",

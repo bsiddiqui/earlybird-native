@@ -54,7 +54,7 @@
 
       <label class="order-card item item-fixed item-radio item-icon-left" ng-repeat="card in currentUser.cards">
         <i class="icon icon-image">
-          <img ng-src="img/ic-payment-{{card.type}}2x.png">
+          <img ng-src="img/ic-payment-{{card.type || 'Default'}}2x.png">
         </i>
         <input type="radio" ng-value="card.id" required ng-model="order.card_id">
         <h2>{{card.title}}</h2>

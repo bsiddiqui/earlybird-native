@@ -1,7 +1,7 @@
 {
-  "name": "earlybird-native",
+  "name": "Earlybird",
   "version": "1.0.0",
-  "description": "earlybird-native: An Ionic project",
+  "description": "earlybird native",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^1.3.3",
@@ -21,7 +21,5 @@
     "cordova-plugin-splashscreen",
     "com.ionic.keyboard"
   ],
-  "cordovaPlatforms": [
-    "ios"
-  ]
+  "cordovaPlatforms": []
 }

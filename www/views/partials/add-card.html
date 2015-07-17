@@ -5,7 +5,7 @@
     <button ng-disabled="newCard.form.$invalid" class="button button-clear" on-touch="createCard(newCard.params)">Add</button>
   </ion-header-bar>
 
-  <ion-content scroll="false">
+  <ion-content>
     <form name="newCard.form" class="list">
       <label class="item item-input">
         <input type="text" reset-field required ng-model="newCard.params.title" placeholder="Payment nickname">
