@@ -250,7 +250,6 @@ p, div, span {
 }
 
 .item-image img {
-  max-height: 200px;
   border-radius: 2px;
 }
 

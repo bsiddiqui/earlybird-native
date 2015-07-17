@@ -189,7 +189,7 @@ angular.module('earlybird.controllers', [])
       $state.go('earlybird.order');
     })
     .error(function (err) {
-      $ionicLoading.show();
+      $ionicLoading.hide();
       $scope.alert(err.message, 'Registeration error');
     });
   };
