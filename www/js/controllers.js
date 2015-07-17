@@ -91,11 +91,15 @@ angular.module('earlybird.controllers', [])
 
       $ionicLoading.show();
       return Feedback.create(feedback)
-      .then(function () {
+      .success(function () {
         $scope.setOrderInProgress(false);
         $scope.feedbackModal.hide();
         $ionicLoading.hide();
       })
+      .error(function (err) {
+        $ionicLoading.hide();
+        $scope.alert(err.message, 'Feedback failed');
+      });
     }
 
     if ($scope.needFeedback) {
@@ -123,6 +127,7 @@ angular.module('earlybird.controllers', [])
         $ionicLoading.hide();
       })
       .error(function (err) {
+        $ionicLoading.hide();
         $scope.alert(err.message, 'Address creation failed');
       })
     };
@@ -146,6 +151,7 @@ angular.module('earlybird.controllers', [])
         $ionicLoading.hide();
       })
       .error(function (err) {
+        $ionicLoading.hide();
         $scope.alert(err.message, 'Card verification failed');
       });
     };
