@@ -1,5 +1,4 @@
-API_URL = 'http://earlybird-production-5dxaivnb9h.elasticbeanstalk.com/api/v1';
-APP_KEY = 'd60b16fc51e7f8777ca2cde70ecdcbc1682ed76b';
+API_URL = 'http://earlybird-staging-y2cd8ddjdd.elasticbeanstalk.com/api/v1';
 
 angular.module('earlybird.services', [])
 

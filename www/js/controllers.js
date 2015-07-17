@@ -3,7 +3,11 @@ angular.module('earlybird.controllers', [])
 .controller('AppCtrl', function ($scope, $ionicPlatform, $ionicModal, $interval,
       $ionicLoading, Order, Card, User, Address, Session, Feedback, needFeedback) {
 
-  $scope.orderInProgress = needFeedback ? true : false;
+  $scope.orderInProgress = needFeedback[0] ? true : false;
+
+  $scope.setOrderInProgress = function (value) {
+    $scope.orderInProgress = value;
+  }
 
   $interval(function () {
     if (!User.currentUser) return;
@@ -13,7 +17,7 @@ angular.module('earlybird.controllers', [])
 
       if ($scope.needFeedback) {
         $scope.resetFeedback();
-        $scope.orderInProgress = true;
+        $scope.setOrderInProgress(true);
         $scope.feedbackModal.show();
       }
     })
@@ -88,7 +92,7 @@ angular.module('earlybird.controllers', [])
       $ionicLoading.show();
       return Feedback.create(feedback)
       .then(function () {
-        $scope.orderInProgress = false;
+        $scope.setOrderInProgress(false);
         $scope.feedbackModal.hide();
         $ionicLoading.hide();
       })
@@ -346,7 +350,7 @@ angular.module('earlybird.controllers', [])
     $ionicLoading.show();
     return Order.create(order)
     .success(function () {
-      $scope.orderInProgress = true;
+      $scope.setOrderInProgress(true)
       $ionicLoading.hide();
     })
     .error(function (err) {
