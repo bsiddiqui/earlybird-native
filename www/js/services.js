@@ -213,6 +213,10 @@ angular.module('earlybird.services', [])
   return Order;
 })
 
+.factory('CurrentOrder', function () {
+  return {};
+})
+
 .factory('Availability', function ($http) {
   var Availability = function (data) {
     return angular.extend(this, data);

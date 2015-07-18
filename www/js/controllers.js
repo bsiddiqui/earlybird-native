@@ -1,9 +1,10 @@
 angular.module('earlybird.controllers', [])
 
-.controller('AppCtrl', function ($scope, $ionicPlatform, $ionicModal, $interval,
-      $ionicLoading, Order, Card, User, Address, Session, Feedback, needFeedback) {
+.controller('AppCtrl', function ($scope, $ionicModal, $interval,
+      $ionicLoading, Order, CurrentOrder, Card, User, Address, Session, Feedback, needFeedback) {
 
   $scope.orderInProgress = needFeedback[0] ? true : false;
+  $scope.order = CurrentOrder;
 
   $scope.setOrderInProgress = function (value) {
     $scope.orderInProgress = value;
@@ -28,13 +29,6 @@ angular.module('earlybird.controllers', [])
   $scope.setCurrentUser = function (user) {
     $scope.currentUser = user;
   }
-
-  $ionicPlatform.on('resume', function () {
-    return Session.authorize()
-    .then(function () {
-      $scope.currentUser = User.currentUser;
-    });
-  })
 
   $scope.alert = function (message, title) {
     if (navigator && navigator.notification) {
@@ -123,6 +117,7 @@ angular.module('earlybird.controllers', [])
       return Address.create(address)
       .success(function (data) {
         $scope.currentUser.addresses.push(data);
+        $scope.order.destination_address_id = data.id;
         $scope.addressModal.hide();
         $ionicLoading.hide();
       })
@@ -147,6 +142,7 @@ angular.module('earlybird.controllers', [])
       return Card.create(card)
       .success(function (data) {
         $scope.currentUser.cards.push(data);
+        $scope.order.card_id = data.id;
         $scope.cardModal.hide();
         $ionicLoading.hide();
       })
@@ -280,7 +276,7 @@ angular.module('earlybird.controllers', [])
 
 .controller('OrderCtrl', function ($scope, $timeout, $q, $ionicPlatform,
       $ionicLoading, $ionicModal, $interval, User, Order, Item,
-      Availability, items, availability) {
+      Availability, CurrentOrder, items, availability) {
 
   $scope.setCurrentUser(User.currentUser);
 
@@ -289,12 +285,14 @@ angular.module('earlybird.controllers', [])
   $scope.availability.next_open.start_time =
     new Date($scope.availability.next_open.start_time);
   $scope.items                        = items;
-  $scope.order                        = {}
-  $scope.order.card_id                =
-    User.currentUser.cards[0] && User.currentUser.cards[0].id;
-  $scope.order.destination_address_id =
-    User.currentUser.addresses[0] && User.currentUser.addresses[0].id;
 
+  CurrentOrder.card_id = User.currentUser.cards[0] &&
+      User.currentUser.cards[0].id;
+
+  CurrentOrder.destination_address_id = User.currentUser.addresses[0] &&
+      User.currentUser.addresses[0].id;
+
+  $scope.order = CurrentOrder;
 
   $ionicPlatform.on('resume', function () {
     // TODO check feedback
