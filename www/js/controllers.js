@@ -1,7 +1,8 @@
 angular.module('earlybird.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicModal, $interval,
-      $ionicLoading, Order, CurrentOrder, Card, User, Address, Session, Feedback, needFeedback) {
+      $ionicLoading, Order, CurrentOrder, Card, User, Address, Session,
+      Feedback, needFeedback) {
 
   $scope.orderInProgress = needFeedback[0] ? true : false;
   $scope.order = CurrentOrder;
@@ -97,11 +98,11 @@ angular.module('earlybird.controllers', [])
     }
 
     if ($scope.needFeedback) {
-      console.log($scope.needFeedback)
       $scope.resetFeedback();
       $scope.feedbackModal.show();
     }
   });
+  $scope.newAddress={};
 
   $ionicModal.fromTemplateUrl('views/partials/add-address.html', {
     scope: $scope,
@@ -110,8 +111,25 @@ angular.module('earlybird.controllers', [])
   })
   .then(function(modal) {
     $scope.addressModal = modal;
+    $scope.newAddressOptions = {
+      componentRestrictions: { country: 'us' }
+    }
+
+    $scope.$watch('newAddress.autocomplete', function () {
+      if ($scope.newAddress.autocomplete &&
+          $scope.newAddress.autocomplete.name
+      ) {
+        $scope.newAddress.title = $scope.newAddress.autocomplete.name;
+      }
+    })
 
     $scope.createAddress = function (address) {
+      var details     = address.autocomplete.formatted_address.split(', ');
+      address.street1 = details[0];
+      address.city    = details[1];
+      address.state   = details[2].split(' ')[0]
+      address.zip     = details[2].split(' ')[1]
+
       $ionicLoading.show();
 
       return Address.create(address)

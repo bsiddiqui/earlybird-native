@@ -2,6 +2,7 @@ angular.module('earlybird', [
   'ionic',
   'ngCookies',
   'ngAnimate',
+  'google.places',
   'angularMoment',
   'earlybird.services',
   'earlybird.controllers'
@@ -207,4 +208,4 @@ angular.module('earlybird', [
       }
     });
   };
-});;
+});
