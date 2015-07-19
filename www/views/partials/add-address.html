@@ -1,4 +1,4 @@
-<ion-modal-view ng-init="newAddress={}">
+<ion-modal-view>
   <ion-header-bar>
     <button class="button button-clear" on-touch="addressModal.hide()">Cancel</button>
     <h1 class="title">Add Address</h1>
@@ -8,31 +8,33 @@
   <ion-content>
     <form name="newAddress.form" class="list">
       <label class="item item-input">
-        <input type="text" reset-field required ng-model="newAddress.title" placeholder="Address nickname">
+        <input type="text"
+               g-places-autocomplete
+               force-selection="true"
+               options="autocompleteOptions"
+               required
+               ng-model="newAddress.autocomplete"
+               placeholder="Address">
       </label>
 
       <label class="item item-input">
-        <input type="text" reset-field required ng-model="newAddress.street1" placeholder="Address Line 1">
+        <input type="text"
+               reset-field
+               ng-model="newAddress.street2"
+               placeholder="Unit number (optional)">
       </label>
 
       <label class="item item-input">
-        <input type="text" reset-field ng-model="newAddress.street2" placeholder="Address Line 2">
+        <input type="text"
+               reset-field
+               ng-model="newAddress.title"
+               placeholder="Address nickname">
       </label>
 
       <label class="item item-input">
-        <input type="text" reset-field required ng-model="newAddress.city" placeholder="City">
-      </label>
-
-      <label class="item item-input">
-        <input type="text" reset-field required ng-model="newAddress.state" placeholder="State">
-      </label>
-
-      <label class="item item-input">
-        <input type="tel" reset-field required ng-model="newAddress.zip" placeholder="Zip">
-      </label>
-
-      <label class="item item-input">
-        <textarea reset-field ng-model="newAddress.notes" placeholder="Notes (optional)">
+        <textarea reset-field
+                  ng-model="newAddress.notes"
+                  placeholder="Notes (optional)">
       </label>
     </form>
   </ion-content>

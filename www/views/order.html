@@ -1,8 +1,12 @@
 <div class="order">
   <ion-header-bar class="bar-assertive">
-    <button ui-sref="earlybird.settings" nav-direction="back" class="button button-clear button-icon icon ion-ios-settings">
+    <button ui-sref="earlybird.settings"
+            nav-direction="back"
+            class="button button-clear button-icon icon ion-ios-settings">
     </button>
-    <h1 class="title"><img class="title-image" src="img/img-logo-white.png"></img></h1>
+    <h1 class="title">
+      <img class="title-image" src="img/img-logo-white.png"></img>
+    </h1>
     <!-- <button ui&#45;sref="earlybird.sharing" nav&#45;direction="forward" class="button button&#45;clear button&#45;icon icon"> -->
       <!-- <img src="img/ic&#45;promocode&#45;white2x.png"></img> -->
     <!-- </button> -->
@@ -20,11 +24,16 @@
         </div>
 
         <div class="order-quantity item item-fixed item-input">
-          <button on-touch="decQuantity(item)" ng-disabled="!item.quantity>0" class="button button-small button-icon icon ion-ios-minus-outline"></button>
+          <button on-touch="decQuantity(item)"
+                  ng-disabled="!item.quantity || item.quantity<=1"
+                  class="button button-small button-icon icon ion-ios-minus-outline">
+          </button>
           <div class="item-label-center">
-            Quantity: {{item.quantity || 0}}
+            Quantity: {{item.quantity}}
           </div>
-          <button on-touch="incQuantity(item)" class="button button-icon icon ion-ios-plus-outline"></button>
+          <button on-touch="incQuantity(item)"
+                  class="button button-icon icon ion-ios-plus-outline">
+          </button>
         </div>
       </div>
 
@@ -33,8 +42,12 @@
         Destination
       </div>
 
-      <label class="order-address item item-fixed item-radio" ng-repeat="address in currentUser.addresses">
-        <input type="radio" ng-value="address.id" required ng-model="order.destination_address_id">
+      <label class="order-address item item-fixed item-radio"
+             ng-repeat="address in currentUser.addresses">
+        <input type="radio"
+               ng-value="address.id"
+               required
+               ng-model="order.destination_address_id">
         <h2>{{address.title}}</h2>
         <p>{{address.street1}} {{' ' + address.street2}}, {{address.city}}, {{address.state}} {{address.zip}}</p>
         <i class="radio-icon ion-ios-checkmark"></i>
@@ -45,18 +58,24 @@
         <div>
           Add Address
         </div>
-        <button on-touch="addressModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
+        <button on-touch="addressModal.show()"
+                class="button button-icon icon ion-ios-plus-outline">
+        </button>
       </div>
 
       <div class="item item-divider">
         Payment Details
       </div>
 
-      <label class="order-card item item-fixed item-radio item-icon-left" ng-repeat="card in currentUser.cards">
+      <label class="order-card item item-fixed item-radio item-icon-left"
+             ng-repeat="card in currentUser.cards">
         <i class="icon icon-image">
           <img ng-src="img/ic-payment-{{card.type || 'Default'}}2x.png">
         </i>
-        <input type="radio" ng-value="card.id" required ng-model="order.card_id">
+        <input type="radio"
+               ng-value="card.id"
+               required
+               ng-model="order.card_id">
         <h2>{{card.title}}</h2>
         <p>{{card.last_four}}</p>
         <i class="radio-icon ion-ios-checkmark"></i>
@@ -67,7 +86,9 @@
         <div>
           Add Payment
         </div>
-        <button on-touch="cardModal.show()" class="button button-icon icon ion-ios-plus-outline"></button>
+        <button on-touch="cardModal.show()"
+                class="button button-icon icon ion-ios-plus-outline">
+        </button>
       </div>
     </form>
 

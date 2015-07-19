@@ -303,6 +303,7 @@ angular.module('earlybird.controllers', [])
   $scope.availability.next_open.start_time =
     new Date($scope.availability.next_open.start_time);
   $scope.items                        = items;
+  $scope.items[0].quantity = 1;
 
   CurrentOrder.card_id = User.currentUser.cards[0] &&
       User.currentUser.cards[0].id;
@@ -328,12 +329,12 @@ angular.module('earlybird.controllers', [])
     if (item.quantity) {
       item.quantity++;
     } else {
-      item.quantity = 1;
+      item.quantity = 2;
     }
   };
 
   $scope.decQuantity = function (item) {
-    if (item.quantity === 0) {
+    if (item.quantity === 1) {
       return
     } else {
       item.quantity--;
