@@ -20,14 +20,14 @@
         <div class="item item-fixed item-feedback">
           <span class="input-description">Order Time:</span>
           <span class="input-data">
-            {{needFeedback.created_at | date : 'EEEE @ h:mm a'}}
+            {{needFeedback.created_at | amDateFormat : 'dddd @ h:mm a'}}
           </span>
         </div>
 
         <div class="item item-fixed item-feedback">
           <span class="input-description">Delivered:</span>
           <span class="input-data">
-            {{needFeedback.completed_time | date : 'EEEE @ h:mm a'}}
+            {{needFeedback.completed_time | amDateFormat : 'dddd @ h:mm a'}}
           </span>
         </div>
 

@@ -72,8 +72,19 @@
     </form>
 
     <div class="list list-inset">
-      <button ng-show="availability.now()" ng-disabled="!orderValid(order)" class="order-button button button-block button-balanced" on-touch="createOrder(order)">Place Order: ${{orderTotal(items)}}</button>
-      <button ng-hide="availability.now()" ng-disabled="true" class="button button-block button-balanced">We're closed until {{availability.next_open.start_time | date : 'EEEE @ h:mm a'}}</button>
+      <button ng-show="availability.now()"
+              ng-disabled="!orderValid(order)"
+              class="order-button button button-block button-balanced"
+              on-touch="createOrder(order)">
+        Place Order: ${{orderTotal(items)}}
+      </button>
+
+      <button ng-hide="availability.now()"
+        ng-disabled="true"
+        class="button button-block button-balanced">
+        We're closed until
+        {{availability.next() | amDateFormat : 'dddd @ h:mm a'}}
+      </button>
     </div>
   </ion-content>
 

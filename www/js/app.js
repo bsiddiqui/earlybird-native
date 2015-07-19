@@ -2,6 +2,7 @@ angular.module('earlybird', [
   'ionic',
   'ngCookies',
   'ngAnimate',
+  'angularMoment',
   'earlybird.services',
   'earlybird.controllers'
 ])
@@ -101,6 +102,10 @@ angular.module('earlybird', [
   template: '<ion-spinner icon="ios"></ion-spinner',
   hideOnStateChange: true,
   duration: 10000
+})
+
+.constant('angularMomentConfig', {
+  timezone: 'America/Los_Angeles'
 })
 
 .run(function($rootScope, $state, $ionicPlatform, $cookies, Session, User) {
