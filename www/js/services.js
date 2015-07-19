@@ -239,6 +239,14 @@ angular.module('earlybird.services', [])
       && new Date(this.today.end_time) > now;
   };
 
+  Availability.prototype.next = function () {
+    var now = new Date();
+
+    return this.today.available && new Date(this.today.start_time) > now ?
+      new Date(this.today.start_time) :
+      new Date(this.next_open.start_time)
+  }
+
   return Availability;
 })
 
