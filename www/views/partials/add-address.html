@@ -1,4 +1,4 @@
-<ion-modal-view>
+<ion-modal-view class="address-modal">
   <ion-header-bar>
     <button class="button button-clear" on-touch="addressModal.hide()">Cancel</button>
     <h1 class="title">Add Address</h1>
@@ -32,9 +32,10 @@
       </label>
 
       <label class="item item-fixed item-input">
-        <textarea reset-field
-                  ng-model="newAddress.params.notes"
-                  placeholder="Notes (optional)">
+        <input type="text"
+               reset-field
+               ng-model="newAddress.params.notes"
+               placeholder="Note (optional)">
       </label>
     </form>
   </ion-content>

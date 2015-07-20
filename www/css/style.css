@@ -474,3 +474,15 @@ input.reset-field {
 .list {
   margin-bottom: 0;
 }
+
+textarea {
+  resize: none;
+}
+
+.modal.address-modal {
+  height: 212px;
+}
+
+.modal.card-modal {
+  height: 296px;
+}
