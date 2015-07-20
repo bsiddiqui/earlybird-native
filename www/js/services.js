@@ -1,5 +1,5 @@
-// API_URL = 'http://earlybird-staging-y2cd8ddjdd.elasticbeanstalk.com/api/v1';
-API_URL = 'https://api.eatearlybird.com/api/v1';
+API_URL = 'http://earlybird-staging-y2cd8ddjdd.elasticbeanstalk.com/api/v1';
+// API_URL = 'https://api.eatearlybird.com/api/v1';
 
 angular.module('earlybird.services', [])
 
