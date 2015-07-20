@@ -184,6 +184,18 @@ angular.module('earlybird', [
   };
 }])
 
+.filter('addressFormat', function () {
+  return function (address) {
+    var formattedAddress = '';
+    formattedAddress += address.street1;
+    if (address.street2) formattedAddress +=
+      (', ' + address.street2);
+    formattedAddress +=
+      (', ' + address.city + ', ' + address.state + ' ' + address.zip );
+    return formattedAddress;
+  }
+})
+
 .directive('focusMe', function($timeout) {
   return {
     link: function(scope, element, attrs) {

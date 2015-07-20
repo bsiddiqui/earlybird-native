@@ -49,7 +49,7 @@
                required
                ng-model="order.destination_address_id">
         <h2>{{address.title}}</h2>
-        <p>{{address.street1}} {{' ' + address.street2}}, {{address.city}}, {{address.state}} {{address.zip}}</p>
+        <p>{{address | addressFormat}}</p>
         <i class="radio-icon ion-ios-checkmark"></i>
         <i class="radio-icon ion-ios-checkmark-outline button-opaque"></i>
       </label>

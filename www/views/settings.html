@@ -39,7 +39,7 @@
 
       <ion-item class="item-fixed" ng-repeat="address in currentUser.addresses">
         <h2>{{address.title}}</h2>
-        <p>{{address.street1}} {{' ' + address.street2}}, {{address.city}}, {{address.state}} {{address.zip}}</p>
+        <p>{{address | addressFormat}}</p>
         <ion-option-button class="button-assertive" on-touch="deleteAddress(address, $index)">
           Delete
         </ion-option-button>
