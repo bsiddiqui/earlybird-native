@@ -159,6 +159,10 @@ p, div, span {
   font-size: 12px;
 }
 
+.item.item-divider.eta {
+  border: none;
+}
+
 .item {
   padding: 10px;
 }
@@ -386,7 +390,7 @@ p, div, span {
 }
 
 .settings-promotions .item-icon-left {
-  border-top: none;
+  /* border-top: none; */
 }
 
 input.reset-field {
@@ -459,4 +463,8 @@ input.reset-field {
 
 .pac-container, .pac-item {
   min-height: 50px !important;
+}
+
+.list {
+  margin-bottom: 0;
 }

@@ -6,7 +6,7 @@
   </ion-header-bar>
 
   <ion-content scroll="true">
-    <ion-list type="list-inset">
+    <ion-list type="">
       <div class="item item-divider">
         General
       </div>
@@ -90,10 +90,8 @@
           <p>${{currentUser.promoBalance()}}</p>
         </div>
       </div>
+      <button class="button button-block button-light" on-touch="logout()">Logout</button>
     </ion-list>
 
-    <div class="list list-inset">
-      <button class="button button-block button-light" on-touch="logout()">Logout</button>
-    </div>
   </ion-content>
 </div>

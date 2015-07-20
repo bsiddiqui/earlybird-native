@@ -13,7 +13,7 @@
   </ion-header-bar>
 
   <ion-content scroll="true">
-      <div class="list list-inset" ng-repeat="item in items">
+      <div class="" ng-repeat="item in items">
         <div class="item item-image">
           <img ng-src="{{item.image}}"></img>
         </div>
@@ -37,7 +37,7 @@
         </div>
       </div>
 
-    <form name="orderForm" class="list list-inset">
+    <form name="orderForm" class="list">
       <div class="item item-divider">
         Destination
       </div>
@@ -92,13 +92,18 @@
       </div>
     </form>
 
-    <div class="list list-inset">
-      <button ng-show="availability.now()"
-              ng-disabled="!orderValid(order)"
-              class="order-button button button-block button-balanced"
-              on-touch="createOrder(order)">
-        Place Order: ${{orderTotal(items)}}
-      </button>
+    <div class="list">
+      <div ng-show="availability.now()">
+        <div class="item item-divider eta">
+          ETA: {{availability.today.eta}}
+        </div>
+        <button ng-show="availability.now()"
+                ng-disabled="!orderValid(order)"
+                class="order-button button button-block button-balanced"
+                on-touch="createOrder(order)">
+          Place Order: ${{orderTotal(items)}}
+        </button>
+      </div>
 
       <button ng-hide="availability.now()"
         ng-disabled="true"
