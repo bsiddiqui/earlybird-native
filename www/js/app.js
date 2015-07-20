@@ -48,6 +48,7 @@ angular.module('earlybird', [
   .state('earlybird.home', {
     url: '/home',
     templateUrl: 'views/home.html',
+    controller: 'SessionCtrl',
     requireAuth: false
   })
   .state('earlybird.onboarding', {
@@ -227,4 +228,23 @@ angular.module('earlybird', [
       }
     });
   };
+})
+
+.directive('onLongLongHold', function ($timeout) {
+  return function (scope, element, attrs) {
+    var promise;
+    element.bind("mousedown", function () {
+      console.log('mousedown');
+      promise = $timeout(function () {
+        scope.$apply(function (){
+          scope.$eval(attrs.onLongLongHold);
+        });
+      }, 10000);
+    })
+
+    element.bind('mouseup', function () {
+      console.log('mouseup');
+      $timeout.cancel(promise);
+    })
+  }
 });

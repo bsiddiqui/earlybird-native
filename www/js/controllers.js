@@ -194,7 +194,24 @@ angular.module('earlybird.controllers', [])
 })
 
 .controller('SessionCtrl', function ($scope, $state, $ionicLoading,
-      Session, User) {
+      Session, User, Api) {
+  /* dev mode */
+  var mode = 'reg';
+  $scope.switchMode = function () {
+    if (mode === 'reg') {
+      mode = 'dev';
+      Api.switchDev();
+      document.getElementsByClassName('home')[1]
+        .style.backgroundColor = '#000';
+    } else {
+      mode = 'reg';
+      Api.switchReg();
+      document.getElementsByClassName('home')[1]
+        .style.backgroundColor = '#E15726';
+    }
+  }
+  /* end dev mode */
+
   $scope.login = function (params) {
     if ($scope.loginForm.form.$invalid) return;
     $ionicLoading.show();
@@ -202,6 +219,7 @@ angular.module('earlybird.controllers', [])
     Session.create(params)
     .success(function (res) {
       $state.go('earlybird.order');
+      $scope.loginForm.params = undefined;
     })
     .error(function (err) {
       $ionicLoading.hide();
@@ -216,6 +234,7 @@ angular.module('earlybird.controllers', [])
     User.create(params)
     .success(function () {
       $state.go('earlybird.order');
+      $scope.registerForm.params = undefined;
     })
     .error(function (err) {
       $ionicLoading.hide();
