@@ -101,7 +101,7 @@
                 ng-disabled="!orderValid(order)"
                 class="order-button button button-block button-balanced"
                 on-touch="createOrder(order)">
-          Place Order: ${{orderTotal(items)}}
+          Place Order: ${{orderTotal(items) | orderTotal : currentUser.promoBalance()}}
         </button>
       </div>
 

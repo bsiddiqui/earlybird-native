@@ -195,6 +195,15 @@ angular.module('earlybird', [
   }
 })
 
+.filter('orderTotal', function () {
+  return function (total, promoBalance) {
+    if (promoBalance > 0) {
+      total = Math.max(total - promoBalance, 0) + ' after promo'
+    }
+    return total;
+  }
+})
+
 .directive('focusMe', function($timeout) {
   return {
     link: function(scope, element, attrs) {
