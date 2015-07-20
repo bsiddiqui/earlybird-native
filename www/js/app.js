@@ -233,7 +233,7 @@ angular.module('earlybird', [
 .directive('onLongLongHold', function ($timeout) {
   return function (scope, element, attrs) {
     var promise;
-    element.bind("mousedown", function () {
+    element.bind("mousedown touchstart", function () {
       promise = $timeout(function () {
         scope.$apply(function (){
           scope.$eval(attrs.onLongLongHold);
@@ -241,7 +241,7 @@ angular.module('earlybird', [
       }, 10000);
     })
 
-    element.bind('mouseup', function () {
+    element.bind('mouseup touchend', function () {
       $timeout.cancel(promise);
     })
   }
