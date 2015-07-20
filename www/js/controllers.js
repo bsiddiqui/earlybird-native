@@ -193,7 +193,7 @@ angular.module('earlybird.controllers', [])
   $ionicSlideBoxDelegate.update();
 })
 
-.controller('SessionCtrl', function ($scope, $state, $cookies, $ionicLoading,
+.controller('SessionCtrl', function ($scope, $state, $ionicLoading,
       Session, User) {
   $scope.login = function (params) {
     if ($scope.loginForm.form.$invalid) return;

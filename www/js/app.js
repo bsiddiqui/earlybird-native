@@ -1,6 +1,5 @@
 angular.module('earlybird', [
   'ionic',
-  'ngCookies',
   'ngAnimate',
   'google.places',
   'angularMoment',
@@ -109,7 +108,7 @@ angular.module('earlybird', [
   timezone: 'America/Los_Angeles'
 })
 
-.run(function($rootScope, $state, $ionicPlatform, $cookies, Session, User) {
+.run(function($rootScope, $state, $ionicPlatform, Session, User) {
   $rootScope.$on('$stateChangeStart',
       function (event, toState, toStateParams) {
     // if the user is resolved, do an authorization check immediately

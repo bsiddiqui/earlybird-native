@@ -3,7 +3,7 @@ API_URL = 'http://earlybird-staging-y2cd8ddjdd.elasticbeanstalk.com/api/v1';
 
 angular.module('earlybird.services', [])
 
-.factory('User', function ($http, $q, $cookies) {
+.factory('User', function ($http, $q) {
   var User = function (data) {
     return angular.extend(this, data);
   }
@@ -70,7 +70,7 @@ angular.module('earlybird.services', [])
     .success(function (data) {
       User.authenticated = true;
       User.currentUser = new User(data);
-      $cookies['earlybird'] = data.api_key;
+      window.localStorage['earlybird'] = data.api_key;
       return data;
     })
     .error(function (err) {
@@ -81,7 +81,7 @@ angular.module('earlybird.services', [])
   return User;
 })
 
-.factory('Session', function ($http, $cookies, $location, $state, User) {
+.factory('Session', function ($http, $location, $state, User) {
   var Session = function (data) {
     return angular.extend(this, data);
   }
@@ -110,7 +110,7 @@ angular.module('earlybird.services', [])
   Session.create = function (params) {
     return $http.post(API_URL + '/sessions', params)
     .success(function (data) {
-      $cookies['earlybird'] = data.api_key;
+      window.localStorage['earlybird'] = data.api_key;
       User.authenticated = true;
       User.setCurrent(data);
       return data;
@@ -123,7 +123,7 @@ angular.module('earlybird.services', [])
   Session.delete = function () {
     return $http.delete(API_URL + '/sessions')
     .then(function (res) {
-      delete $cookies['earlybird'];
+      delete window.localStorage['earlybird'];
       User.currentUser = undefined;
       User.authenticated = false;
       return res.data;
@@ -284,14 +284,13 @@ angular.module('earlybird.services', [])
   return Feedback;
 })
 
-.factory('HeadersInjector', function ($injector, $cookies) {
+.factory('HeadersInjector', function ($injector) {
   return {
     request: function (config) {
-      if ($cookies['earlybird']) {
+      if (window.localStorage['earlybird']) {
         $injector.invoke(function (User) {
           config.headers['Authorization'] = 'Basic ' +
-            // btoa(($cookies['earlybird'] || APP_KEY) + ':');
-            btoa($cookies['earlybird'] + ':');
+            btoa(window.localStorage['earlybird'] + ':');
         })
       }
 
