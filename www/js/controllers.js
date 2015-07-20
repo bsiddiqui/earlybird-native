@@ -12,7 +12,7 @@ angular.module('earlybird.controllers', [])
   }
 
   $interval(function () {
-    if (!User.currentUser) return;
+    if (!User.currentUser || Feedback.inProgress) return;
     return Order.needFeedback()
     .then(function (data) {
       $scope.needFeedback = data[0];
@@ -21,6 +21,7 @@ angular.module('earlybird.controllers', [])
         $scope.resetFeedback();
         $scope.setOrderInProgress(true);
         $scope.feedbackModal.show();
+        Feedback.inProgress = true;
       }
     })
   }, 10000)
@@ -53,7 +54,8 @@ angular.module('earlybird.controllers', [])
   }
 
   $scope.needFeedback = needFeedback[0];
-  $scope.feedback = {};
+  $scope.Feedback     = Feedback;
+  $scope.feedback     = {};
 
   $ionicModal.fromTemplateUrl('views/partials/add-feedback.html', {
     scope: $scope,
@@ -88,6 +90,7 @@ angular.module('earlybird.controllers', [])
       return Feedback.create(feedback)
       .success(function () {
         $scope.setOrderInProgress(false);
+        $scope.Feedback.inProgress = false;
         $scope.feedbackModal.hide();
         $ionicLoading.hide();
       })
@@ -95,11 +98,6 @@ angular.module('earlybird.controllers', [])
         $ionicLoading.hide();
         $scope.alert(err.message, 'Feedback failed');
       });
-    }
-
-    if ($scope.needFeedback) {
-      $scope.resetFeedback();
-      $scope.feedbackModal.show();
     }
   });
   $scope.newAddress={};

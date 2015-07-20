@@ -267,6 +267,8 @@ angular.module('earlybird.services', [])
     return angular.extend(this, data)
   };
 
+  Feedback.inProgress = false;
+
   Feedback.create = function (params) {
     return $http.post(API_URL + '/feedback', params);
   };
