@@ -141,7 +141,7 @@ angular.module('earlybird.controllers', [])
       })
       .error(function (err) {
         $ionicLoading.hide();
-        $scope.alert(err.message, 'Address creation failed');
+        $scope.alert(err.message, 'Invalid address');
       })
     };
   });
@@ -166,7 +166,7 @@ angular.module('earlybird.controllers', [])
       })
       .error(function (err) {
         $ionicLoading.hide();
-        $scope.alert(err.message, 'Card verification failed');
+        $scope.alert(err.message, 'Invalid card');
       });
     };
   });
