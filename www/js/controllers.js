@@ -148,6 +148,7 @@ angular.module('earlybird.controllers', [])
     };
   });
 
+  $scope.newCard = {};
   $ionicModal.fromTemplateUrl('views/partials/add-card.html', {
     scope: $scope,
     animation: 'slide-in-up',
