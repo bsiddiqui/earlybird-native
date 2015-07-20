@@ -214,9 +214,10 @@ angular.module('earlybird.controllers', [])
   $scope.user = angular.copy(User.currentUser);
 
   $scope.cancelInput = function () {
-    $scope.user = angular.copy(User.currentUser);
     $ionicViewSwitcher.nextDirection('forward');
     $state.go('earlybird.order');
+    $scope.user        = angular.copy(User.currentUser);
+    $scope.inputs.code = undefined;
   }
 
   $scope.saveInput = function (user) {
@@ -230,6 +231,7 @@ angular.module('earlybird.controllers', [])
     })
     .success(function () {
       $state.go('earlybird.order')
+      $scope.inputs.code = undefined;
       $scope.setCurrentUser(User.currentUser);
     })
     .error(function (err) {
