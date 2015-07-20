@@ -210,7 +210,7 @@ angular.module('earlybird.controllers', [])
     })
     .error(function (err) {
       $ionicLoading.hide();
-      $scope.alert(err.message, 'Registeration error');
+      $scope.alert(err.message, 'Registration error');
     });
   };
 })
