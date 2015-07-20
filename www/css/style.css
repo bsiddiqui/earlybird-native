@@ -397,6 +397,12 @@ input.reset-field {
   position: absolute;
   right: 6px;
   margin: 0px;
+  font-size: 20px;
+  top: 12px;
+}
+
+.item-fixed .reset-field-icon {
+  top: 7px;
 }
 
 .button.button-block {
