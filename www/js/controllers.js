@@ -281,6 +281,9 @@ angular.module('earlybird.controllers', [])
     return Address.delete(address.id)
     .success(function () {
       $scope.currentUser.addresses.splice(index, 1);
+    })
+    .error(function (err) {
+      $scope.alert(err.message, 'Address deletion failed');
     });
   };
 
@@ -288,6 +291,9 @@ angular.module('earlybird.controllers', [])
     return Card.delete(card.id)
     .success(function () {
       $scope.currentUser.cards.splice(index, 1);
+    })
+    .error(function (err) {
+      $scope.alert(err.message, 'Card deletion failed')
     });
   };
 })
