@@ -256,8 +256,16 @@ angular.module('earlybird.services', [])
   };
 
   PromoCode.redeem = function (code) {
-    return $http.post(API_URL + '/codes', { code: code });
+    return $http.post(API_URL + '/codes',
+        { code: code }, { cache: false });
   };
+
+  PromoCode.get = function () {
+    return $http.get(API_URL + '/codes')
+    .then(function (res) {
+      return res.data.objects;
+    })
+  }
 
   return PromoCode;
 })

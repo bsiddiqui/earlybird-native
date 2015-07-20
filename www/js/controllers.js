@@ -230,6 +230,11 @@ angular.module('earlybird.controllers', [])
   $scope.inputs = {};
   $scope.user = angular.copy(User.currentUser);
 
+  PromoCode.get()
+  .then(function (data) {
+    User.currentUser.codes = data;
+  })
+
   $scope.cancelInput = function () {
     $ionicViewSwitcher.nextDirection('forward');
     $state.go('earlybird.order');
