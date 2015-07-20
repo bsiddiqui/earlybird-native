@@ -134,6 +134,8 @@ p, div, span {
 }
 
 .item-button-right > .button, .item-button-right .item-content > .button, .item-button-right > .buttons, .item-button-right .item-content > .buttons {
+  width: 20px;
+  border-width: 0;
   top: 0px;
   right: 0px;
 }
@@ -143,6 +145,10 @@ p, div, span {
 }
 .item.item-icon-left.item-complex {
   padding: 0;
+}
+
+.item.item-radio i.radio-icon {
+  min-width: 34px;
 }
 
 .item-divider {
@@ -184,7 +190,7 @@ p, div, span {
 }
 
 .item-fixed {
-  height: 44px;
+  height: 43px;
 }
 
 .item.item-fixed h2, .item.item-fixed p {

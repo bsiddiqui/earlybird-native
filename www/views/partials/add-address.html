@@ -7,14 +7,14 @@
 
   <ion-content>
     <form name="newAddress.form" class="list" on-submit="createAddress(newAddress.params)">
-      <label class="item item-input">
+      <label class="item item-fixed item-input">
         <input type="text"
                reset-field
                ng-model="newAddress.params.title"
                placeholder="Address nickname">
       </label>
 
-      <label class="item item-input">
+      <label class="item item-fixed item-input">
         <input type="text"
                g-places-autocomplete
                force-selection="true"
@@ -24,14 +24,14 @@
                placeholder="Address">
       </label>
 
-      <label class="item item-input">
+      <label class="item item-fixed item-input">
         <input type="text"
                reset-field
                ng-model="newAddress.params.street2"
                placeholder="Unit number (optional)">
       </label>
 
-      <label class="item item-input">
+      <label class="item item-fixed item-input">
         <textarea reset-field
                   ng-model="newAddress.params.notes"
                   placeholder="Notes (optional)">
