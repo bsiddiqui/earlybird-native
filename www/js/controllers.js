@@ -320,7 +320,11 @@ angular.module('earlybird.controllers', [])
       Availability.findAll()
     ])
     .then(function (data) {
-      $scope.items        = data[0];
+      // if items have been changed
+      if (data[0][0].id != $scope.items[0].id) {
+          $scope.items        = data[0];
+          $scope.items[0].quantity = 1;
+      }
       $scope.availability = new Availability(data[1]);
     })
   })
