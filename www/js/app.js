@@ -126,7 +126,7 @@ angular.module('earlybird', [
     if(navigator && navigator.splashscreen) {
       setTimeout(function() {
         navigator.splashscreen.hide();
-      }, 500);
+      }, 3000);
     }
   });
 
