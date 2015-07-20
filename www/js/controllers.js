@@ -139,10 +139,11 @@ angular.module('earlybird.controllers', [])
         $scope.currentUser.addresses.push(data);
         $scope.order.destination_address_id = data.id;
         $scope.addressModal.hide();
+        $scope.newAddress.params = {};
         $ionicLoading.hide();
       })
       .error(function (err) {
-        $scope.newAddress.autocomplete = undefined;
+        $scope.newAddress.params.autocomplete = undefined;
         $ionicLoading.hide();
         $scope.alert(err.message, 'Invalid address');
       })
@@ -167,6 +168,7 @@ angular.module('earlybird.controllers', [])
         $scope.currentUser.cards.push(data);
         $scope.order.card_id = data.id;
         $scope.cardModal.hide();
+        $scope.newCard.params = {};
         $ionicLoading.hide();
       })
       .error(function (err) {

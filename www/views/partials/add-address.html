@@ -2,15 +2,15 @@
   <ion-header-bar>
     <button class="button button-clear" on-touch="addressModal.hide()">Cancel</button>
     <h1 class="title">Add Address</h1>
-    <button ng-disabled="newAddress.form.$invalid" class="button button-clear" on-touch="createAddress(newAddress)">Add</button>
+    <button ng-disabled="newAddress.form.$invalid" class="button button-clear" on-touch="createAddress(newAddress.params)">Add</button>
   </ion-header-bar>
 
   <ion-content>
-    <form name="newAddress.form" class="list" on-submit="createAddress(newAddress)">
+    <form name="newAddress.form" class="list" on-submit="createAddress(newAddress.params)">
       <label class="item item-input">
         <input type="text"
                reset-field
-               ng-model="newAddress.title"
+               ng-model="newAddress.params.title"
                placeholder="Address nickname">
       </label>
 
@@ -20,20 +20,20 @@
                force-selection="true"
                options="autocompleteOptions"
                required
-               ng-model="newAddress.autocomplete"
+               ng-model="newAddress.params.autocomplete"
                placeholder="Address">
       </label>
 
       <label class="item item-input">
         <input type="text"
                reset-field
-               ng-model="newAddress.street2"
+               ng-model="newAddress.params.street2"
                placeholder="Unit number (optional)">
       </label>
 
       <label class="item item-input">
         <textarea reset-field
-                  ng-model="newAddress.notes"
+                  ng-model="newAddress.params.notes"
                   placeholder="Notes (optional)">
       </label>
     </form>
