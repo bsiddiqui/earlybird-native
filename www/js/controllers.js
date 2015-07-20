@@ -142,6 +142,7 @@ angular.module('earlybird.controllers', [])
         $ionicLoading.hide();
       })
       .error(function (err) {
+        $scope.newAddress.autocomplete = undefined;
         $ionicLoading.hide();
         $scope.alert(err.message, 'Invalid address');
       })
