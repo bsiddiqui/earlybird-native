@@ -115,14 +115,6 @@ angular.module('earlybird.controllers', [])
       componentRestrictions: { country: 'us' }
     }
 
-    $scope.$watch('newAddress.autocomplete', function () {
-      if ($scope.newAddress.autocomplete &&
-          $scope.newAddress.autocomplete.name
-      ) {
-        $scope.newAddress.title = $scope.newAddress.autocomplete.name;
-      }
-    })
-
     $scope.createAddress = function (address) {
       var details     = address.autocomplete.formatted_address.split(', ');
       address.street1 = details[0];

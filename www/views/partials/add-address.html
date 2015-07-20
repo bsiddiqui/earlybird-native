@@ -9,6 +9,13 @@
     <form name="newAddress.form" class="list">
       <label class="item item-input">
         <input type="text"
+               reset-field
+               ng-model="newAddress.title"
+               placeholder="Address nickname">
+      </label>
+
+      <label class="item item-input">
+        <input type="text"
                g-places-autocomplete
                force-selection="true"
                options="autocompleteOptions"
@@ -22,13 +29,6 @@
                reset-field
                ng-model="newAddress.street2"
                placeholder="Unit number (optional)">
-      </label>
-
-      <label class="item item-input">
-        <input type="text"
-               reset-field
-               ng-model="newAddress.title"
-               placeholder="Address nickname">
       </label>
 
       <label class="item item-input">
