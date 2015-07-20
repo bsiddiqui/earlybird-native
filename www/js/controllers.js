@@ -16,8 +16,11 @@ angular.module('earlybird.controllers', [])
     return Order.needFeedback()
     .then(function (data) {
       $scope.needFeedback = data[0];
-
       if ($scope.needFeedback) {
+        $scope.needFeedback.completed_time =
+          new Date ($scope.needFeedback.completed_time);
+        $scope.needFeedback.created_at =
+          new Date ($scope.needFeedback.created_at);
         $scope.resetFeedback();
         $scope.setOrderInProgress(true);
         $scope.feedbackModal.show();
@@ -54,6 +57,14 @@ angular.module('earlybird.controllers', [])
   }
 
   $scope.needFeedback = needFeedback[0];
+
+  if ($scope.needFeedback) {
+    $scope.needFeedback.completed_time =
+      new Date ($scope.needFeedback.completed_time);
+    $scope.needFeedback.created_at =
+      new Date ($scope.needFeedback.created_at);
+  }
+
   $scope.Feedback     = Feedback;
   $scope.feedback     = {};
 
