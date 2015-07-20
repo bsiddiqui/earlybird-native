@@ -450,3 +450,7 @@ input.reset-field {
 .bar-footer .title {
   color: #30C83E;
 }
+
+.pac-container, .pac-item {
+  min-height: 50px !important;
+}
