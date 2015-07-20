@@ -125,6 +125,7 @@ angular.module('earlybird.controllers', [])
     }
 
     $scope.createAddress = function (address) {
+      if ($scope.newAddress.form.$invalid) return;
       var details     = address.autocomplete.formatted_address.split(', ');
       address.street1 = details[0];
       address.city    = details[1];
@@ -156,6 +157,7 @@ angular.module('earlybird.controllers', [])
     $scope.cardModal = modal;
 
     $scope.createCard = function (card) {
+      if ($scope.newCard.form.$invalid) return;
       $ionicLoading.show();
 
       return Card.create(card)
@@ -190,6 +192,7 @@ angular.module('earlybird.controllers', [])
 .controller('SessionCtrl', function ($scope, $state, $cookies, $ionicLoading,
       Session, User) {
   $scope.login = function (params) {
+    if ($scope.loginForm.form.$invalid) return;
     $ionicLoading.show();
 
     Session.create(params)
@@ -203,6 +206,7 @@ angular.module('earlybird.controllers', [])
   };
 
   $scope.register = function (params) {
+    if ($scope.registerForm.form.$invalid) return;
     $ionicLoading.show();
 
     User.create(params)

@@ -6,7 +6,7 @@
   </ion-header-bar>
 
   <ion-content>
-    <form name="newCard.form" class="list">
+    <form name="newCard.form" class="list" on-submit="createCard(newCard.params)">
       <label class="item item-input">
         <input type="text" reset-field required ng-model="newCard.params.title" placeholder="Payment nickname">
       </label>
