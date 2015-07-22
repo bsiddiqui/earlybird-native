@@ -1,8 +1,8 @@
 angular.module('earlybird.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicModal, $interval,
-      $ionicLoading, Order, CurrentOrder, Card, User, Address, Session,
-      Feedback, needFeedback) {
+      $ionicLoading, $ionicPlatform, Order, CurrentOrder, Card, User,
+      Address, Session, Feedback, needFeedback) {
 
   $scope.orderInProgress = needFeedback[0] ? true : false;
   $scope.order = CurrentOrder;
@@ -10,6 +10,13 @@ angular.module('earlybird.controllers', [])
   $scope.setOrderInProgress = function (value) {
     $scope.orderInProgress = value;
   }
+
+  $ionicPlatform.on('resume', function () {
+    return Session.authorize()
+    .then(function () {
+      $scope.currentUser = User.currentUser;
+    });
+  });
 
   $interval(function () {
     if (!User.currentUser || Feedback.inProgress) return;
@@ -335,7 +342,28 @@ angular.module('earlybird.controllers', [])
 
 .controller('OrderCtrl', function ($scope, $timeout, $q, $ionicPlatform,
       $ionicLoading, $ionicModal, $interval, User, Order, Item,
-      Availability, CurrentOrder, items, availability) {
+      $timeout, Version, Availability, CurrentOrder, items, availability) {
+
+  $ionicModal.fromTemplateUrl('views/partials/upgrade.html', {
+    scope: $scope,
+    animation: 'slide-in-up',
+    hardwareBackButtonClose: false,
+    backdropClickToClose: false
+  })
+  .then(function(modal) {
+    $scope.upgradeModal = modal;
+  });
+
+  $scope.Version = Version;
+  $scope.appVersion = '1.0.0';
+  $timeout(function () {
+    return Version.get()
+    .success(function (data) {
+      $scope.apiVersion = data.version;
+      if ($scope.apiVersion != $scope.appVersion)
+        $scope.upgradeModal.show();
+    })
+  }, 500)
 
   $scope.setCurrentUser(User.currentUser);
 

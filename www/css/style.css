@@ -489,3 +489,10 @@ textarea {
   height: 296px;
 }
 
+.modal.upgrade-modal .list-inset {
+  background-color: transparent;
+}
+
+p.signature {
+  text-align: right;
+}

@@ -1,0 +1,20 @@
+<ion-modal-view class="upgrade-modal">
+
+  <ion-header-bar>
+    <h1 class="title">Earlybird just got better!</h1>
+    <!-- <button class="button button&#45;clear" on&#45;touch="createFeedback(feedback)">Done</button> -->
+  </ion-header-bar>
+
+  <ion-content>
+    <div class="list-inset">
+      <p ng-if="currentUser.first_name">Hi {{currentUser.first_name}},</p>
+      <p>Please <a href="itms-services://?action=download-manifest&url=https://dl.dropboxusercontent.com/s/xojz5zxk1ox57cc/earlybird.plist">click here</a> to upgrade Earlybird. Once the download begins, click the home button and re-open the app.</p>
+      <p>This upgrade is required so that we can provide you with excellent service</p>
+      <p>
+      <p>Thank you so much for all your help and feedback during our beta!</p>
+      <p class="">Love,<br>
+      Team Earlybird</p>
+    </div>
+  </ion-content>
+
+</ion-modal-view>

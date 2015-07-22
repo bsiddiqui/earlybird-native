@@ -131,12 +131,6 @@ angular.module('earlybird', [
     }
   });
 
-  $ionicPlatform.on('resume', function () {
-    return Session.authorize()
-    .then(function () {
-      $scope.currentUser = User.currentUser;
-    });
-  });
 })
 
 .directive('resetField', ['$compile', '$timeout',

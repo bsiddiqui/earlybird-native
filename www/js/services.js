@@ -293,6 +293,26 @@ angular.module('earlybird.services', [])
   return Feedback;
 })
 
+.factory('Version', function ($http, Api) {
+  return {
+    get: function () {
+      return $http.get(Api.url + '/version');
+    },
+    parse: function (version) {
+      return version.split('.');
+    },
+    isMajor: function (v1, v2) {
+      return this.parse(v1)[0] > this.parse(v2)[0];
+    },
+    isMinor: function (v1, v2) {
+      v1 = this.parse(v1);
+      v2 = this.parse(v2);
+
+      return v1[0] === v1[0] && v1[1] > v2[1];
+    }
+  }
+})
+
 .factory('HeadersInjector', function ($injector) {
   return {
     request: function (config) {
