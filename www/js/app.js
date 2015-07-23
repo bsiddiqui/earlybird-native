@@ -1,6 +1,7 @@
 angular.module('earlybird', [
   'ionic',
   'ngAnimate',
+  'ui.mask',
   'google.places',
   'angularMoment',
   'earlybird.services',

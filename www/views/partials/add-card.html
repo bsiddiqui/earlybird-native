@@ -8,27 +8,39 @@
   <ion-content>
     <form name="newCard.form" class="list" on-submit="createCard(newCard.params)">
       <label class="item item-fixed item-input">
-        <input type="text" reset-field required ng-model="newCard.params.title" placeholder="Payment nickname">
+        <input type="tel"
+               size="16"
+               reset-field
+               ui-mask="9999 9999 9999 9999"
+               required
+               ng-model="newCard.params.number"
+               placeholder="**** **** **** ****">
       </label>
 
       <label class="item item-fixed item-input">
-        <input type="tel" size="16" reset-field required ng-model="newCard.params.number" placeholder="Number">
+        <input type="tel"
+               reset-field
+               required
+               ng-model="newCard.params.cvv"
+               placeholder="CVV">
       </label>
 
       <label class="item item-fixed item-input">
-        <input type="tel" reset-field required ng-model="newCard.params.cvv" placeholder="CVV">
+        <input type="tel"
+               reset-field
+               required
+               ui-mask="99 / 9999"
+               model-view-value="true"
+               ng-model="newCard.params.exp"
+               placeholder="MM / YYYY">
       </label>
 
       <label class="item item-fixed item-input">
-        <input type="tel" size="2" reset-field required ng-model="newCard.params.exp_month" placeholder="MM">
-      </label>
-
-      <label class="item item-fixed item-input">
-        <input type="tel" size="4" reset-field required ng-model="newCard.params.exp_year" placeholder="YYYY">
-      </label>
-
-      <label class="item item-fixed item-input">
-        <input type="tel" reset-field required ng-model="newCard.params.zip" placeholder="Zip">
+        <input type="tel"
+               reset-field
+               required
+               ng-model="newCard.params.zip"
+               placeholder="Zip">
       </label>
     </form>
   </ion-content>

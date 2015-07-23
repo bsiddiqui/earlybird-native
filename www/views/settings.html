@@ -38,8 +38,7 @@
       </div>
 
       <ion-item class="item-fixed" ng-repeat="address in currentUser.addresses">
-        <h2>{{address.title}}</h2>
-        <p>{{address | addressFormat}}</p>
+        <span>{{address | addressFormat}}</span>
         <ion-option-button class="button-assertive" on-touch="deleteAddress(address, $index)">
           Delete
         </ion-option-button>
@@ -58,8 +57,7 @@
         <i class="icon icon-image">
           <img ng-src="img/ic-payment-{{card.type}}2x.png"></img>
         </i>
-        <h2>{{card.title}}</h2>
-        <p>{{card.last_four}}</p>
+        <span>*{{card.last_four}}</span>
         <ion-option-button class="button-assertive" on-touch="deleteCard(card, $index)">
           Delete
         </ion-option-button>

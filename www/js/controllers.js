@@ -167,6 +167,9 @@ angular.module('earlybird.controllers', [])
     $scope.cardModal = modal;
 
     $scope.createCard = function (card) {
+      var exp        = card.exp.split(' / ');
+      card.exp_month = exp[0];
+      card.exp_year  = exp[1];
       if ($scope.newCard.form.$invalid) return;
       $ionicLoading.show();
 
@@ -386,7 +389,8 @@ angular.module('earlybird.controllers', [])
     // TODO check feedback
     return $q.all([
       Item.findAll(),
-      Availability.findAll()
+      Availability.findAll(),
+      Version.get()
     ])
     .then(function (data) {
       // if items have been changed
@@ -395,6 +399,9 @@ angular.module('earlybird.controllers', [])
           $scope.items[0].quantity = 1;
       }
       $scope.availability = new Availability(data[1]);
+      $scope.apiVersion = data[2].data.version;
+      if ($scope.apiVersion != $scope.appVersion)
+        $scope.upgradeModal.show();
     })
   })
 

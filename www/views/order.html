@@ -48,8 +48,7 @@
                ng-value="address.id"
                required
                ng-model="order.destination_address_id">
-        <h2>{{address.title}}</h2>
-        <p>{{address | addressFormat}}</p>
+        <span>{{address | addressFormat}}</span>
         <i class="radio-icon ion-ios-checkmark"></i>
         <i class="radio-icon ion-ios-checkmark-outline button-opaque"></i>
       </label>
@@ -76,8 +75,7 @@
                ng-value="card.id"
                required
                ng-model="order.card_id">
-        <h2>{{card.title}}</h2>
-        <p>{{card.last_four}}</p>
+        <span>*{{card.last_four}}</span>
         <i class="radio-icon ion-ios-checkmark"></i>
         <i class="radio-icon ion-ios-checkmark-outline button-opaque"></i>
       </label>

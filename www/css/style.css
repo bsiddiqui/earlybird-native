@@ -134,17 +134,19 @@ p, div, span {
 }
 
 .item-button-right > .button, .item-button-right .item-content > .button, .item-button-right > .buttons, .item-button-right .item-content > .buttons {
-  width: 20px;
+  min-width: 34px;
   border-width: 0;
   top: 0px;
   right: 0px;
+  padding: 6px 15px 6px 6px;
 }
 
-.item-complex .item-content, .item-radio .item-content {
-  padding: 6px 10px
-}
 .item.item-icon-left.item-complex {
   padding: 0;
+}
+
+.item-complex .item-content {
+  padding-right: 0;
 }
 
 .item.item-radio i.radio-icon {
@@ -170,7 +172,11 @@ p, div, span {
 }
 
 .item {
-  padding: 10px;
+  padding: 15px;
+}
+
+.item.item-radio {
+  padding: 15px 45px 15px 15px;
 }
 
 .item.item-complex {
@@ -182,7 +188,7 @@ p, div, span {
 }
 
 .item.item-icon-left {
-  padding: 10px 10px 10px 54px;
+  padding-left: 55px;
 }
 
 .item-options .button {
@@ -190,7 +196,7 @@ p, div, span {
 }
 
 .item-fixed {
-  height: 43px;
+  height: 54px;
 }
 
 .item.item-fixed h2, .item.item-fixed p {
@@ -210,7 +216,7 @@ p, div, span {
 }
 
 .item-radio i.radio-icon  {
-  padding: 0 6px;
+  padding: 6px 15px 6px 6px;
 }
 
 .item-radio i.radio-icon::before  {
@@ -227,6 +233,19 @@ p, div, span {
   left: 0;
   top: 0;
   position: absolute;
+  min-width: 34px;
+  padding: 6px 6px 6px 15px;
+  border-width: 0;
+}
+
+.item-input button:nth-of-type(2) {
+  float: right;
+  right: 0;
+  top: 0;
+  position: absolute;
+  min-width: 34px;
+  padding: 6px 15px 6px 6px;
+  border-width: 0;
 }
 
 .item-label-center {
@@ -238,29 +257,17 @@ p, div, span {
   border-top: none;
 }
 
-.item-input button:nth-of-type(2) {
-  float: right;
-  right: 0;
-  top: 0;
-  position: absolute;
-}
-
 .item p {
   white-space: normal;
 }
 
 .item.item-image {
-  /* padding: 10px 0 10px 0; */
   padding: 0;
 }
 
 .item.item-thumbnail-left {
   padding-top: 8px;
   padding-left: 106px;
-}
-
-.item-image img {
-  border-radius: 2px;
 }
 
 .item.item-description {
@@ -336,7 +343,7 @@ p, div, span {
 
 .item .icon-image {
   left: 0;
-  margin: 0 0 0 6px;
+  padding: 10px 10px 10px 15px;
 }
 
 .button-icon img {
@@ -397,10 +404,6 @@ p, div, span {
   background-color: #F5F5F5;
 }
 
-.settings-promotions .item-icon-left {
-  /* border-top: none; */
-}
-
 input.reset-field {
   padding-right: 20px;
 }
@@ -411,10 +414,6 @@ input.reset-field {
   margin: 0px;
   font-size: 20px;
   top: 12px;
-}
-
-.item-fixed .reset-field-icon {
-  top: 7px;
 }
 
 .button.button-block {
@@ -482,11 +481,11 @@ textarea {
 }
 
 .modal.address-modal {
-  height: 212px;
+  height: 202px;
 }
 
 .modal.card-modal {
-  height: 296px;
+  height: 308px;
 }
 
 .modal.upgrade-modal .list-inset {
@@ -495,4 +494,8 @@ textarea {
 
 p.signature {
   text-align: right;
+}
+
+.item span {
+  overflow: hidden;
 }
