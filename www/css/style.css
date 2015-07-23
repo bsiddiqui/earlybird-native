@@ -503,3 +503,13 @@ p.signature {
 .list-inset .item.item-input input {
   padding-right: 0;
 }
+
+.form-description {
+  padding: 15px;
+}
+.form-description h2 {
+  margin: 0 0 2px 0;
+  font-size: 16px;
+  font-weight: normal;
+  color: #ADB2BB;
+}
