@@ -1,0 +1,20 @@
+<ion-modal-view class="address-modal" ng-init="newAddress={}">
+  <ion-header-bar>
+    <button class="button button-clear"
+            on-touch="addressModal.hide()">
+      Cancel
+    </button>
+
+    <h1 class="title">Add Address</h1>
+
+    <button ng-disabled="newAddress.form.$invalid"
+            class="button button-clear"
+            on-touch="createAddress(newAddress.params, true)">
+      Add
+    </button>
+  </ion-header-bar>
+
+  <ion-content>
+    <ng-include src="'views/partials/address-form.html'"></ng-include>
+  </ion-content>
+</ion-modal-view>

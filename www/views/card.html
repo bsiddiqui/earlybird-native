@@ -1,0 +1,18 @@
+<div class="cards">
+
+  <ion-header-bar class="bar-assertive">
+    <h1 class="title">Add Payment</h1>
+    <button ng-disabled="newCard.form.$invalid"
+            class="button button-clear"
+            on-touch="createCard(newCard.params)">
+      Add
+    </button>
+  </ion-header-bar>
+
+  <ion-content scroll="false">
+    <div class="list list-inset">
+      <ng-include src="'views/partials/card-form.html'"></ng-include>
+    </div>
+  </ion-content>
+
+</div>

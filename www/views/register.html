@@ -2,7 +2,7 @@
   <ion-header-bar class="bar-assertive">
     <button nav-direction="back" ui-sref="earlybird.home" class="button button-clear button-icon icon ion-ios-arrow-back"> Back</button>
     <h1 class="title"><img class="title-image" src="img/img-logo-white.png"></img></h1>
-    <button ng-disabled="registerForm.form.$invalid" on-touch="register(registerForm.params)" class="button button-clear">Register</button>
+    <button ng-disabled="registerForm.form.$invalid" on-touch="register(registerForm.params)" class="button button-clear">Next</button>
   </ion-header-bar>
 
   <ion-content scroll="false">
@@ -17,7 +17,7 @@
         <input type="email" reset-field required ng-model="registerForm.params.email" placeholder="Email">
       </label>
       <label class="item item-fixed item-input">
-        <input type="tel" reset-field required ng-model="registerForm.params.phone" placeholder="Phone">
+        <input type="tel" reset-field required ng-model="registerForm.params.phone" placeholder="phone">
       </label>
       <label class="item item-fixed item-input">
         <input autocomplete="off" autocorrect="off" type="password" reset-field required ng-model="registerForm.params.password" placeholder="Password">

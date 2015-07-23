@@ -1,0 +1,20 @@
+<ion-modal-view class="card-modal" ng-init="newCard={}">
+  <ion-header-bar>
+    <button class="button button-clear"
+            on-touch="cardModal.hide()">
+      Cancel
+    </button>
+
+    <h1 class="title">Add Payment</h1>
+
+    <button ng-disabled="newCard.form.$invalid"
+            class="button button-clear"
+            on-touch="createCard(newCard.params, true)">
+      Add
+    </button>
+  </ion-header-bar>
+
+  <ion-content>
+    <ng-include src="'views/partials/card-form.html'">
+  </ion-content>
+</ion-modal-view>

@@ -64,6 +64,18 @@ angular.module('earlybird', [
     controller: 'SessionCtrl',
     requireAuth: false
   })
+  .state('earlybird.address', {
+    url: '/address',
+    templateUrl: 'views/address.html',
+    controller: 'SessionCtrl',
+    requireAuth: true
+  })
+  .state('earlybird.card', {
+    url: '/card',
+    templateUrl: 'views/card.html',
+    controller: 'SessionCtrl',
+    requireAuth: true
+  })
   .state('earlybird.register', {
     url: '/register',
     templateUrl: 'views/register.html',

@@ -485,7 +485,7 @@ textarea {
 }
 
 .modal.card-modal {
-  height: 308px;
+  height: 256px;
 }
 
 .modal.upgrade-modal .list-inset {
@@ -498,4 +498,8 @@ p.signature {
 
 .item span {
   overflow: hidden;
+}
+
+.list-inset .item.item-input input {
+  padding-right: 0;
 }

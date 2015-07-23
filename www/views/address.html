@@ -1,0 +1,18 @@
+<div class="address">
+
+  <ion-header-bar class="bar-assertive">
+    <h1 class="title">Add Address</h1>
+    <button ng-disabled="newAddress.form.$invalid"
+            class="button button-clear"
+            on-touch="createAddress(newAddress.params)">
+      Add
+    </button>
+  </ion-header-bar>
+
+  <ion-content scroll="false">
+    <div class="list list-inset">
+      <ng-include src="'views/partials/address-form.html'"></ng-include>
+    </div>
+  </ion-content>
+
+</div>

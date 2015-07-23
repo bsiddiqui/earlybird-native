@@ -1,8 +1,8 @@
 angular.module('earlybird.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicModal, $interval,
-      $ionicLoading, $ionicPlatform, Order, CurrentOrder, Card, User,
-      Address, Session, Feedback, needFeedback) {
+      $ionicLoading, $ionicPlatform, $state, Order, CurrentOrder,
+      Card, User, Address, Session, Feedback, needFeedback) {
 
   $scope.orderInProgress = needFeedback[0] ? true : false;
   $scope.order = CurrentOrder;
@@ -75,7 +75,7 @@ angular.module('earlybird.controllers', [])
   $scope.Feedback     = Feedback;
   $scope.feedback     = {};
 
-  $ionicModal.fromTemplateUrl('views/partials/add-feedback.html', {
+  $ionicModal.fromTemplateUrl('views/partials/feedback-modal.html', {
     scope: $scope,
     animation: 'slide-in-up',
     hardwareBackButtonClose: false,
@@ -120,7 +120,7 @@ angular.module('earlybird.controllers', [])
   });
   $scope.newAddress={};
 
-  $ionicModal.fromTemplateUrl('views/partials/add-address.html', {
+  $ionicModal.fromTemplateUrl('views/partials/address-modal.html', {
     scope: $scope,
     animation: 'slide-in-up',
     focusFirstInput: true
@@ -131,8 +131,8 @@ angular.module('earlybird.controllers', [])
       componentRestrictions: { country: 'us' }
     }
 
-    $scope.createAddress = function (address) {
-      if ($scope.newAddress.form.$invalid) return;
+    $scope.createAddress = function (address, modal) {
+      if (!angular.isDefined(address.autocomplete)) return;
       var details     = address.autocomplete.formatted_address.split(', ');
       address.street1 = details[0];
       address.city    = details[1];
@@ -143,9 +143,14 @@ angular.module('earlybird.controllers', [])
 
       return Address.create(address)
       .success(function (data) {
-        $scope.currentUser.addresses.push(data);
+        User.currentUser.addresses.push(data);
         $scope.order.destination_address_id = data.id;
-        $scope.addressModal.hide();
+        if (modal) {
+          $scope.addressModal.hide();
+        } else {
+          $state.go('earlybird.card')
+        }
+
         $scope.newAddress.params = {};
         $ionicLoading.hide();
       })
@@ -158,7 +163,7 @@ angular.module('earlybird.controllers', [])
   });
 
   $scope.newCard = {};
-  $ionicModal.fromTemplateUrl('views/partials/add-card.html', {
+  $ionicModal.fromTemplateUrl('views/partials/card-modal.html', {
     scope: $scope,
     animation: 'slide-in-up',
     focusFirstInput: true
@@ -166,18 +171,22 @@ angular.module('earlybird.controllers', [])
   .then(function(modal) {
     $scope.cardModal = modal;
 
-    $scope.createCard = function (card) {
+    $scope.createCard = function (card, modal) {
       var exp        = card.exp.split(' / ');
       card.exp_month = exp[0];
       card.exp_year  = exp[1];
-      if ($scope.newCard.form.$invalid) return;
+
       $ionicLoading.show();
 
       return Card.create(card)
       .success(function (data) {
-        $scope.currentUser.cards.push(data);
+        User.currentUser.cards.push(data);
         $scope.order.card_id = data.id;
-        $scope.cardModal.hide();
+        if (modal) {
+          $scope.cardModal.hide();
+        } else {
+          $state.go('earlybird.order')
+        }
         $scope.newCard.params = {};
         $ionicLoading.hide();
       })
@@ -243,7 +252,7 @@ angular.module('earlybird.controllers', [])
 
     User.create(params)
     .success(function () {
-      $state.go('earlybird.order');
+      $state.go('earlybird.address');
       $scope.registerForm.params = undefined;
     })
     .error(function (err) {
@@ -347,7 +356,7 @@ angular.module('earlybird.controllers', [])
       $ionicLoading, $ionicModal, $interval, User, Order, Item,
       $timeout, Version, Availability, CurrentOrder, items, availability) {
 
-  $ionicModal.fromTemplateUrl('views/partials/upgrade.html', {
+  $ionicModal.fromTemplateUrl('views/partials/upgrade-modal.html', {
     scope: $scope,
     animation: 'slide-in-up',
     hardwareBackButtonClose: false,
